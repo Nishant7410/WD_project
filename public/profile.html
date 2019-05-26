@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cq</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    body
+        {
+            padding:0;
+            margin:0;
+            width:100%;
+            height:100%;
+            
+        }
+        #header
+        {
+            background-color:slateblue;
+            height: 50px;
+            width:100%;
+            padding:2px;
+            box-sizing:border-box;
+        }
+        #menu {
+			height:100vh ;
+			background-color: #222D3C;
+			width: 50px;
+			transition-property: width;
+			transition-duration: 0.7s;
+			box-sizing: border-box;
+            float:left;
+		}
+		.fa {
+			color: #fff;
+			font-size: 25px;
+			width: 30px;
+			margin: 6px 15px;
+			margin-left: 11px;
+			box-sizing: border-box;
+		}
+		#menu span {
+			display: none;
+		}
+		.menu-item {
+			cursor: pointer;
+			opacity: 0.8;
+			color: #fff;
+			font-family: sans-serif;
+			font-size: 14px;
+		}
+		.menu-item:hover {
+			border-left: 2px solid red;
+			opacity: 1;
+			background-color: #4d5866;
+		}
+		.active {
+			background-color: #51a1e2 !important;
+		}
+    </style>
+</head>
+<body>
+    <div id=container1>
+       <div id="header">
+       <a style="font-size:30px;color:white;text-align:left;font-weight:bold;color:white;">cq</a>
+       <button id="menubtn" style="border:0;background-color:slateblue;color:white;margin-left:30px">Menu</button>
+               <div id="editbtn" style="background-color:slateblue;border:0;float:right;"><i class="fa fa-user" aria-hidden="true"></i></div>
+               <div style="height:18px;width:34px;background-color:forestgreen;color:white;float:right;margin-right:30px;margin-top:12px;font-size:10px;padding:2px;box-sizing:border-box;"><a style="text-align:center;font-size:10px">Admin</a></div>
+               <div style="height:18px;width:54px;background-color:orange;color:white;float:right;margin-right:15px;margin-top:12px;font-size:10px;padding:2px;box-sizing:border-box;"><a style="text-align:center;font-size:10px">Superadmin</a></div>
+
+        </div>
+        <div id="menu">
+		<div class="menu-item" id="sideBtn"><i class="fa fa-bars"></i><span>cq</span></div>
+		<div class="menu-item active"><i class="fa fa-home"></i><span>Home</span></div>
+		<div class="menu-item"><i class="fa fa-plus-square"></i><span>Add User</span></div>
+		<div class="menu-item"><i class="fa fa-list-ul"></i><span>Users List</span></div>
+		<div class="menu-item"><i class="fa fa-list-alt"></i><span>Community List</span></div>
+		<div class="menu-item"><i class="fa fa-toggle-off"></i><span>Switch As User</span></div>
+		<div class="menu-item"><i class="fa fa-tags"></i><span>Tag Panel</span></div>
+		<div class="menu-item"><i class="fa fa-lock"></i><span>Change Password</span></div>
+		<div class="menu-item"><i class="fa fa-sign-out"></i><span>Logout</span></div>
+	</div>
+        <center>
+            <div id="profiledata" style="margin-top:60px;margin-right:150px;height:450px;width:1000px;background-color:white;float:right;
+                box-shadow:10px 20px 40px -12px grey;padding:10px;box-sizing:border-box; 
+            ">
+               <div style="width:100%;height:130px;"><i style="font-size:100px;color:red;float:left;" class="fa fa-user" aria-hidden="true"></i></div>
+                <div style="height:40px;width:450px;margin-top:10px;background-color: lightgrey;float:left;text-align:left;padding:10px;box-sizing:border-box;color:black;">Email</div>
+                <div style="height:40px;width:450px;margin-top:10px;background-color: lightgrey;float:right;text-align:left;padding:10px;box-sizing:border-box;color:black">Gender</div>
+                <div id="email" style="height:40px;width:450px;background-color: red;float:left;text-align:left;padding:10px;box-sizing:border-box;color:black;"></div>
+                <div id="gender" style="height:40px;width:450px;background-color: red;float:right;text-align:left;padding:10px;box-sizing:border-box;color:white"></div>
+                <div style="height:40px;width:450px;margin-top:14px;background-color: lightgrey;float:left;text-align:left;padding:10px;box-sizing:border-box;color:black">Name</div>
+                <div style="height:40px;width:450px;margin-top:14px;background-color: lightgrey;float:right;text-align:left;padding:10px;box-sizing:border-box;color:black">City</div>
+                <div id="name" style="height:40px;width:450px;background-color: red;float:left;text-align:left;padding:10px;box-sizing:border-box;color:black;"></div>
+                <div id="city" style="height:40px;width:450px;background-color: red;float:right;text-align:left;padding:10px;box-sizing:border-box;color:black;"></div>
+                <div style="height:40px;width:450px;margin-top:14px;background-color: lightgrey;float:left;text-align:left;padding:10px;box-sizing:border-box;color:black">D.O.B</div>
+                <div style="height:40px;width:450px;margin-top:14px;background-color: lightgrey;float:right;text-align:left;padding:10px;box-sizing:border-box;color:black">Phone</div>
+                <div id="dob" style="height:40px;width:450px;background-color: red;float:left;text-align:left;padding:10px;box-sizing:border-box;color:black;"></div>
+                <div id="phone" style="height:40px;width:450px;background-color: red;float:right;text-align:left;padding:10px;box-sizing:border-box;color:black;"></div>
+            </div>
+        </center>
+    </div>
+</body>
+<script type="text/javascript">
+	var menu = document.getElementById("menu");
+	var sideBtn = document.getElementById("sideBtn");
+	var span = menu.getElementsByTagName("span");
+	sideBtn.addEventListener("click", function () {
+		if(menu.style.width == '300px') {
+			menu.style.width = '50px';
+			for(var i = 0;i<span.length;i++) {
+				span[i].style.display = 'none';
+			}
+		} else {
+			menu.style.width = '300px';
+			setTimeout(function () {
+				for(var i = 0;i<span.length;i++) {
+					span[i].style.display = 'inline';
+				}
+			}, 210);
+
+		}
+	})
+    
+</script>
+</html>

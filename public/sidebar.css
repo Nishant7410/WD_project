@@ -1,0 +1,166 @@
+.body
+{
+    height : 100% ;
+    color: #575757 !important;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    margin: 0;
+    box-sizing: border-box;
+    display: block;
+    background:#F3F4F4;
+}
+html
+{
+    height: 100%;
+    margin-top: 0px;
+}
+#viewscreen
+{
+   /*height: 100vh !important;
+  display: flex;*/
+  padding-left: 0px;
+  overflow: hidden;
+}
+#viewscreen.toggle-pc
+{
+    padding-left: 250px;
+    overflow: hidden;
+}
+#sidebar{
+
+    /*width:50px;
+    background-color:black;
+    height:100%;
+    left:0;
+    float : left;
+    overflow-x: hidden;
+    transition: 0.5s;*/
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0px;;
+    height: 100%;
+    margin-left: -250px;
+    overflow:hidden;
+    background: #000;
+    transition: 0.5s;
+    margin-top: 60px;
+}
+#sidebar.sidebar-width
+{
+    width:250px;
+}
+
+#rightview
+{
+    /*position: absolute;*/
+    width: 100%;
+    overflow-x: hidden;
+    transition: 0.5s;
+    margin-top: 60px;
+    
+}
+
+
+#rightview.set-rightview
+{
+    position: relative;
+    margin-right: 0px;
+    width: 100%;
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+.sidebar-list
+{
+    padding:0px;
+    width:250px;
+    margin-top: 2px;
+    margin-left: 0px;
+    margin-right:0px;
+    list-style: none;
+
+}
+.list
+{
+    line-height: 40px;
+    text-indent:15px;
+    font-size: 20px;
+    display: block;
+}
+#mobile-pic
+{
+    display: block;
+}
+/*#bars
+{
+    display: none;
+}*/
+#mobile-img
+{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+#icon
+{
+    float: left;
+    position: relative;
+    line-height: 40px;
+    width : 2.5em;
+}
+
+li a
+{
+    display:block;
+    cursor: pointer;
+    color: #999999;
+    background-color: transparent;
+    text-decoration: none;
+}
+li a:hover{
+    text-decoration: none;
+    color : white;
+    background: rgba(255, 255, 255, 0.2);
+    border-left: 1px solid red;
+}
+
+@media (min-width: 768px)
+{
+    #viewscreen.toggle-pc
+    {
+        padding-left: 0;
+    }
+    /*#rightview
+    {
+        position: relative;
+        width:100%;
+        overflow-x: hidden;
+    }*/
+
+    #rightview.set-rightview
+    {
+        position: relative;
+        margin-right: 0;
+        margin-left: 200px;
+        transition: 0.5s;
+        width: calc(100% - 200px);
+        overflow-x: hidden;
+    }
+    #sidebar
+    {
+        width:50px;
+    }
+    #mobile-pic
+    {
+        display:none;
+    }
+    #bars
+    {
+        display:list;
+    }
+}
+
+* {
+  box-sizing: border-box;
+}

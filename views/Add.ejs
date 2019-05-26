@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>cq</title>
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" >
+
+      <link href="menu.css" rel="stylesheet" type="text/css">
+      <link href="sidebar.css" rel="stylesheet" type="text/css">
+      <!-- BOOTSTRAP 3-->
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
+    </script>
+      
+      
+      
+	<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="./partials/CQ_files/notie.min.css">
+	<link rel="stylesheet" href="./partials/CQ_files/all.css">
+	<link rel="stylesheet" type="text/css" href="./partials/CQ_files/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./partials/CQ_files/dataTables.fontAwesome.css">
+
+	<link rel="stylesheet" href="./partials/CQ_files/CustomDatatable.css">
+	<link rel="stylesheet" href="./partials/CQ_files/datatable.css">
+
+	<link rel="stylesheet" href="./partials/CQ_files/trumbowyg.css">
+	<link rel="stylesheet" href="./partials/CQ_files/bootstrap.min.css">
+	<script src="./partials/CQ_files/jquery.min.js.download"></script>
+	<script src="./partials/CQ_files/bootstrap.min.js.download"></script>
+	<link rel="stylesheet" href="./partials/CQ_files/jquery-confirm.min.css">
+	<link rel="stylesheet" href="./partials/CQ_files/select2BootstrapTheme.css">
+	<link rel="stylesheet" href="./partials/CQ_files/select2.min.css">
+	<script src="./partials/CQ_files/jquery-confirm.min.js.download"></script>
+	<link rel="stylesheet" href="./partials/CQ_files/style.css">
+	<link rel="stylesheet" href="./partials/CQ_files/sidenav.css">
+	<link rel="stylesheet" href="./partials/CQ_files/CommunityStyle.css">
+	<link rel="stylesheet" href="./partials/CQ_files/CrazyGraphics.css">
+      
+      
+       <style>
+           .active {
+			background-color: #51a1e2 !important;
+		}
+           .content-div{
+  margin-top:2%;
+  width: 100%;
+}
+.null-link{
+  color: black
+}
+.null-link:hover{
+  color:black;
+  text-decoration: none;
+}
+.panel-main-div:hover{
+  box-shadow:0 3px 10px 0 rgba(115,143,147,.2);
+}
+@media(max-width: 768px){
+  .content-div{
+    margin-top:5%;
+    width: 100% !important;
+  }
+}
+           </style>
+</head>
+
+<body class="body">
+  <center>
+                                    <div id="delModal1" class="modal fade" role = "dialog" style="background:#404F65;opacity:.5;z-index:9999;">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div id="move" class="modal-content" style="background:transparent;border:0;box-shadow:0px 0px 0px 0px">
+                                                <div class="modal-header" style="border-bottom:0">
+                                                    <h2 style="color:#FAFBFB" class="modal-title">Confirm Logout</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p style="color:white">Do you really want logout? </p>
+                                                </div>
+                                                <div class="modal-footer" style="border-top:0;text-align:center">
+                                                    <button id="log" type="button" class="btn btn-default" style="background:#303F53;border:0;color:white;width:28%;height:15%">Yes</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal" style="background:#303F53;border:0;color:white;width:28%;height:15%">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+  <%include partials/menu.html%>
+  <div id="viewscreen">
+  <%include partials/sidebar.html%>
+  <div id="rightview">
+  <!-- <center>
+    <div id="adduser" style="width:40%;margin-top:30px;border:3px solid lightgrey;padding:10px;box-sizing:border-box;background:white">
+        <a style="font-size:30px;font-weight:bold;float:left;color:black">Add To User</a>
+        <input id="name" type="text" style="margin-top:15px;width:100%;height:30px;padding:4px;
+        box-sizing:border-box;" placeholder="Name">
+        <input id="email" type="text" style="margin-top:15px;width:100%;height:30px;padding:4px;
+        box-sizing:border-box" placeholder="Email">
+        <input id="userpassword" type="password" style="margin-top:15px;width:100%;height:30px;padding:4px;box-sizing:border-box;" placeholder="User Password">
+        <input id="phone" type="text" style="margin-top:15px;width:100%;height:30px;padding:4px;box-sizing:border-box;" placeholder="Phone">
+        <input id="city" type="text" style="margin-top:15px;width:100%;height:30px;padding:4px;box-sizing:border-box;" placeholder="City">
+        <input id="gender" type="text" style="margin-top:15px;width:100%;height:30px;padding:4px;box-sizing:border-box;" placeholder="Gender">
+        <input id="dob" type="text" style="margin-top:15px;width:100%;height:30px;padding:4px;box-sizing:border-box;" placeholder="DOB">
+        <a style="font-size:20px;float:left;font-weight:bold;margin-top:20px;color:black">Role:</a>
+        <select id="userrole" name="rolelist" style="width:100%;height:30px;">
+           <optgroup label="Select User Role"></optgroup>
+            <option>User</option>
+            <option>Community Builder</option>
+            <option>Admin</option>
+        </select>
+        <div style="width:100%;height:30px;margin-top:10px;">
+        <button id="addBtn" style="height:30px;border:0;background-color:green;float:left;color:white;">Add User</button>
+        <button id="cancel" style="height:30px;border:0;background-color:red;margin-left:5px;float:left;color:white">Cancel</button>
+        </div>
+    </div>
+    </center>-->
+    
+<!--
+
+    <div id="page-content-wrapper" style="padding:0;margin-top:20px">
+         <div class="container-fluid page-content-div" style="padding:0">
+            <div class="row">
+               <div class="col-lg-12 scoll-possible" style="padding:0">
+-->
+              <center>
+                                    <div id="delModal" class="modal fade" role = "dialog">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Switch As User</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Do you really want switch state... </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-success">Yes</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+               <div class="content-div">
+<div class="container">
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-8" style="background-color:#fff;border:5px solid rgba(0,0,0,0.1);margin-top:10px">
+      <br>
+
+
+      <div class="alert alert-dismissible" style="border:1px solid #E2E5E1" id="alert-div-avilability">
+          <center>
+            <label id="avilability"></label>
+          </center>
+      </div>
+
+          <h1>Add User</h1>
+          <form class="form-horizontal" autocomplete="nope" role="form">
+            <div class="col-sm-12">
+              <div class="form-group">
+                  <input type="text" required="" name="fullname" class="form-control" id="name" placeholder="Name" autocomplete="off"><br>
+              </div>
+
+                <div class="form-group">
+                    <input type="email" required="" name="username" class="form-control" id="email" placeholder="Email" autocomplete="off" autocorrect="off"><br>
+                </div>
+                <div class="form-group">
+                    <input id="userpassword" type="password" required="" name="password" class="form-control" placeholder="User Password" autocomplete="new-password" autocorrect="off"><br>
+                </div>
+
+              <div class="form-group">
+                  <input type="text" required="" name="phone" class="form-control" id="phone" placeholder="Phone" autocomplete="off"><br>
+              </div>
+              <div class="form-group">
+                  <input id="city" type="text" required="" name="city" class="form-control" placeholder="City" autocomplete="false"><br>
+              </div>
+              <div class="form-group">
+                  <input id="gender" type="text" required="" name="gender" class="form-control" placeholder="Gender" autocomplete="false"><br>
+              </div>
+              
+              <div class="form-group">
+                  <input id="dob" type="text" required="" name="dob" class="form-control" placeholder="DOB" autocomplete="false"><br>
+              </div>
+
+              <div class="form-group">
+                <label>Role:</label><br>
+                <select id="userrole" data-style="btn-info" name="roleoptions" class="form-control">
+                    <optgroup label="Select User Role">
+                      <option>User</option>
+                        <option>Community Builder</option>
+                      <option>Admin</option>
+                    </optgroup>
+                </select>
+              </div>
+              <div class="form-group">
+                  <input id="addbtn1" type="submit" value="Add User" class="btn btn-success">
+                  <a id="cancel" value="Add User" class="btn btn-danger">Cancel</a>
+              </div>
+              </div>
+          </form>
+      </div>
+</div>
+</div>
+             </div>
+      </div>
+<!--
+      </div>
+
+    </div>
+      </div>
+    </div>
+-->
+             </body>
+             
+
+
+<script>
+var selector = '.nav li';
+$(selector).removeClass('active');
+$('#add-user-nav').addClass('active');
+</script>
+
+             
+<script type="text/javascript">
+     var list =sidebar.getElementsByTagName("li");
+    for(var i = 0;i<list.length;i++) {
+        list[i].classList.remove("active");
+    }
+    list[3].classList.add("active");
+	 function openbar()
+{
+    var element = document.getElementById("viewscreen");
+    element.classList.toggle("toggle-pc");
+
+    var element = document.getElementById("sidebar");
+    element.classList.toggle("sidebar-width");
+
+
+    var element = document.getElementById("rightview");
+    element.classList.toggle("set-rightview");
+}
+    
+    var add1=document.getElementById("addbtn1");
+    var cancel=document.getElementById("cancel");
+    var name1=document.getElementById("name");
+    var email=document.getElementById("email");
+    var userpassword=document.getElementById("userpassword");
+    var phone=document.getElementById("phone");
+    var city=document.getElementById("city");
+    var gender=document.getElementById("gender");
+    var dob=document.getElementById("dob");
+    var role=document.getElementById("userrole");
+    add1.addEventListener("click",function(event)
+                        {
+       var str=email.value;
+        var t=0,s=0;
+       for(var i=0;i<str.length;i++)
+       {
+           if(str[i]=='@')
+               t=1;
+           else if(str[i]=='.')
+               {
+                   if(t==1)
+                      s=1;
+                   break;
+               }
+       }
+        
+       var  pno=phone.value;
+       if(name1.value==""||email.value==""||userpassword.value==""||city.value==""||dob.value==""||phone.value==""||gender.value==""||role.value=="")
+            alert("Please insert all values");
+        else if(pno.length!=10)
+            alert("Please enter 10 digit in Phoneno");
+        else if(s==0)
+            alert("Please enter Email in correct mannner");
+            
+        else
+            {
+        var ob=new Object();
+        ob.name=name1.value;
+        ob.emailid=email.value;
+        ob.password=userpassword.value;
+        ob.city=city.value;
+        ob.dob=dob.value;
+        ob.phoneno=phone.value;
+        ob.gender=gender.value;
+        ob.role=role.value;
+        ob.status="Pending";
+        ob.restrict="1";
+        var xhr=new XMLHttpRequest();
+        xhr.open("POST","/adduser1");
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.send(JSON.stringify(ob));
+        xhr.onload=function()
+        {
+        if(xhr.responseText=='0')
+            alert("User already present");
+            else
+                alert("User added");
+        }
+            }
+    });
+    cancel.addEventListener("click",function(event)
+                        {
+        window.location="/profile";
+    });
+    var home=document.getElementById("home");
+    home.addEventListener("click",function(event)
+                         {
+        window.location="/profile";
+    });
+    var editbtn=document.getElementById("editbtn");
+    editbtn.addEventListener("click",function(event)
+                            {
+        window.location="/edit";
+    });
+     var createtag=document.getElementById("tagpanel");
+        createtag.addEventListener("click",function(event)
+                                  {
+           window.location="/createtag"; 
+        });
+     var changepass=document.getElementById("change");
+           changepass.addEventListener("click",function(event)
+                            {
+        window.location="/changepass";
+    });
+     var userlt=document.getElementById("userslist");
+    userlt.onclick=function()
+    {
+        window.location="/userlist";
+    }
+     var switch1=document.getElementById("switch");
+     switch1.setAttribute("data-toggle","modal");
+    switch1.setAttribute("data-target","#delModal");
+    var logout=document.getElementById("logout");
+      logout.setAttribute("data-toggle","modal");
+    logout.setAttribute("data-target","#delModal1");
+    var yas=document.getElementById("log");
+    yas.onclick=function()
+    {
+        location.href="/login.html";
+    }
+     dragElement(document.getElementById("move"));
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    /* if present, the header is where you move the DIV from:*/
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    /* otherwise, move the DIV from anywhere inside the DIV:*/
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+</script>
+</html>

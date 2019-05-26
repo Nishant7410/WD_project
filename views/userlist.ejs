@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>cq</title>
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" >
+
+      <link href="menu.css" rel="stylesheet" type="text/css">
+      <link href="sidebar.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+      <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+          <style>
+              .active {
+			background-color: #51a1e2 !important;
+		}
+             .div-min-width
+{
+    min-width: 360px;
+}
+#userlist-icon
+{
+    border: 2px solid #2D312C;
+    background-color: #2D312C;
+    color: #fff;
+    width: 90px;
+    font-weight: bold;
+}
+#role-btn
+{
+    width:70px;
+    border: 2px solid #2D312C;
+    background-color: #2D312C;
+    color: #fff;
+}
+#status-btn
+{
+    width:70px;
+    border: 2px solid #2D312C;
+    background-color: #2D312C;
+    color: #fff;
+}
+#main-table
+{
+    border-bottom: 1px solid #111;
+    clear: both;
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+    max-width: none !important;
+    border-collapse: separate !important;
+    box-sizing: content-box;
+}
+.action-btn
+{
+    margin:5px;
+}
+#email-btn
+{
+    background-color: rgb(0, 0, 0);
+}
+/*
+#container-parent
+{
+    margin-left:20px;
+    margin-right:20px;
+}
+*/
+              .table-responsive
+              {
+                  overflow:hidden;
+              }
+               #containerid
+    {
+        margin-left:50px;
+    }
+@media (max-width:768px)
+{
+    #role-btn
+    {
+        width:14%;
+    }
+    #status-btn
+    {
+        width:10%;
+    }
+     #containerid
+    {
+        margin-left:0;
+    }
+    .table-responsive
+              {
+                  overflow:auto;
+              }
+    
+/*
+    #container-parent
+    {
+        margin-left: 40px;
+        margin-right: 20px;
+    }
+*/
+
+}
+              
+    </style>
+</head>
+<body class="body">
+    <center>
+                                    <div id="delModal1" class="modal fade" role = "dialog" style="background:#404F65;opacity:.5;z-index:9999;">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div id="move" class="modal-content" style="background:transparent;border:0;box-shadow:0px 0px 0px 0px">
+                                                <div class="modal-header" style="border-bottom:0">
+                                                    <h2 style="color:#FAFBFB" class="modal-title">Confirm Logout</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p style="color:white">Do you really want logout? </p>
+                                                </div>
+                                                <div class="modal-footer" style="border-top:0;text-align:center">
+                                                    <button id="log" type="button" class="btn btn-default" style="background:#303F53;border:0;color:white;width:28%;height:15%">Yes</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal" style="background:#303F53;border:0;color:white;width:28%;height:15%">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+    <%include partials/menu.html%>
+          <div id="viewscreen">
+       <%include partials/sidebar.html %>
+       <div id="rightview">
+        <center>
+                                    <div id="delModal" class="modal fade" role = "dialog">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Switch As User</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Do you really want switch state... </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-success">Yes</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+         <div class="container-fluid div-min-width" id="containerid" style="padding:0">
+                        <div class="row">
+                            <div class="col-lg-12" style="padding:0">
+                                <div style="margin-left:20px;margin-right:20px;margin-top:1%">
+                                    <!-- MODAL DIVS -->
+                                    <center>
+                                    <div id="editModal" class="modal fade" role="dialog" style="z-index:9999;">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                     <h3 id="eheading" class="modal-title"></h3>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group">
+                                                            <div class="col-lg-5 col-lg-offset-3" style="width:50%;">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Username:</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="eusername" placeholder="Username">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Phone:</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="ephone" placeholder="Username">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">City:</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="ecity" placeholder="Username">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Status:</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-control" id="estatus">
+                                                                    <option value="pending">Pending</option>
+                                                                    <option value="confirmed">Confirmed</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Role:</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-control" id="erole">
+                                                                    <option value="user">User</option>
+                                                                    <option value="community manager">Community Manager</option>
+                                                                    <option value="admin">Admin</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <div class="col-sm-10 col-sm-offset-2 pull-left">
+                                                                <button class = "btn btn-default" id="eupdate">Update</button>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </center>
+                                <!-- AFTER MODEL-->
+
+<!--
+                                <div id="container-parent">
+                                    <div class="container" style="padding:0;">
+                                        <center>
+                                            <p></p>
+                                        </center>
+-->
+                                        <div class="form-control" id="userlist-icon" style="float:left;">User list
+                                        </div>
+                                        <select class="form-control" id="role-btn" style="float:right;margin-left:10px;">
+                                            <option value="all">All</option>
+                                            <option value="admin">Admins</option>
+                                            <option value="user">Users</option>
+                                            <option value="community builder">Community Builder</option>
+                                        </select>
+                                        <select class="form-control" id="status-btn" style="float:right;margin-left:10px;">
+                                            <option value="all">All</option>
+                                            <option value="pending">Pending</option>
+                                            <option value="confirmed">Confirmed</option>
+                                        </select>
+
+                                        <button id="refresh" class="btn btn-default" style="float:right;background-color: #2D312C;color: #fff;">
+                                            <span><i class="glyphicon glyphicon-refresh"></i>
+                                            </span>
+                                            Refresh
+                                        </button>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <div class="table-responsive" >
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <table id="users-table" class="table table-striped table-bordered"  style="display:table;width:100%">
+                                                        <thead>
+
+                                                                <th>Username/Email</th>
+                                                                <th>Phone</th>
+                                                                <th>City</th>
+                                                                <th>Status</th>
+                                                                <th>Role</th>
+                                                                <th>Actions</th>
+
+                                                        </thead>
+
+                                                        <tbody id="table-body">
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!--
+</div>
+    </div>
+-->
+</body>
+<script type="text/javascript">
+	var list = sidebar.getElementsByTagName("li");
+     for(var i = 0;i<list.length;i++) {
+        list[i].classList.remove("active");
+        
+    }
+    list[4].classList.add("active");
+		 function openbar()
+{
+    var element = document.getElementById("viewscreen");
+    element.classList.toggle("toggle-pc");
+
+    var element = document.getElementById("sidebar");
+    element.classList.toggle("sidebar-width");
+
+
+    var element = document.getElementById("rightview");
+    element.classList.toggle("set-rightview");
+}
+       var home=document.getElementById("home");
+    home.addEventListener("click",function(event)
+                         {
+        window.location="/profile";
+    });
+    var add=document.getElementById("add");
+    add.addEventListener("click",function(event)
+                        {
+        window.location="/add";
+    });
+    var editbtn=document.getElementById("editbtn");
+    editbtn.addEventListener("click",function(event)
+                            {
+        window.location="/edit";
+    });
+     var createtag=document.getElementById("tagpanel");
+        createtag.addEventListener("click",function(event)
+                                  {
+           window.location="/createtag"; 
+        });
+     var changepass=document.getElementById("change");
+           changepass.addEventListener("click",function(event)
+                            {
+        window.location="/changepass";
+    });
+    var refresh=document.getElementById("refresh");
+    refresh.onclick=function()
+    {
+        window.location="/userlist";
+    }
+     var switch1=document.getElementById("switch");
+     switch1.setAttribute("data-toggle","modal");
+    switch1.setAttribute("data-target","#delModal");
+    var logout=document.getElementById("logout");
+      logout.setAttribute("data-toggle","modal");
+    logout.setAttribute("data-target","#delModal1");
+    var yas=document.getElementById("log");
+    yas.onclick=function()
+    {
+        location.href="/login.html";
+    }
+     dragElement(document.getElementById("move"));
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    /* if present, the header is where you move the DIV from:*/
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    /* otherwise, move the DIV from anywhere inside the DIV:*/
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+   var myuserId = 1;
+var myuserArr = [];
+var myuserpreviousId;
+var userrole = document.getElementById("role-btn");
+var userstatus = document.getElementById("status-btn");
+var tbody = document.getElementById("table-body");
+
+loadFromServer();
+
+function loadFromServer()
+{
+    var filename = '/getTable';
+    var request = new XMLHttpRequest();
+    request.open('GET',filename);
+    request.send();
+    request.onload = function()
+    {
+        console.log(request.responseText);
+        myuserArr = JSON.parse(request.responseText);
+        if(myuserArr.length == 0)
+        myuserId = 1;
+        else {
+            for(var i in myuserArr)
+            {
+                addEntryToDom(myuserArr[i]);
+                //myuserpreviousId = parseInt(myuserArr[i].id)
+            }
+            update_table();
+        }
+    }
+}
+
+function addEntryToDom(ob)
+{
+    console.log(ob);
+    var row = document.createElement("tr");
+    var col1 = document.createElement("td");
+    var col2 = document.createElement("td");
+    var col3 = document.createElement("td");
+    var col4 = document.createElement("td");
+    var col5 = document.createElement("td");
+    var col6 = document.createElement("td");
+
+    col1.innerHTML = ob.emailid;
+    col2.innerHTML = ob.phoneno;
+    col3.innerHTML = ob.city;
+    col4.innerHTML = ob.status;
+    col5.innerHTML = ob.role;
+    if(ob.role=="Admin")
+        {
+                var b1 = document.createElement("button");
+    b1.setAttribute("class","btn btn-primary btn-sm action-btn");
+    b1.setAttribute("style","background-color:rgb(0, 0, 0)");
+    var span1 = document.createElement("span");
+    span1.setAttribute("class","fa fa-envelope")
+    span1.setAttribute("style","color:#fff");
+    b1.appendChild(span1);
+    col6.appendChild(b1);
+        }
+    else
+        {
+    var b1 = document.createElement("button");
+    b1.setAttribute("class","btn btn-primary btn-sm action-btn");
+    b1.setAttribute("style","background-color:rgb(0, 0, 0)");
+    var span1 = document.createElement("span");
+    span1.setAttribute("class","fa fa-envelope")
+    span1.setAttribute("style","color:#fff");
+    b1.appendChild(span1);
+    col6.appendChild(b1);
+
+    var b2 = document.createElement("button");
+    b2.setAttribute("class","btn btn-primary btn-sm action-btn");
+    b2.setAttribute("id","editbutton");
+    b2.setAttribute("data-toggle","modal");
+    b2.setAttribute("data-target","#editModal");
+    var span2 = document.createElement("span");
+    span2.setAttribute("class","fa fa-edit")
+    span2.setAttribute("style","color:#fff");
+    b2.appendChild(span2);
+    col6.appendChild(b2);
+    b2.onclick=function(){
+
+        //console.log(ob);
+        console.log(ob.status);
+        console.log(ob.role);
+        var eheading = document.getElementById("eheading");
+        eheading.innerHTML=ob.emailid;
+        var eusername = document.getElementById("eusername");
+        eusername.value = ob.emailid;
+        var ephone = document.getElementById("ephone");
+        ephone.value=ob.phoneno;
+        var ecity = document.getElementById("ecity");
+        ecity.value=ob.city;
+        var estatus = document.getElementById("estatus");
+        estatus.value=ob.status;
+        var erole = document.getElementById("erole");
+        erole.value = ob.role;
+        var ob1=new Object();
+        ob1.old=eusername.value;
+        
+        console.log(estatus.value);
+        console.log(erole.value);
+        var eupdate=document.getElementById("eupdate");
+        eupdate.onclick=function()
+        {
+            if(eusername.value==""||ephone.value==""||ecity.value==""||estatus.value==""||erole.value=="")
+                alert("Please enter all values");
+            else
+                {
+                    ob1.id=ob._id;
+                    ob1.emailid=eusername.value;
+                    ob1.phoneno=ephone.value;
+                    ob1.city=ecity.value;
+                    ob1.status=estatus.value;
+                    ob1.role=erole.value;
+                    var xhr=new XMLHttpRequest();
+                    xhr.open("POST","/updateuserlist");
+                    xhr.setRequestHeader("Content-Type","application/json");
+                    xhr.send(JSON.stringify(ob1));
+                    xhr.onload=function()
+                   {
+                    if(xhr.responseText=='1')
+                     alert("Updated Successfully");
+                  }
+             }
+                    
+    }
+    }
+        }
+    if(ob.role!="Admin")
+        {
+    var b3 = document.createElement("button");
+    b3.setAttribute("class","btn btn-success btn-sm action-btn");
+    var span3 = document.createElement("span");
+    span3.setAttribute("class","fa fa-check-circle")
+    span3.setAttribute("style","color:#fff");
+    b3.appendChild(span3);
+    col6.appendChild(b3);
+}
+
+    row.appendChild(col1);
+    row.appendChild(col2);
+    row.appendChild(col3);
+    row.appendChild(col4);
+    row.appendChild(col5);
+    row.appendChild(col6);
+
+    tbody.appendChild(row);
+
+
+}
+
+
+function update_table()
+   {
+     $(document).ready(function() {
+       $('#users-table').DataTable();
+     })
+   }
+</script>
+</html>

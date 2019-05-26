@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>cq</title>
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" >
+
+      <link href="menu.css" rel="stylesheet" type="text/css">
+      <link href="sidebar.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+          <style>
+              .active {
+			background-color: #51a1e2 !important;
+		}
+              .div-min-width
+{
+    min-width: 360px;
+}
+.scrollclass
+{
+    overflow:scroll;
+}
+#tagdiv
+{
+    border: 2px solid #2D312C;
+    background-color: #2D312C;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+@media (min-width: 768px)
+{
+    #containerid
+    {
+        margin-left:50px;
+    }
+    
+}
+    </style>
+</head>
+<body class="body">
+ <center>
+                                    <div id="delModal1" class="modal fade" role = "dialog" style="background:#404F65;opacity:.5;z-index:9999;">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div id="move" class="modal-content" style="background:transparent;border:0;box-shadow:0px 0px 0px 0px">
+                                                <div class="modal-header" style="border-bottom:0">
+                                                    <h2 style="color:#FAFBFB" class="modal-title">Confirm Logout</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p style="color:white">Do you really want logout? </p>
+                                                </div>
+                                                <div class="modal-footer" style="border-top:0;text-align:center">
+                                                    <button id="log" type="button" class="btn btn-default" style="background:#303F53;border:0;color:white;width:28%;height:15%">Yes</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal" style="background:#303F53;border:0;color:white;width:28%;height:15%">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+    <%include partials/menu.html %>
+          <div id="viewscreen">
+       <%include partials/sidebar.html %>
+       <div id="rightview">
+       <!-- <center>
+           <div style="width:40%;border:4px solid lightgrey;margin-top:40px;padding-left:10px;padding-right:10px;box-sizing:border-box;background:white">
+               <div style="width:100%;height:70px;padding:0"><a style="font-size:35px;float:left;margin-top:20px;font-weight:150;color:black">Change Password</a></div>
+            <a style="font-size:15px;float:left;margin-top:5px;font-weight:100px;color:black">Old Password:</a>
+            <input id="old" type="password" style="width:100%;height:30px;padding:4px;box-sizing:border-box;margin-top:5px;border-radius:1px;">
+            <a style="font-size:15px;float:left;margin-top:30px;font-weight:100px;color:black">New Password:</a>
+            <input id="new" type="password" style="width:100%;height:30px;padding:4px;box-sizing:border-box;margin-top:5px;border-radius:1px;">
+             <div style="width:100%;height:30px;margin-top:30px;margin-bottom:10px"><button id="submit" style="height:30px;background:#5CB85C;float:left;border:0;color:white;">Submit</button></div>
+        </div>
+        </center>-->
+<!--
+        <div id="page-content-wrapper" style="padding:0;margin-top:60px"> Margin Top is new
+         <div class="container-fluid page-content-div" style="padding:0">
+            <div class="row">
+               <div class="col-lg-12 scoll-possible" style="padding:0">
+-->
+<center>
+                                    <div id="delModal" class="modal fade" role = "dialog">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Switch As User</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Do you really want switch state... </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-success">Yes</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+<div class="container-fluid div-min-width" id="containerid" style="padding:0">
+                    <div class="row">
+                        <div class = "col-lg-12 scrollclass" style="padding:0">
+                            <div style="margin-right:20px;margin-left:20px;margin-top:1%">
+                                <!-- MODAL DIV -->
+                                <center>
+                                    <div id="delModal" class="modal fade" role = "dialog">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Delete Tag!</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Are you Sure you want to delete </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button id="Yes" type="button" class="btn btn-success">Yes</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+                                <!--AFTER MODAL DIVS -->
+                                <div class="form-control" id="tagdiv" style="float:left;width:90px;font-weight:bold">
+                                    Tags List
+                                </div>
+
+                                <button class = "btn btn-default" id="refresh" style="float:right;background-color:#2D312C;color:#fff">
+                                    <span><i class="fa fa-refresh"></i></span>
+                                    Refresh
+                                </button>
+                                <br>
+                                <br>
+                                <br>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-condensed table-hover table-bordered" id="tags-table" >
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Tag Name</th>
+                                                <th >Created By</th>
+                                                <th >Create Date</th>
+                                                <th >Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tablebody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+</div>
+    </div>
+</body>
+<script type="text/javascript">
+	var list = sidebar.getElementsByTagName("li");
+     for(var i = 0;i<list.length;i++) {
+        list[i].classList.remove("active");
+        
+    }
+    list[7].classList.add("active");
+		 function openbar()
+{
+    var element = document.getElementById("viewscreen");
+    element.classList.toggle("toggle-pc");
+
+    var element = document.getElementById("sidebar");
+    element.classList.toggle("sidebar-width");
+
+
+    var element = document.getElementById("rightview");
+    element.classList.toggle("set-rightview");
+}
+       var home=document.getElementById("home");
+    home.addEventListener("click",function(event)
+                         {
+        window.location="/profile";
+    });
+    var add=document.getElementById("add");
+    add.addEventListener("click",function(event)
+                        {
+        window.location="/add";
+    });
+    var editbtn=document.getElementById("editbtn");
+    editbtn.addEventListener("click",function(event)
+                            {
+        window.location="/edit";
+    });
+     var createtag=document.getElementById("tagpanel");
+        createtag.addEventListener("click",function(event)
+                                  {
+           window.location="/createtag"; 
+        });
+     var changepass=document.getElementById("change");
+           changepass.addEventListener("click",function(event)
+                            {
+        window.location="/changepass";
+    });
+    var refresh=document.getElementById("refresh");
+    refresh.onclick=function()
+    {
+        window.location="/taglist";
+    }
+     var userlt=document.getElementById("userslist");
+    userlt.onclick=function()
+    {
+        window.location="/userlist";
+    }
+     var switch1=document.getElementById("switch");
+     switch1.setAttribute("data-toggle","modal");
+    switch1.setAttribute("data-target","#delModal");
+   var logout=document.getElementById("logout");
+      logout.setAttribute("data-toggle","modal");
+    logout.setAttribute("data-target","#delModal1");
+    var yas=document.getElementById("log");
+    yas.onclick=function()
+    {
+        location.href="/login.html";
+    }
+     dragElement(document.getElementById("move"));
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    /* if present, the header is where you move the DIV from:*/
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    /* otherwise, move the DIV from anywhere inside the DIV:*/
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+    var tagArr = [];
+var tbody = document.getElementById("tablebody");
+
+
+
+getTable();
+
+function getTable()
+{
+    var filename = '/getTagTable';
+    var request = new XMLHttpRequest();
+    request.open('GET',filename);
+    request.send();
+    request.onload = function()
+    {
+        console.log(request.responseText);
+        tagArr = JSON.parse(request.responseText);
+        for(var i in tagArr)
+        {
+            addToDom(tagArr[i]);
+        }
+        update_table();
+    }
+}
+function addToDom(ob)
+{
+    console.log(ob.tagname);
+    console.log(ob.created);
+    console.log(ob.date1);
+    console.log(ob.delete);
+    if(ob.delete=="1")
+        {
+    var row = document.createElement("tr");
+    var col1 = document.createElement("td");
+    var col2 = document.createElement("td");
+    var col3 = document.createElement("td");
+    var col4 = document.createElement("td");
+    col1.setAttribute("class","text-center");
+    col1.innerHTML = ob.tagname;
+    col2.innerHTML = ob.created;
+    col3.innerHTML = ob.date1;
+
+    col4.setAttribute("class","text-center");
+    var delbtn = document.createElement("button");
+    delbtn.setAttribute("class","btn btn-sm");
+    delbtn.setAttribute("style","margin-top:0;background-color:#2D312C;color:#fff")
+    delbtn.setAttribute("data-toggle","modal");
+    delbtn.setAttribute("data-target","#delModal");
+    var span = document.createElement("span");
+    span.setAttribute("class","fa fa-trash");
+    delbtn.appendChild(span);
+    col4.appendChild(delbtn);
+    row.appendChild(col1);
+    row.appendChild(col2);
+    row.appendChild(col3);
+    row.appendChild(col4);
+
+    tbody.appendChild(row);
+            delbtn.onclick=function()
+            {
+                console.log("hello");
+                var yes=document.getElementById("Yes");
+                yes.onclick=function()
+                {
+                    var ob1=new Object();
+                    ob1.id=ob._id;
+                    ob1.del="0";
+                    console.log(ob1);
+                    var xhr=new XMLHttpRequest();
+        xhr.open("POST","/tagdelete");
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.send(JSON.stringify(ob1));
+        xhr.addEventListener("load",function(event)
+                            {
+            if(xhr.responseText=="1")
+                alert("Tag deleted Successfully");
+            window.location="/taglist";
+        });
+                    
+                }
+            }
+        }
+}
+
+function update_table()
+   {
+     $(document).ready(function() {
+       $('#tags-table').DataTable();
+     })
+   }
+</script>
+</html>

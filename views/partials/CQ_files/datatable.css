@@ -1,0 +1,107 @@
+.adminbtn
+{
+  width: 100px;
+}
+.fa-envelope
+{
+  color: black;
+}
+.actionbtns
+{
+  margin: 5px;
+}
+#roleFilterTitle
+{
+  width: 14%;
+  border:2px solid #2D312C;
+  background-color: #2D312C;
+  color: #fff;
+}
+#statusFilter
+{
+  width: 10%;
+  border:2px solid #2D312C;
+  background-color: #2D312C;
+  color: #fff;
+}
+
+/*table.dataTable thead th {
+    background: #2D312C;
+    color: white;
+}
+*/
+table.dataTable thead th.sorting:after {
+    content: "\f0dc";
+    color: #000;
+    font-size: 1.0em;
+}
+table.dataTable thead th.sorting_asc:after {
+    content: "\f0de";
+    color: #000;
+    font-size: 1.5em;
+}
+table.dataTable thead th.sorting_desc:after {
+    content: "\f0dd";
+    color: #000;
+    font-size: 1.5em;
+}
+.tableUname
+{
+  font-weight: bold;
+  /* width: 250px; */
+}
+/* .tablePhone
+{
+  width: 100px;
+}
+.tableAction
+{
+  width: 200px;
+}
+.tableRole,.tableStatus
+{
+  width: 60px;
+} */
+.tableId
+{
+  display: none
+}
+#usertable{
+  display:none;
+}
+
+#CommunityRuleFilter
+{
+  width: 10%;
+  border:2px solid #2D312C;
+  background-color: #2D312C;
+  color: #fff;
+}
+.ComTableName
+{
+  text-transform: capitalize;
+  max-width:200px;
+  overflow:auto;
+}
+#CommunityRuleFilter
+{
+  width: 10%;
+  border:2px solid #2D312C;
+  background-color: #2D312C;
+  color: #fff;
+}
+
+.CommunityProfilePic
+{
+  height: 100px;
+  width: 100px;
+  float: left;
+}
+#CommunityInfoPop
+{
+  margin-left: 20%;
+  margin-top: 7%;
+  font-weight: bold;
+  font-size: 15px;
+  word-wrap: break-word;
+}

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>cq</title>
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" >
+
+      <link href="menu.css" rel="stylesheet" type="text/css">
+      <link href="sidebar.css" rel="stylesheet" type="text/css">
+      <!-- BOOTSTRAP 3-->
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
+    </script>
+      
+      
+      
+	<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="./partials/CQ_files/notie.min.css">
+	<link rel="stylesheet" href="./partials/CQ_files/all.css">
+	<link rel="stylesheet" type="text/css" href="./partials/CQ_files/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./partials/CQ_files/dataTables.fontAwesome.css">
+
+	<link rel="stylesheet" href="./partials/CQ_files/CustomDatatable.css">
+	<link rel="stylesheet" href="./partials/CQ_files/datatable.css">
+
+	<link rel="stylesheet" href="./partials/CQ_files/trumbowyg.css">
+	<link rel="stylesheet" href="./partials/CQ_files/bootstrap.min.css">
+	<script src="./partials/CQ_files/jquery.min.js.download"></script>
+	<script src="./partials/CQ_files/bootstrap.min.js.download"></script>
+	<link rel="stylesheet" href="./partials/CQ_files/jquery-confirm.min.css">
+	<link rel="stylesheet" href="./partials/CQ_files/select2BootstrapTheme.css">
+	<link rel="stylesheet" href="./partials/CQ_files/select2.min.css">
+	<script src="./partials/CQ_files/jquery-confirm.min.js.download"></script>
+	<link rel="stylesheet" href="./partials/CQ_files/style.css">
+	<link rel="stylesheet" href="./partials/CQ_files/sidenav.css">
+	<link rel="stylesheet" href="./partials/CQ_files/CommunityStyle.css">
+	<link rel="stylesheet" href="./partials/CQ_files/CrazyGraphics.css">
+      
+      
+       <style>
+           .active {
+			background-color: #51a1e2 !important;
+		}
+           .content-div{
+  margin-top:2%;
+ margin-left:50px;
+  width: 100%;
+}
+.null-link{
+  color: black
+}
+.null-link:hover{
+  color:black;
+  text-decoration: none;
+}
+.panel-main-div:hover{
+  box-shadow:0 3px 10px 0 rgba(115,143,147,.2);
+}
+           
+    	@media(max-width: 768px){
+  .content-div{
+    margin-top:0;
+      margin-left:0;
+    width: 100% !important;
+  }
+}
+        
+           </style>
+</head>
+<body class="body">
+      <center>
+                                    <div id="delModal1" class="modal fade" role = "dialog" style="background:#404F65;opacity:.5;z-index:9999;">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div id="move" class="modal-content" style="background:transparent;border:0;box-shadow:0px 0px 0px 0px">
+                                                <div class="modal-header" style="border-bottom:0">
+                                                    <h2 style="color:#FAFBFB" class="modal-title">Confirm Logout</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p style="color:white">Do you really want logout? </p>
+                                                </div>
+                                                <div class="modal-footer" style="border-top:0;text-align:center">
+                                                    <button id="log" type="button" class="btn btn-default" style="background:#303F53;border:0;color:white;width:28%;height:15%">Yes</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal" style="background:#303F53;border:0;color:white;width:28%;height:15%">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+   <%include partials/menu.html %>
+       <div id="viewscreen">
+       <%include partials/sidebar.html %>
+       <div id="rightview">
+        <!--<center>
+            <div id="profiledata" style="margin-top:20px;width:70%;background-color:white;
+                box-shadow:10px 20px 40px -12px grey;padding:10px;box-sizing:border-box;margin-bottom:20px;float:left;margin-left:140px" >
+                <div style="width:100%;height:130px;"><i style="font-size:100px;color:grey;float:left;" class="fa fa-user" aria-hidden="true"></i></div>
+                <div id="blink" style="width:100%;height:250px;border:1px solid lightgrey">
+                    <div style="width:100%;height:35px;background:#F5F5F5">
+                        <a style="float:left;font-size:15px;margin-left:10px;font-weight:50;margin-top:7px;color:black">Basic Info</a>
+                    </div>
+                    <div style="width:100%;height:215px;padding:14px;box-sizing:border-box">
+                    <a style="font-size:15px;float:left;font-weight:bold;color:black">Email:</a> 
+                    <input style="width:100%;height:30px;border-radius:1px;background:#F5F5F5;box-sizing:border-box;margin-top:5px;padding:5px" value=<%=product.emailid%> disabled> 
+                    <a style="font-size:15px;float:left;font-weight:bold;margin-top:12px;color:black">Name:</a>
+                    <input id="name" style="width:100%;height:30px;border-radius:1px;box-sizing:border-box;margin-top:5px;padding:5px" value=<%=product.name%>>
+                    <div style="width:30%;margin-top:12px;float:left"><a style="font-size:15px;float:left;font-weight:bold;;color:black">DOB:</a>
+                    <input id="dob" style="width:100%;height:30px;border-radius:1px;box-sizing:border-box;margin-top:5px;padding:5px;float:left" value=<%=product.dob%>></div>
+                    <div style="width:30%;margin-top:12px;float:right">
+                    <a style="font-size:15px;float:left;font-weight:bold;margin-right:235px;color:black">Gender:</a>
+                    <select id="gender" style="width:100%;border-radius:1px;height:30px;margin-top:5px;height:30px">
+                        <option>Male</option>
+                        <option>Female</option>
+                        </select> </div>  
+                    </div>
+                </div>
+                 <div id="blink" style="width:100%;height:195px;border:1px solid lightgrey;margin-top:5px">
+                    <div style="width:100%;height:35px;background:#F5F5F5">
+                        <a style="float:left;font-size:15px;margin-left:10px;font-weight:50;margin-top:7px;color:black">Contact Info</a>
+                    </div>
+                    <div style="width:100%;height:160px;padding:14px;box-sizing:border-box">
+                    <a style="font-size:15px;float:left;font-weight:bold;color:black">Phone:</a> 
+                    <input id="phoneno" style="width:100%;height:30px;border-radius:1px;background:#F5F5F5;box-sizing:border-box;margin-top:5px;padding:5px" value=<%=product.phoneno%>> 
+                    <a style="font-size:15px;float:left;font-weight:bold;margin-top:12px;color:black">City:</a>
+                    <input id="city" style="width:100%;height:30px;border-radius:1px;box-sizing:border-box;margin-top:5px;padding:5px" value=<%=product.city%>>  
+                    </div>
+                </div>
+                 <div id="blink" style="width:100%;height:285px;border:1px solid lightgrey;margin-top:5px">
+                    <div style="width:100%;height:35px;background:#F5F5F5">
+                        <a style="float:left;font-size:15px;margin-left:10px;font-weight:50;margin-top:7px;color:black">Personal Info</a>
+                    </div>
+                    <div style="width:100%;height:250px;padding:14px;box-sizing:border-box">
+                    <a style="font-size:15px;float:left;font-weight:bold;color:black">Interests:</a> 
+                    <input style="width:100%;height:30px;border-radius:1px;box-sizing:border-box;margin-top:5px;padding:5px" placeholder="Enter interests..."> 
+                    <a style="font-size:15px;float:left;font-weight:bold;margin-top:12px;color:black">Tell us a bit more about your journey:</a>
+                    <input style="width:100%;height:45px;box-sizing:border-box;margin-top:5px;padding:5px">
+                    <a style="font-size:15px;float:left;font-weight:bold;margin-top:12px;color:black">What are your expectations from the communities?</a>
+                    <input style="width:100%;height:45px;box-sizing:border-box;margin-top:5px;padding:5px">
+                    </div>
+                </div>
+                <button id="changepass" style="float:left;height:25px;border:0;background:#F0AD4E;margin-top:10px;color:white">Change Password</button>
+                <button id="cancel" style="float:right;height:25px;border:0;background:#D9534F;margin-top:10px;color:white">Cancel</button>
+                <button id="update" style="float:right;height:25px;border:0;background:#337AB7;margin-top:10px;color:white;margin-right:2px">Update</button>
+            </div>
+        </center>-->
+<!--
+         <div id="page-content-wrapper" style="padding:0;margin-top:60px"> Margin Top is new
+         <div class="container-fluid page-content-div" style="padding:0">
+            <div class="row">
+               <div class="col-lg-12 scoll-possible" style="padding:0">
+-->
+
+
+
+<center>
+                                    <div id="delModal" class="modal fade" role = "dialog">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Switch As User</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Do you really want switch state... </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-success">Yes</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+
+<style>
+.form-control[disabled]{
+    background-color: #f5f5f5;
+    opacity: 1;
+}
+.select2-dropdown{
+  display:none;
+}
+    
+</style>
+         <div class="content-div" >
+          <div class="profile-pic-center-main-div mobile">
+              <i class="fa fa-user" style="font-size:100px;margin-top:52px" class="profile-pic-center allSides" ></i>
+</div>
+
+
+<div class='container' >
+  <div style="margin-top:10px;">
+    <div class="col-12">
+          <div class="card allSidesSoft">
+              <div class="card-body">
+                <div class="d-flex">
+                    <form class="image-container" method="post" action="/updateProfilePic" enctype="multipart/form-data" id="profilepicform">
+                        <i class="fa fa-user" style="font-size:100px" id="user-profile-image" class="img-thumbnail allSidesSoft" ></i>
+                        <div class="middle">
+<!--
+                            <input type="button" class="btn btn-default btn-sm" id="changeProfilePicBtn" value="Change" />
+                            <input type="file" style="display: none;" id="profileUpload" name="profilePhoto" />
+-->
+                        </div>
+                    </form>
+                    <div class="ml-auto">
+                        <input type="button" class="btn btn-danger btn-sm d-none" id="btnDiscard" value="Discard Changes" />
+                    </div>
+                </div>
+
+                <br />
+                <form method="post" action="/editProfile">
+                  <div class="panel-group">
+                    <!--Form panel-->
+                    <div class="panel panel-default editUserPanel">
+                      <div class="panel-heading">Basic Info</div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                    <label>Email :</label>
+                                    <input type="text" value=<%=product.emailid%> class="form-control" name="username" disabled="true"  />
+                            </div>
+                            <div class="form-group">
+                                <label>Name :</label>
+                                <input id="name" type="text" value=<%=product.name%> class="form-control" name="fullname" autocomplete="off" required />
+                            </div>
+                            <div class="form-group col-sm-5" style="padding:0">
+                                <label>DOB :</label>
+                                <input id="dob" class="form-control dobDate" id="date" value=<%=product.dob%> name="dob" placeholder="MM/DD/YYYY" type="text" autocomplete="off" required/>
+                            </div>
+                            <div class="form-group col-sm-5 col-sm-push-2" style="padding:0">
+                                    <label>Gender :</label>
+                                    <select id="gender" name="gender" class="form-control">
+                                        <optgroup label="Select Gender">
+                                    
+                                        <option value="male" selected>Male</option>
+                                    
+
+                                    
+                                        <option value="female">Female</option>
+                    
+                                    
+                                    </optgroup>
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default editUserPanel">
+                      <div class="panel-heading">Contact Info</div>
+                        <div class="panel-body">
+                          <div class="form-group">
+                                  <label>Phone :</label>
+                                  <input id="phoneno" type="text" value=<%=product.phoneno%> class="form-control" name="phone" maxlength="10" required />
+                          </div>
+                          <div class="form-group">
+                                  <label>City :</label>
+                                  <input id="city" type="text" value=<%=product.city%> class="form-control" name="city" required />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="panel panel-default editUserPanel">
+                        <div class="panel-heading">Personal Info</div>
+                          <div class="panel-body">
+
+                            <div class="form-group">
+                              <label>Interests :</label>
+                              <input id="interests" class="form-control dobDate" name="dob" placeholder="Enter interests..." type="text" autocomplete="off" required/>
+                            </div>
+
+                            <div class="form-group">
+                                    <label>Tell us a bit more about your journey:</label>
+                                    <textarea type="text" class="form-control" name="aboutjourney"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                    <label>What are your expectations from the communities?</label>
+                                    <textarea type="text" class="form-control" name="comExpectations"></textarea>
+                            </div>
+
+                          </div>
+                        </div>
+
+                      <br />
+
+                      <div class="form-group">
+                        
+                              <a id="changepass3" class="btn btn-warning pull-left btnEditForm" style="margin:1px">Change Password</a>
+                        
+                              <a id="cancel" class="btn btn-danger pull-right btnEditForm" style="margin:1px">Cancel</a>
+                              <input id="update" type="submit" class="btn btn-primary pull-right btnEditForm" style="margin:1px" value="Update" />
+                      </div>
+
+                    </div>
+                </form>
+              </div>
+         </div>
+      </div>
+  </div>
+</div>
+
+<br />
+
+</div>
+</div>
+</div>
+<!--
+    </div>
+</div>
+           </div>
+        </div>
+-->
+</body>
+<script type="text/javascript">
+    var list = sidebar.getElementsByTagName("li");
+    for(var i = 0;i<list.length;i++) {
+        list[i].classList.remove("active");
+    }
+     function openbar()
+{
+    var element = document.getElementById("viewscreen");
+    element.classList.toggle("toggle-pc");
+
+    var element = document.getElementById("sidebar");
+    element.classList.toggle("sidebar-width");
+
+
+    var element = document.getElementById("rightview");
+    element.classList.toggle("set-rightview");
+}
+    var add=document.getElementById("add");
+    add.addEventListener("click",function(event)
+                        {
+        window.location="/add";
+    });
+         var home=document.getElementById("home");
+    home.addEventListener("click",function(event)
+                         {
+        window.location="/profile";
+    });
+   var createtag=document.getElementById("tagpanel");
+        createtag.addEventListener("click",function(event)
+                                  {
+           window.location="/createtag"; 
+        });
+         var changepass=document.getElementById("change");
+           changepass.addEventListener("click",function(event)
+                            {
+        window.location="/changepass";
+    });
+    var editbtn=document.getElementById("editbtn");
+    editbtn.addEventListener("click",function(event)
+                            {
+        window.location="/edit";
+    });
+     var userlt=document.getElementById("userslist");
+    userlt.onclick=function()
+    {
+        window.location="/userlist";
+    }
+     var switch1=document.getElementById("switch");
+     switch1.setAttribute("data-toggle","modal");
+    switch1.setAttribute("data-target","#delModal");
+   var logout=document.getElementById("logout");
+      logout.setAttribute("data-toggle","modal");
+    logout.setAttribute("data-target","#delModal1");
+    var yas=document.getElementById("log");
+    yas.onclick=function()
+    {
+        location.href="/login.html";
+    }
+    var  cancel=document.getElementById("cancel");
+    cancel.addEventListener("click",function(event)
+                           {
+        window.location="/edit";
+    });
+      var change1=document.getElementById("changepass3");
+           change1.addEventListener("click",function(event)
+                            {
+        window.location="/changepass";
+    });
+    var update=document.getElementById("update");
+    var name1=document.getElementById("name");
+    var dob=document.getElementById("dob");
+    var gender=document.getElementById("gender");
+    var phoneno=document.getElementById("phoneno");
+    var city=document.getElementById("city");
+    update.addEventListener("click",function(event)
+                           {
+        var ob=new Object();
+        ob.name1=name1.value;
+        ob.dob=dob.value;
+        ob.gender=gender.value;
+        ob.phoneno=phoneno.value;
+        ob.city=city.value;
+        var xhr=new XMLHttpRequest();
+        xhr.open("POST","/changepass2");
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.send(JSON.stringify(ob));
+        xhr.addEventListener("load",function(event)
+                            {
+            if(xhr.responseText=="1")
+                alert("update successfully");
+        });
+        
+    });
+    dragElement(document.getElementById("move"));
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    /* if present, the header is where you move the DIV from:*/
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    /* otherwise, move the DIV from anywhere inside the DIV:*/
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+</script>
+</html>

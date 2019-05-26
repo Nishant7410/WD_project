@@ -1,0 +1,131 @@
+.adminbtn
+{
+    width: 100px;
+}
+  .fa-envelope
+  {
+    color: black;
+  }
+  .actionbtns
+  {
+    margin-left: 5px;
+  }
+  #roleFilter
+  {
+    width: 14%;
+    border:2px solid #2D312C;
+    background-color: #2D312C;
+    color: #fff;
+  }
+  #statusFilter
+  {
+    width: 10%;
+    border:2px solid #2D312C;
+    background-color: #2D312C;
+    color: #fff;
+  }
+/*  table.dataTable thead th {
+      position: relative;
+      background: #2D312C;
+      color: white;
+  }
+
+  table.dataTable thead th.sorting:after {
+      content: "\f0dc";
+      color: #ddd;
+      font-size: 1.0em;
+  }
+  table.dataTable thead th.sorting_asc:after {
+      content: "\f0de";
+      font-size: 1.5em;
+  }
+  table.dataTable thead th.sorting_desc:after {
+      content: "\f0dd";
+      font-size: 1.5em;
+  }*/
+  .tableUname
+  {
+    font-weight: bold;
+  }
+  .tablePhone
+  {
+  }
+  .tableRole
+  {
+    text-transform: capitalize;
+  }
+  .tableStatus
+  {
+    text-transform: capitalize;
+  }
+  .tableId
+  {
+    display: none
+  }
+  .ComTableId
+  {
+    display: none;
+  }
+  #usertable{
+    display:none;
+  }
+  .ComTableActive{
+    display: none;
+  }
+  td.ComTableImage{
+    display: block;
+    text-align: -webkit-center;
+  }
+  /*----------------------Tags DataTable CSS-------------------------*/
+  .tagsTableId{
+    display:none;
+  }
+  .tagsTableName{
+    text-align:center;
+  }
+  tbody .tagsTableName{
+    font-weight:bold;
+    font-size:15px;
+  }
+  tbody .tagsTableName:hover{
+    font-size:20px;
+    padding: .4em .5em;
+    margin: 2px 2px 2px 0;
+    line-height: 1;
+    white-space: nowrap;
+    text-align: center;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 3px;
+    color: #39739d;
+    background-color: #E1ECF4;
+    border-color: #E1ECF4;
+  }
+  .tagsTableCreatedBy{
+
+  }
+  .tagsTableDate{
+
+  }
+  .deleteTagbtn{
+    margin-top:0;
+    background-color: #2D312C;
+    color: #fff;
+  }
+  .deleteTagbtn:hover{
+    background-color: #E1ECF4;
+    border:1px solid #39739d;
+  }
+  /*-----------------------------------------------------------------*/
+  @media(max-width:768px) {
+    .filter-button{
+      width:70px !important;
+    }
+    td.tableAction
+    {
+      padding:0 20px 0 20px !important;
+    }
+    td.ComTableImage{
+      padding:0 30px 0 30px !important;
+    }
+  }

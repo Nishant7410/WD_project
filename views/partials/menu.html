@@ -1,0 +1,103 @@
+<!--
+   <div id="header">
+       <a style="font-size:30px;color:white;text-align:left;font-weight:bold;color:white;">cq</a>
+       <button id="menubtn" style="border:0;background-color:#222D3C;color:white;margin-left:30px">Menu</button>
+               <div id="editbtn" style="background-color:#222D3C;border:0;float:right;"><i class="fa fa-user" aria-hidden="true"></i></div>
+-->
+<!--
+               <div style="height:18px;width:37px;background-color:#5CB85C;color:white;float:right;margin-right:30px;margin-top:12px;font-size:10px;padding:2px;box-sizing:border-box;border-radius:4px"><center><a style="text-align:center;font-size:10px"><%=product.role%></%></a></center></div>
+               <div style="height:18px;width:54px;background-color:orange;color:white;float:right;margin-right:15px;margin-top:12px;font-size:10px;padding:2px;box-sizing:border-box;border-radius:4px"><center><a style="text-align:center;font-size:10px"><%=product.name%></a></center></div>
+-->
+<!--
+        <span style="float:right;margin-right:15px;background:#5CB85C;font-size:10.5px;border-radius:3px;color:white;margin-top:14px;padding:2.1px 6.1px 3.1px 6.1px"><%=product.role%></span>
+         <span style="float:right;margin-right:5px;background:#F0AD4E;font-size:10.5px;border-radius:3px;color:white;margin-top:14px;padding:2.1px 6.1px 3.1px 6.1px"><%=product.name%></span>
+        </div>
+-->
+
+<!--
+        <div id="menu">
+		<div class="menu-item" id="sideBtn"><i class="fa fa-bars"></i><span>cq</span></div>
+		<div class="menu-item active" id="home"><i class="fa fa-home"></i><span>Home</span></div>
+		<div class="menu-item" id="add"><i class="fa fa-plus-square"></i><span>Add User</span></div>
+		<div class="menu-item" id="userslist"><i class="fa fa-list-ul"></i><span>Users List</span></div>
+		<div class="menu-item" id="community"><i class="fa fa-list-alt"></i><span>Community List</span></div>
+		<div class="menu-item" id="switch"><i class="fa fa-toggle-off"></i><span>Switch As User</span></div>
+		<div class="menu-item" id="tagpanel"><i class="fa fa-tags"></i><span>Tag Panel</span></div>
+		<div class="menu-item" id="change"><i class="fa fa-lock"></i><span>Change Password</span></div>
+		<div class="menu-item" id="logout"><i class="fa fa-sign-out"></i><span>Logout</span></div>
+	</div>
+-->
+
+
+<!--
+<nav id="navbar">
+
+        <div class="container-fluid">
+            <div id="leftpanel" style="float:left;">
+                 <a id="cq" class="navbar-brand" href="#">cq</a>
+
+
+                    <a onclick="openbar()" id="openbox">
+                        <i style="color:white" class="glyphicon glyphicon-th-large"></i>
+                    </a>
+                    <span class="label label-success" id="leftadmin" style="background:#5CB85C;">
+                        <%=product.role%>
+                    </span>
+            </div>
+
+            <div id="rightpanel" style="float:right;">
+             <i style="font-size:30px;float:right;margin-top:10px;margin-right:10px" id="editbtn" class="fa fa-user"></i>
+                <img src="default.png" id="dpimage" style="height:40px;width: 40px;float:right;">
+
+
+                <span class="label label-success" id="rightadmin" style="float:right;margin-right:20px;background:#5CB85C;">
+                    <%=product.role%>
+                </span>
+
+                <span class="label label-warning" id="sadmin" style="float:right;background:#F0AD4E;">
+                    <%=product.name%>
+                </span>
+
+            </div>
+        </div>
+
+</nav>
+-->
+
+
+
+
+
+<nav id="navbar">
+
+        <div class="container-fluid">
+            <div id="leftpanel" style="float:left;">
+                 <a id="cq" class="navbar-brand" href="#">cq</a>
+
+
+                    <a onclick="openbar()" id="openbox">
+                        <span class="glyphicon glyphicon-th-large"></span>
+                    </a>
+                    <span class="label label-success" id="leftadmin" style="background:#5CB85C;">
+                        <%=product.role%>
+                    </span>
+            </div>
+
+            <div id="rightpanel" style="float:right;">
+
+                <i style="font-size:30px;float:right;margin-top:10px;margin-right:10px" id="editbtn" class="fa fa-user"></i>
+
+
+               <span class="label label-success" id="rightadmin" style="float:right;margin-right:20px;background:#5CB85C;">
+                    <%=product.role%>
+                </span>
+
+                 <span class="label label-warning" id="sadmin" style="float:right;background:#F0AD4E;">
+                    <%=product.name%>
+                </span>
+
+            </div>
+        </div>
+
+</nav>
+
