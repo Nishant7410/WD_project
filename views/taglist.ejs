@@ -96,7 +96,7 @@
                                                     <p>Do you really want switch state... </p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-success">Yes</button>
+                                                    <button id="ya" type="button" class="btn btn-success">Yes</button>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                                                 </div>
                                             </div>
@@ -213,9 +213,19 @@
     {
         window.location="/userlist";
     }
+     var community=document.getElementById("community");
+    community.onclick=function()
+    {
+        window.location="/communities";
+    }
      var switch1=document.getElementById("switch");
      switch1.setAttribute("data-toggle","modal");
     switch1.setAttribute("data-target","#delModal");
+     var ya=document.getElementById("ya");
+    ya.onclick=function()
+    {
+        window.location="/admincommunities";
+    }
    var logout=document.getElementById("logout");
       logout.setAttribute("data-toggle","modal");
     logout.setAttribute("data-target","#delModal1");

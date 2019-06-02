@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
      <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,14 +9,17 @@
 
       <link href="menu.css" rel="stylesheet" type="text/css">
       <link href="sidebar.css" rel="stylesheet" type="text/css">
+            <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+       <link href="trumbowyg.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
       <link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-      <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+    <script src="trumbowyg.min.js"></script>
+
           <style>
               .active {
 			background-color: #51a1e2 !important;
@@ -31,15 +35,16 @@
     color: #fff;
     width: 90px;
     font-weight: bold;
+    box-shadow:0px 0px 10px grey;
 }
-#role-btn
+#rolebtn
 {
     width:70px;
     border: 2px solid #2D312C;
     background-color: #2D312C;
     color: #fff;
 }
-#status-btn
+#statusbtn
 {
     width:70px;
     border: 2px solid #2D312C;
@@ -81,11 +86,11 @@
     }
 @media (max-width:768px)
 {
-    #role-btn
+    #rolebtn
     {
         width:14%;
     }
-    #status-btn
+    #statusbtn
     {
         width:10%;
     }
@@ -144,7 +149,25 @@
                                                     <p>Do you really want switch state... </p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-success">Yes</button>
+                                                    <button id="ya" type="button" class="btn btn-success">Yes</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+                                  <center>
+                                    <div id="restrict" class="modal fade" role = "dialog">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 id="headcontent" class="modal-title"></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p id="paracontent"> </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button id="yesrestrict" type="button" class="btn btn-success" data-dismiss="modal">Yes</button>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                                                 </div>
                                             </div>
@@ -183,14 +206,14 @@
                                                         <div class="form-group">
                                                             <label class="control-label col-sm-2">Phone:</label>
                                                             <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="ephone" placeholder="Username">
+                                                                <input type="text" class="form-control" id="ephone" placeholder="Phone">
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label class="control-label col-sm-2">City:</label>
                                                             <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="ecity" placeholder="Username">
+                                                                <input type="text" class="form-control" id="ecity" placeholder="City">
                                                             </div>
                                                         </div>
 
@@ -198,8 +221,8 @@
                                                             <label class="control-label col-sm-2">Status:</label>
                                                             <div class="col-sm-10">
                                                                 <select class="form-control" id="estatus">
-                                                                    <option value="pending">Pending</option>
-                                                                    <option value="confirmed">Confirmed</option>
+                                                                    <option value="Pending">Pending</option>
+                                                                    <option value="Confirmed">Confirmed</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -208,16 +231,16 @@
                                                             <label class="control-label col-sm-2">Role:</label>
                                                             <div class="col-sm-10">
                                                                 <select class="form-control" id="erole">
-                                                                    <option value="user">User</option>
-                                                                    <option value="community manager">Community Manager</option>
-                                                                    <option value="admin">Admin</option>
+                                                                    <option >User</option>
+                                                                    <option >Community_Builder</option>
+                                                                    <option >Admin</option>
                                                                 </select>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <div class="col-sm-10 col-sm-offset-2 pull-left">
-                                                                <button class = "btn btn-default" id="eupdate">Update</button>
+                                                                <button class = "btn btn-default" id="eupdate"  data-dismiss="modal">Update</button>
                                                             </div>
                                                         </div>
 
@@ -232,6 +255,44 @@
                                     </div>
                                 </div>
                             </center>
+                               <center>
+                                   <div class="modal fade" tabindex="-1" role="dialog" id="emailModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header" style="margin-top:20px;">
+			    <h5 class="modal-title" style="float:left;font-size:20px">Send Reminder Mail</h5>
+			    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			      <span aria-hidden="true">&times;</span>
+			    </button>
+			  </div>
+			  <div class="modal-body">
+			    <form>
+			    	<div class="form-group row">
+			    		<label class="col-sm-2 col-form-label"><b>To: </b></label>
+			    		<div class="col-sm-10">
+			    			<input type="text" readonly class="form-control" id="sendTo">
+			    		</div>
+			    	</div>
+			    	<div class="form-group row">
+			    		<label class="col-sm-2 col-form-label"><b>Subject: </b></label>
+			    		<div class="col-sm-10">
+			    			<input type="text" class="form-control" value="(This mail is from CQ)" id="emailSubject">
+			    		</div>
+			    	</div>
+			    	<div class="form-group row">
+			    		<div class="col-12">
+			    			<textarea style="resize: none;" cols="30" rows="10" class="form-control" id="textarea" ></textarea>
+			    		</div>
+			    	</div>
+			    </form>
+			  </div>
+			  <div class="modal-footer">
+			    <button type="button" class="btn btn-secondary" id="sendMail" data-dismiss="modal">Send</button>
+			  </div>
+			</div>
+		</div>
+	</div>
+                               </center>
                                 <!-- AFTER MODEL-->
 
 <!--
@@ -243,16 +304,16 @@
 -->
                                         <div class="form-control" id="userlist-icon" style="float:left;">User list
                                         </div>
-                                        <select class="form-control" id="role-btn" style="float:right;margin-left:10px;">
-                                            <option value="all">All</option>
-                                            <option value="admin">Admins</option>
-                                            <option value="user">Users</option>
-                                            <option value="community builder">Community Builder</option>
+                                        <select class="form-control" id="rolebtn" style="float:right;margin-left:10px;width:15%">
+                                            <option >All</option>
+                                            <option >Admin</option>
+                                            <option >User</option>
+                                            <option >Community_Builder</option>
                                         </select>
-                                        <select class="form-control" id="status-btn" style="float:right;margin-left:10px;">
-                                            <option value="all">All</option>
-                                            <option value="pending">Pending</option>
-                                            <option value="confirmed">Confirmed</option>
+                                        <select class="form-control" id="statusbtn" style="float:right;margin-left:10px;width:10%">
+                                            <option value="All">All</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Confirmed">Confirmed</option>
                                         </select>
 
                                         <button id="refresh" class="btn btn-default" style="float:right;background-color: #2D312C;color: #fff;">
@@ -342,14 +403,19 @@
                             {
         window.location="/changepass";
     });
-    var refresh=document.getElementById("refresh");
-    refresh.onclick=function()
+     var community=document.getElementById("community");
+    community.onclick=function()
     {
-        window.location="/userlist";
+        window.location="/communities";
     }
      var switch1=document.getElementById("switch");
      switch1.setAttribute("data-toggle","modal");
     switch1.setAttribute("data-target","#delModal");
+     var yara=document.getElementById("ya");
+    yara.onclick=function()
+    {
+        window.location="/admincommunities";
+    }
     var logout=document.getElementById("logout");
       logout.setAttribute("data-toggle","modal");
     logout.setAttribute("data-target","#delModal1");
@@ -400,164 +466,186 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
-   var myuserId = 1;
-var myuserArr = [];
-var myuserpreviousId;
-var userrole = document.getElementById("role-btn");
-var userstatus = document.getElementById("status-btn");
-var tbody = document.getElementById("table-body");
 
-loadFromServer();
-
-function loadFromServer()
-{
-    var filename = '/getTable';
-    var request = new XMLHttpRequest();
-    request.open('GET',filename);
-    request.send();
-    request.onload = function()
-    {
-        console.log(request.responseText);
-        myuserArr = JSON.parse(request.responseText);
-        if(myuserArr.length == 0)
-        myuserId = 1;
-        else {
-            for(var i in myuserArr)
+    $(document).ready(function() {
+		let table=$('#users-table').DataTable({
+            "lengthMenu":[10,25,50,100],
+			"processing": true,
+			"serverSide": true,
+			"ajax": {
+				"url": "/users",
+				"type": "POST",
+                   "data": function ( d )
             {
-                addEntryToDom(myuserArr[i]);
-                //myuserpreviousId = parseInt(myuserArr[i].id)
+                d.role   = $('#rolebtn').val();
+                d.status = $('#statusbtn').val();
+            },
+			},
+			"columns": [
+			{
+				"data" : "emailid"
+			},
+			{
+				"data" : "phoneno"
+			},
+			{
+				"data" : "city"
+			},
+			{
+				"data" : "status"
+			},
+			{
+				"data" : "role"
+			},
+			{
+				"data" : null
+			},
+			],
+
+            "columnDefs": [{
+            "targets": -1,
+
+            "render": function (data, type, row, meta) {
+                var r = row.role;
+                // console.log(row);
+                                
+                 if(row.emailid!="admin@gmail.com")
+                     {
+                data = '<center><a class="btn btn-primary btn-sm emailbtn actionbtns" data-toggle="modal" data-target="#emailModal" onclick=mailUser("'+row._id+'","'+row.emailid+'") style="background:#000;margin-right:5px;"><span class="fa fa-envelope" style="color:#fff"></span></a><a                  onclick=updateUser("'+row._id+'","'+row.emailid+'","'+row.phoneno+'","'+row.city+'","'+row.status+'","'+row.role+'") class="btn btn-primary btn-sm actionbtns" style="margin-right:5px;" data-toggle="modal" data-target="#editModal" ><span class="fa fa-edit"></span></a>';
+                if(row.restrict==="1")
+                data = data + '<a class="btn btn-warning btn-sm activebtn actionbtns" data-toggle="modal" data-target="#restrict" onclick=changestate("'+row._id+'","'+row.emailid+'","'+row.restrict+'") ><span class="fa fa-times-circle"></span></a></center>';
+                else
+                data = data + '<a class="btn btn-success btn-sm activebtn actionbtns" data-toggle="modal" data-target="#restrict" onclick=changestate("'+row._id+'","'+row.emailid+'","'+row.restrict+'") ><span class="fa fa-check-circle"></span></a></center>';
+                return data;
             }
-            update_table();
-        }
-    }
-}
-
-function addEntryToDom(ob)
-{
-    console.log(ob);
-    var row = document.createElement("tr");
-    var col1 = document.createElement("td");
-    var col2 = document.createElement("td");
-    var col3 = document.createElement("td");
-    var col4 = document.createElement("td");
-    var col5 = document.createElement("td");
-    var col6 = document.createElement("td");
-
-    col1.innerHTML = ob.emailid;
-    col2.innerHTML = ob.phoneno;
-    col3.innerHTML = ob.city;
-    col4.innerHTML = ob.status;
-    col5.innerHTML = ob.role;
-    if(ob.role=="Admin")
-        {
-                var b1 = document.createElement("button");
-    b1.setAttribute("class","btn btn-primary btn-sm action-btn");
-    b1.setAttribute("style","background-color:rgb(0, 0, 0)");
-    var span1 = document.createElement("span");
-    span1.setAttribute("class","fa fa-envelope")
-    span1.setAttribute("style","color:#fff");
-    b1.appendChild(span1);
-    col6.appendChild(b1);
-        }
-    else
-        {
-    var b1 = document.createElement("button");
-    b1.setAttribute("class","btn btn-primary btn-sm action-btn");
-    b1.setAttribute("style","background-color:rgb(0, 0, 0)");
-    var span1 = document.createElement("span");
-    span1.setAttribute("class","fa fa-envelope")
-    span1.setAttribute("style","color:#fff");
-    b1.appendChild(span1);
-    col6.appendChild(b1);
-
-    var b2 = document.createElement("button");
-    b2.setAttribute("class","btn btn-primary btn-sm action-btn");
-    b2.setAttribute("id","editbutton");
-    b2.setAttribute("data-toggle","modal");
-    b2.setAttribute("data-target","#editModal");
-    var span2 = document.createElement("span");
-    span2.setAttribute("class","fa fa-edit")
-    span2.setAttribute("style","color:#fff");
-    b2.appendChild(span2);
-    col6.appendChild(b2);
-    b2.onclick=function(){
-
-        //console.log(ob);
-        console.log(ob.status);
-        console.log(ob.role);
-        var eheading = document.getElementById("eheading");
-        eheading.innerHTML=ob.emailid;
-        var eusername = document.getElementById("eusername");
-        eusername.value = ob.emailid;
-        var ephone = document.getElementById("ephone");
-        ephone.value=ob.phoneno;
-        var ecity = document.getElementById("ecity");
-        ecity.value=ob.city;
-        var estatus = document.getElementById("estatus");
-        estatus.value=ob.status;
-        var erole = document.getElementById("erole");
-        erole.value = ob.role;
-        var ob1=new Object();
-        ob1.old=eusername.value;
+                else
+                    {
+                   data= '<center><a class="btn btn-primary btn-sm emailbtn actionbtns" data-toggle="modal" data-target="#sendmail" style="background:#000"><span class="fa fa-envelope" style="color:#fff"></span></a><center>';
+                return data;
+                    }
+            }
+        }],
+    })
         
-        console.log(estatus.value);
-        console.log(erole.value);
-        var eupdate=document.getElementById("eupdate");
-        eupdate.onclick=function()
+           $('#refresh').on('click', function () {
+        table.ajax.reload(null, false);
+    });
+         $('#rolebtn').on('click', function () {
+        table.ajax.reload(null, false);
+    });
+          $('#statusbtn').on('click', function () {
+        table.ajax.reload(null, false);
+    });
+   })
+    setInterval(function() {
+        if(($("#emailModal").hasClass("in")) == false) {
+            
+                $("#emailSubject").val('');
+                    $(".trumbowyg-editor").html('');
+        }
+    },1000)
+   function mailUser(_id,username)
+    {
+       $('#sendTo').val( username); 
+          $('#sendMail').click(function()
+     {
+         var obj = {
+            _id :  _id,
+           emailid : username,
+           subject : $("#emailSubject").val(),
+           text : $("#textarea").val()
+         }
+         var xhr=new XMLHttpRequest();
+        xhr.open("POST","/mail");
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.send(JSON.stringify(obj));
+        xhr.onload=function()
         {
-            if(eusername.value==""||ephone.value==""||ecity.value==""||estatus.value==""||erole.value=="")
-                alert("Please enter all values");
+        if(xhr.responseText=='1')
+            {
+            alert("Mail send");
+            }
             else
                 {
-                    ob1.id=ob._id;
-                    ob1.emailid=eusername.value;
-                    ob1.phoneno=ephone.value;
-                    ob1.city=ecity.value;
-                    ob1.status=estatus.value;
-                    ob1.role=erole.value;
-                    var xhr=new XMLHttpRequest();
-                    xhr.open("POST","/updateuserlist");
-                    xhr.setRequestHeader("Content-Type","application/json");
-                    xhr.send(JSON.stringify(ob1));
-                    xhr.onload=function()
-                   {
-                    if(xhr.responseText=='1')
-                     alert("Updated Successfully");
-                  }
-             }
+                alert("Mail not send");
                     
-    }
-    }
+                }
         }
-    if(ob.role!="Admin")
-        {
-    var b3 = document.createElement("button");
-    b3.setAttribute("class","btn btn-success btn-sm action-btn");
-    var span3 = document.createElement("span");
-    span3.setAttribute("class","fa fa-check-circle")
-    span3.setAttribute("style","color:#fff");
-    b3.appendChild(span3);
-    col6.appendChild(b3);
-}
-
-    row.appendChild(col1);
-    row.appendChild(col2);
-    row.appendChild(col3);
-    row.appendChild(col4);
-    row.appendChild(col5);
-    row.appendChild(col6);
-
-    tbody.appendChild(row);
-
-
-}
-
-
-function update_table()
+         
+    })
+          
+    }
+    $.trumbowyg.svgPath="trumbowyg.svg" 
+    $("#textarea").trumbowyg();
+   function updateUser(_id,username,phone,city,status,role)
    {
-     $(document).ready(function() {
-       $('#users-table').DataTable();
+       console.log(_id);
+       console.log(username);
+     $('#eheading').html("Update " + username);
+ 		 $('#eusername').val(username);
+ 		 $('#ephone').val(phone);
+ 		 $('#ecity').val(city);
+     $('#estatus').val(status);
+     $('#erole').val(role);
+     $('#eupdate').click(function()
+     {
+         var obj = {
+            _id :  _id,
+           emailid : $("#eusername").val(),
+           phoneno : $("#ephone").val(),
+           city : $("#ecity").val(),
+           status : $("#estatus").val(),
+           role : $("#erole").val()
+         }
+           var xhr=new XMLHttpRequest();
+        xhr.open("POST","/updateuserlist");
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.send(JSON.stringify(obj));
+        xhr.onload=function()
+        {
+        if(xhr.responseText=='1')
+            alert("User updated");
+            window.location="/userlist";
+        }
      })
    }
-</script>
+
+   function changestate(_id,username,state)
+   {
+     var obj;
+     if(state=="1")
+     {
+        $('#headcontent').html("Deactivate User?")
+        $('#paracontent').html("Are you sure you want to Deactivate " + username)
+        obj = {
+          _id : _id,
+          restrict : "0",
+        }
+     }
+     else {
+       $('#headcontent').html("Activate User?")
+       $('#paracontent').html("Are you sure you want to Activate " + username)
+       obj = {
+         _id : _id,
+         restrict : "1",
+       }
+     }
+
+     $('#yesrestrict').click(function()
+     {
+            var xhr=new XMLHttpRequest();
+        xhr.open("POST","/restrict");
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.send(JSON.stringify(obj));
+        xhr.onload=function()
+        {
+        if(xhr.responseText=='1')
+            alert("User Activated");
+            else
+                alert("User Deactivated");
+            window.location="/userlist";
+        }
+     })
+   }
+</script>    
 </html>

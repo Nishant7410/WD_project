@@ -1,0 +1,44 @@
+body{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+}
+#wnavbar
+{
+    background-color: #222D3C;
+    color: #fff;
+    border-radius: 0;
+    border: 0;
+    height: 60px;
+    position: fixed;
+    top:0;
+    width: 100%;
+}
+#roboimg
+{
+    vertical-align: middle;
+    height:200px;
+    transition: 0.2s;
+}
+#roboimg:hover{
+    transform: rotate(360deg);
+}
+#alertDiv
+{
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+*
+{
+    box-sizing: border-box;
+}
+@media (min-width:768px)
+{
+    #roboimg
+    {
+        height: 400px;
+    }
+}

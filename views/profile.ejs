@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>cq</title>
-     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" >
-
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
       <link href="menu.css" rel="stylesheet" type="text/css">
       <link href="sidebar.css" rel="stylesheet" type="text/css">
+<!--
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.9.0/d3.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+-->
+      <%include link.ejs%>
+       
       <!-- BOOTSTRAP 3-->
        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -15,39 +22,20 @@
     </script>
       
       
-      
-	<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
-	<link rel="stylesheet" href="./partials/CQ_files/notie.min.css">
-	<link rel="stylesheet" href="./partials/CQ_files/all.css">
-	<link rel="stylesheet" type="text/css" href="./partials/CQ_files/dataTables.bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./partials/CQ_files/dataTables.fontAwesome.css">
-
-	<link rel="stylesheet" href="./partials/CQ_files/CustomDatatable.css">
-	<link rel="stylesheet" href="./partials/CQ_files/datatable.css">
-
-	<link rel="stylesheet" href="./partials/CQ_files/trumbowyg.css">
-	<link rel="stylesheet" href="./partials/CQ_files/bootstrap.min.css">
-	<script src="./partials/CQ_files/jquery.min.js.download"></script>
-	<script src="./partials/CQ_files/bootstrap.min.js.download"></script>
-	<link rel="stylesheet" href="./partials/CQ_files/jquery-confirm.min.css">
-	<link rel="stylesheet" href="./partials/CQ_files/select2BootstrapTheme.css">
-	<link rel="stylesheet" href="./partials/CQ_files/select2.min.css">
-	<script src="./partials/CQ_files/jquery-confirm.min.js.download"></script>
-	<link rel="stylesheet" href="./partials/CQ_files/style.css">
-	<link rel="stylesheet" href="./partials/CQ_files/sidenav.css">
-	<link rel="stylesheet" href="./partials/CQ_files/CommunityStyle.css">
-	<link rel="stylesheet" href="./partials/CQ_files/CrazyGraphics.css">
-      
-      
        <style>
            .active {
 			background-color: #51a1e2 !important;
 		}
+           #container_id
+           {
+               width:90%; 
+           }
            .content-div{
   margin-top:2%;
 margin-left:50px;
   width: 100%;
 }
+
 .null-link{
   color: black
 }
@@ -64,6 +52,24 @@ margin-left:50px;
       margin-left:0;
     width: 100% !important;
   }
+/*
+    .div-min-width
+    {
+        width:360px;
+    }
+*/
+   #cont
+    {
+        padding:0;
+        margin:0;
+    }
+    #container_id
+           {
+               width:auto;
+           }
+
+
+
 }
            </style>
 </head>
@@ -71,7 +77,7 @@ margin-left:50px;
             <center>
                                     <div id="delModal1" class="modal fade" role = "dialog" style="background:#404F65;opacity:.5;z-index:9999;">
                                         <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
-                                            <div id="move" class="modal-content" style="background:transparent;border:0;box-shadow:0px 0px 0px 0px">
+                                            <div id="move" class="modal-content" style="background:transparent;border:0;box-shadow:0px 0px 0px 0px;z-index:9999">
                                                 <div class="modal-header" style="border-bottom:0">
                                                     <h2 style="color:#FAFBFB" class="modal-title">Confirm Logout</h2>
                                                 </div>
@@ -112,23 +118,22 @@ margin-left:50px;
                                                     <p>Do you really want switch state... </p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-success">Yes</button>
+                                                    <button id="ya" type="button" class="btn btn-success">Yes</button>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </center>
-             <div class="content-div">
-        <div class="container">
-            <div class="card allSidesSoft" style="background:rgb(249, 249, 249);margin-left:10px">
+             <div class="content-div" >
+        <div class="container div-min-width" id="cont">
+            <div class="card allSidesSoft" id="container_id" style="background:rgb(249, 249, 249);margin-left:10px;">
               <div class="card-body">
 
               
                 <div class="d-flex pc">
                     <div class="image-container">
-<!--                        <img src="C:\Users\Nishant\Desktop\project\public\partials\CQ_files/default.png" id="user-profile-image" style="width: 150px; height: 150px" class="img-thumbnail allSidesSoft">-->
-                        <i style="font-size:100px;margin-left:15px" class="fa fa-user"></i>
+                        <img src="<%=product.photoname%>" style="height:150px;width:150px" id="user-profile-image" class="img-thumbnail allSideSoft"/>
                     </div>
                 </div>
               
@@ -139,7 +144,7 @@ margin-left:50px;
                 <br>
             
                 <div class="col-sm-6">
-                  <div class="panel panel-default allSidesSoft panel-main-div">
+                  <div class="panel panel-default panel-main-div">
                     <div class="panel-heading">Email</div>
                     <div class="panel-body"><%=product.emailid%></div>
                   </div>
@@ -148,7 +153,7 @@ margin-left:50px;
 
             
                 <div class="col-sm-6">
-                  <div class="panel panel-default allSidesSoft panel-main-div">
+                  <div class="panel panel-default panel-main-div">
                     <div class="panel-heading">Gender</div>
                     <div class="panel-body" style="text-transform: capitalize;"><%=product.gender%></div>
                   </div>
@@ -157,7 +162,7 @@ margin-left:50px;
 
             
                 <div class="col-sm-6">
-                  <div class="panel panel-default allSidesSoft panel-main-div">
+                  <div class="panel panel-default panel-main-div">
                     <div class="panel-heading">Name</div>
                     <div class="panel-body"><%=product.name%></div>
                   </div>
@@ -166,7 +171,7 @@ margin-left:50px;
 
             
                 <div class="col-sm-6">
-                  <div class="panel panel-default allSidesSoft panel-main-div">
+                  <div class="panel panel-default panel-main-div">
                     <div class="panel-heading">City</div>
                     <div class="panel-body"><%=product.city%></div>
                   </div>
@@ -175,7 +180,7 @@ margin-left:50px;
 
             
                 <div class="col-sm-6">
-                  <div class="panel panel-default allSidesSoft panel-main-div">
+                  <div class="panel panel-default panel-main-div">
                     <div class="panel-heading">D.O.B</div>
                     <div class="panel-body null-link" id="dobtext"><%=product.dob%></div>
                   </div>
@@ -184,7 +189,7 @@ margin-left:50px;
 
             
                 <div class="col-sm-6">
-                  <div class="panel panel-default allSidesSoft panel-main-div">
+                  <div class="panel panel-default panel-main-div">
                     <div class="panel-heading">Phone</div>
                     <div class="panel-body"><%=product.phoneno%></div>
                   </div>
@@ -219,6 +224,13 @@ margin-left:50px;
 
     var element = document.getElementById("rightview");
     element.classList.toggle("set-rightview");
+    
+//    var  arr=full.getElementsByTagName("div");
+//    if(element.style.width==250)
+//    arr[0].classList.add("div-min-width");
+//    else
+//     arr[0].classList.remove("div-min-width");   
+    
 }
     var add=document.getElementById("add");
     add.addEventListener("click",function(event)
@@ -248,9 +260,38 @@ margin-left:50px;
     var switch1=document.getElementById("switch");
      switch1.setAttribute("data-toggle","modal");
     switch1.setAttribute("data-target","#delModal");
+    var ya=document.getElementById("ya");
+    ya.onclick=function()
+    {
+        window.location="/admincommunities";
+    }
+     var community=document.getElementById("community");
+    community.onclick=function()
+    {
+        window.location="/communities";
+    }
     var logout=document.getElementById("logout");
       logout.setAttribute("data-toggle","modal");
     logout.setAttribute("data-target","#delModal1");
+//   logout.addEventListener("click",function(event){
+//       alert('a');
+//        $.confirm({
+//            title: 'Confirm Logout',
+//            boxWidth: '20%',
+//            theme: 'supervan',
+//            backgroundDismissAnimation: 'random',
+//            useBootstrap: false,
+//            content: 'Do you really want logout?',
+//            buttons: {
+//                Yes: function () {
+//                    window.location = '/logout';
+//                },
+//                No: function () {
+//                // $.alert('No');
+//                }
+//            }
+//        });
+//    });
     var yas=document.getElementById("log");
     yas.onclick=function()
     {

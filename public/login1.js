@@ -20,7 +20,11 @@ login.addEventListener("click",function(event){
         if(request.responseText=="1")
             window.location="/profile";
         else if(request.responseText=="-1")
-        alert("User Deactivate");
+        window.location="/deactivate";
+        else if(request.responseText=="new")
+        window.location="/usercommunities";
+        else if(request.responseText=="update")
+            window.location="/firstuser";
          else
                 alert("Invalid username");
     }); 

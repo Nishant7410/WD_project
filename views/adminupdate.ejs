@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>cq</title>
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" >
+        <%include link.ejs%>
+      <link href="menu.css" rel="stylesheet" type="text/css">
+      <link href="sidebar.css" rel="stylesheet" type="text/css">
+      <!-- BOOTSTRAP 3-->
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
+    </script>
+      
+       <style>
+           .active {
+			background-color: #51a1e2 !important;
+		}
+           #container_id
+           {
+               width:90%;
+           }
+           .content-div{
+  margin-top:2%;
+margin-left:50px;
+  width: 100%;
+}
+.null-link{
+  color: black
+}
+.null-link:hover{
+  color:black;
+  text-decoration: none;
+}
+.panel-main-div:hover{
+  box-shadow:0 3px 10px 0 rgba(115,143,147,.2);
+}
+           #changephoto {
+               display: none;
+           }
+          .d-flex:hover #changephoto
+           {
+               
+               display:block !important;
+           }
+@media(max-width: 768px){
+  .content-div{
+    margin-top:0%;
+      margin-left:0;
+    width: 100% !important;
+  }
+/*
+           .div-min-width
+    {
+        width:360px;
+    }
+*/
+   #cont
+    {
+       padding:0;
+    }
+    #container_id
+           {
+               width:auto;
+           }
+}
+           </style>
+</head>
+<body class="body">
+            <center>
+                                    <div id="delModal1" class="modal fade" role = "dialog" style="background:#404F65;opacity:.5;z-index:9999;">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div id="move" class="modal-content" style="background:transparent;border:0;box-shadow:0px 0px 0px 0px">
+                                                <div class="modal-header" style="border-bottom:0">
+                                                    <h2 style="color:#FAFBFB" class="modal-title">Confirm Logout</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p style="color:white">Do you really want logout? </p>
+                                                </div>
+                                                <div class="modal-footer" style="border-top:0;text-align:center">
+                                                    <button id="log" type="button" class="btn btn-default" style="background:#303F53;border:0;color:white;width:28%;height:15%">Yes</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal" style="background:#303F53;border:0;color:white;width:28%;height:15%">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+    <%include partials/menu.html %>
+          <div id="viewscreen">
+          <%include partials/adminsidebar.html %>
+          <div id="rightview">
+
+           <center>
+                                    <div id="delModal" class="modal fade" role = "dialog">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div  class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Switch As Admin</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Do you really want switch state... </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button id="ya" type="button" class="btn btn-success">Yes</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+         <div class="content-div" >
+          <div class="profile-pic-center-main-div mobile">
+              <img src="<%=product.photoname%>" style="width:100px;height:100px;margin-top:52px;border-radius:50%"  >
+</div>
+
+
+<div class="container div-min-width" id="cont">
+  <div style="margin-top:10px;">
+    <div class="col-12">
+          <div class="card allSidesSoft" id="container_id">
+              <div class="card-body">
+                    <div class="d-flex">
+                    <img src="<%=product.photoname%>" id="user-profile-image" style="width: 150px; height: 150px" class="img-thumbnail allSidesSoft" />
+                    <form action="/upload1" enctype="multipart/form-data" style="width:100%" method="POST">
+                     <input type="file" class="btn btn-default btn-sm" style="width:100px;position:absolute;background:transparent;left:3.5%;top:7%;border:0" id="changephoto" name="myImage" accept="image/*" />
+                      <input type="submit" style="float:right;margin-top:110px" class="btn btn-primary" value="Upload Photo"/>
+                  </form>
+                  </div> 
+                  
+                <br />
+                <form >
+                  <div class="panel-group">
+                    <!--Form panel-->
+                    <div class="panel panel-default editUserPanel">
+                      <div class="panel-heading">Basic Info</div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                    <label>Email :</label>
+                                    <input type="text" value=<%=product.emailid%> class="form-control" name="username" disabled="true"  />
+                            </div>
+                            <div class="form-group">
+                                <label>Name :</label>
+                                <input id="name" type="text" value=<%=product.name%> class="form-control" name="fullname" />
+                            </div>
+                            <div class="form-group col-sm-5" style="padding:0">
+                                <label>DOB :</label>
+                                <input id="dob"  class="form-control" value=<%=product.dob%> type="date" name="dob" type="text"/>
+                            </div>
+                            <div class="form-group col-sm-5 col-sm-push-2" style="padding:0">
+                                    <label>Gender :</label>
+                                    <select id="gender" name="gender" class="form-control">
+                                        <optgroup label="Select Gender">
+                                    
+                                        <option value="Male" selected>Male</option>
+                                    
+
+                                    
+                                        <option value="Female">Female</option>
+                    
+                                    
+                                    </optgroup>
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default editUserPanel">
+                      <div class="panel-heading">Contact Info</div>
+                        <div class="panel-body">
+                          <div class="form-group">
+                                  <label>Phone :</label>
+                                  <input id="phoneno" type="text" value=<%=product.phoneno%> class="form-control" name="phone" maxlength="10" />
+                          </div>
+                          <div class="form-group">
+                                  <label>City :</label>
+                                  <input id="city" type="text" value=<%=product.city%> class="form-control" name="city"/>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="panel panel-default editUserPanel">
+                        <div class="panel-heading">Personal Info</div>
+                          <div class="panel-body">
+
+                            <div class="form-group">
+                              <label>Interests :</label>
+                              <input id="interests" class="form-control" placeholder="Enter interests..." type="text" />
+                            </div>
+
+                            <div class="form-group">
+                                    <label>Tell us a bit more about your journey:</label>
+                                    <textarea type="text" class="form-control" ></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                    <label>What are your expectations from the communities?</label>
+                                    <textarea type="text" class="form-control"></textarea>
+                            </div>
+
+                          </div>
+                        </div>
+
+                      <br />
+
+                      <div class="form-group">
+                        
+                              <a id="changepass3" class="btn btn-warning pull-left btnEditForm" style="margin:1px">Change Password</a>
+                        
+                              <a id="cancel" class="btn btn-danger pull-right btnEditForm" style="margin:1px">Cancel</a>
+                              <input id="update" type="button" class="btn btn-primary pull-right btnEditForm" style="margin:1px" value="Update" />
+                      </div>
+
+                    </div>
+                </form>
+              </div>
+         </div>
+      </div>
+  </div>
+</div>
+
+<br />
+
+</div>
+              </div>
+    </div>
+</body>
+<script type="text/javascript">
+     var list = sidebar.getElementsByTagName("li");
+    for(var i = 0;i<list.length;i++) {
+        list[i].classList.remove("active");
+       
+    }
+    function openbar()
+{
+    var element = document.getElementById("viewscreen");
+    element.classList.toggle("toggle-pc");
+
+    var element = document.getElementById("sidebar");
+    element.classList.toggle("sidebar-width");
+
+
+    var element = document.getElementById("rightview");
+    element.classList.toggle("set-rightview");
+}
+    var add=document.getElementById("home");
+    add.addEventListener("click",function(event)
+                        {
+        window.location="/adminprofile";
+    });
+   
+    var add=document.getElementById("communities");
+    add.addEventListener("click",function(event)
+                        {
+        window.location="/admincommunities";
+    });
+     var changepass=document.getElementById("change");
+           changepass.addEventListener("click",function(event)
+                            {
+        window.location="/adminchangepass";
+    });
+    var editbtn=document.getElementById("editbtn");
+    editbtn.addEventListener("click",function(event)
+                            {
+        window.location="/adminedit";
+    });
+     var  cancel=document.getElementById("cancel");
+    cancel.addEventListener("click",function(event)
+                           {
+        window.location="/adminedit";
+    });
+    var switch1=document.getElementById("switch");
+     switch1.setAttribute("data-toggle","modal");
+    switch1.setAttribute("data-target","#delModal");
+     var ya=document.getElementById("ya");
+    ya.onclick=function()
+    {
+        window.location="/profile";
+    }
+    var logout=document.getElementById("logout");
+      logout.setAttribute("data-toggle","modal");
+    logout.setAttribute("data-target","#delModal1");
+    var yas=document.getElementById("log");
+    yas.onclick=function()
+    {
+        location.href="/login.html";
+    }
+     var change1=document.getElementById("changepass3");
+           change1.addEventListener("click",function(event)
+                            {
+        window.location="/adminchangepass";
+    });
+    var update=document.getElementById("update");
+    var name1=document.getElementById("name");
+    var dob=document.getElementById("dob");
+    var gender=document.getElementById("gender");
+    var phoneno=document.getElementById("phoneno");
+    var city=document.getElementById("city");
+    update.addEventListener("click",function(event)
+                           {
+        var ob=new Object();
+        ob.name1=name1.value;
+        ob.dob=dob.value;
+        ob.gender=gender.value;
+        ob.phoneno=phoneno.value;
+        ob.city=city.value;
+        var xhr=new XMLHttpRequest();
+        xhr.open("POST","/changepass2");
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.send(JSON.stringify(ob));
+        xhr.addEventListener("load",function(event)
+                            {
+            if(xhr.responseText=="1")
+                alert("update successfully");
+        });
+        
+    });
+     dragElement(document.getElementById("move"));
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    /* if present, the header is where you move the DIV from:*/
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    /* otherwise, move the DIV from anywhere inside the DIV:*/
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+</script>
+</html>

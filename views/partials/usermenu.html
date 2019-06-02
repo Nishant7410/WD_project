@@ -1,0 +1,35 @@
+<nav id="navbar">
+
+        <div class="container-fluid">
+            <div id="leftpanel" style="float:left;">
+                 <a id="cq" class="navbar-brand" href="#">cq</a>
+
+
+                    <a onclick="openbar()" id="openbox">
+                        <span class="glyphicon glyphicon-th-large"></span>
+                    </a>
+<!--
+                    <span class="label label-success" id="leftadmin" style="background:#5CB85C;">
+                        <%=product.role%>
+                    </span>
+-->
+                        </div>
+            <div id="rightpanel" style="float:right;">
+
+                <img style="float:right;margin-top:10px;margin-right:10px;width:40px;height:40px;border-radius:50%" id="editbtn" src="<%=product.photoname%>" >
+
+
+<!--
+               <span class="label label-success" id="rightadmin" style="float:right;margin-right:20px;background:#5CB85C;">
+                    <%=product.role%>
+                </span>
+-->
+
+                 <span class="label label-warning" id="sadmin" style="float:right;margin-right:20px;background:#F0AD4E;">
+                    <%=product.name%>
+                </span>
+
+            </div>
+        </div>
+
+</nav>

@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>cq</title>
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" >
+
+      <link href="menu.css" rel="stylesheet" type="text/css">
+      <link href="sidebar.css" rel="stylesheet" type="text/css">
+            <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+       <link href="trumbowyg.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+    <script src="trumbowyg.min.js"></script>
+
+          <style>
+              .active {
+			background-color: #51a1e2 !important;
+		}
+             .div-min-width
+{
+    min-width: 360px;
+}
+#userlist-icon
+{
+    border: 2px solid #2D312C;
+    background-color: #2D312C;
+    color: #fff;
+    width: 10%;
+    font-weight: bold;
+    box-shadow:0px 0px 10px grey;
+}
+#rolebtn
+{
+    width:70px;
+    border: 2px solid #2D312C;
+    background-color: #2D312C;
+    color: #fff;
+}
+#statusbtn
+{
+    width:70px;
+    border: 2px solid #2D312C;
+    background-color: #2D312C;
+    color: #fff;
+}
+#main-table
+{
+    border-bottom: 1px solid #111;
+    clear: both;
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+    max-width: none !important;
+    border-collapse: separate !important;
+    box-sizing: content-box;
+}
+.action-btn
+{
+    margin:5px;
+}
+#email-btn
+{
+    background-color: rgb(0, 0, 0);
+}
+/*
+#container-parent
+{
+    margin-left:20px;
+    margin-right:20px;
+}
+*/
+              .table-responsive
+              {
+                  overflow:hidden;
+              }
+               #containerid
+    {
+        margin-left:50px;
+    }
+@media (max-width:768px)
+{
+    #rolebtn
+    {
+        width:14%;
+    }
+    #statusbtn
+    {
+        width:10%;
+    }
+     #containerid
+    {
+        margin-left:0;
+    }
+    .table-responsive
+              {
+                  overflow:auto;
+              }
+    
+/*
+    #container-parent
+    {
+        margin-left: 40px;
+        margin-right: 20px;
+    }
+*/
+
+}
+              
+    </style>
+</head>
+<body class="body">
+    <center>
+                                    <div id="delModal1" class="modal fade" role = "dialog" style="background:#404F65;opacity:.5;z-index:9999;">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div id="move" class="modal-content" style="background:transparent;border:0;box-shadow:0px 0px 0px 0px">
+                                                <div class="modal-header" style="border-bottom:0">
+                                                    <h2 style="color:#FAFBFB" class="modal-title">Confirm Logout</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p style="color:white">Do you really want logout? </p>
+                                                </div>
+                                                <div class="modal-footer" style="border-top:0;text-align:center">
+                                                    <button id="log" type="button" class="btn btn-default" style="background:#303F53;border:0;color:white;width:28%;height:15%">Yes</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal" style="background:#303F53;border:0;color:white;width:28%;height:15%">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+    <%include partials/menu.html%>
+          <div id="viewscreen">
+       <%include partials/sidebar.html %>
+       <div id="rightview">
+        <center>
+                                    <div id="delModal" class="modal fade" role = "dialog">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Switch As User</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Do you really want switch state... </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button id="ya" type="button" class="btn btn-success">Yes</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+         <div class="container-fluid div-min-width" id="containerid" style="padding:0">
+                        <div class="row">
+                            <div class="col-lg-12" style="padding:0">
+                                <div style="margin-left:20px;margin-right:20px;margin-top:1%">
+                                    <!-- MODAL DIVS -->
+                                    <center>
+                                    <div id="editModal" class="modal fade" role="dialog" style="z-index:9999;">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                     <h3 id="eheading" class="modal-title" style="float:left"></h3>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group">
+                                                            <div class="col-lg-5 col-lg-offset-3" style="width:50%;">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Community Name:</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="eusername" placeholder="Username">
+                                                            </div>
+                                                        </div>
+
+                                                        
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Community Status:</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-control" id="estatus">
+                                                                    <option value="Pending">Active</option>
+                                                                    <option value="Deactive">Deactive</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                
+
+                                                        <div class="form-group">
+                                                        
+                                                            <div class="col-sm-10 col-sm-offset-2 pull-left">
+                                                                <button class = "btn btn-default" id="eupdate" style="float:left" data-dismiss="modal">Update</button>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </center>
+                               <center>
+                                   <div class="modal fade" tabindex="-1" role="dialog" id="emailModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header" style="margin-top:20px;">
+            <div class="form-group">
+            <div class="col-sm-3 pull-left">
+                <img src="" style="height:100px;width:100px">
+            </div> 
+			    <p id="header1" class="modal-title" style="float:left;font-size:15px;margin-left:5px;font-weight:bold"></p>
+                  </div>
+			    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			      <span aria-hidden="true">&times;</span>
+			    </button>
+			  </div>
+			  <div class="modal-body">
+			    <form>
+			       <p id="body1" class="modal-title" style="float:left;font-size:15px;margin-bottom:5px;font-weight:bold"></p>
+			    	<div class="form-group row">
+			    		<div class="col-12">
+			    			<textarea style="resize: none;" cols="30" rows="10" class="form-control" id="textarea" ></textarea>
+			    		</div>
+			    	</div>
+			    </form>
+			  </div>
+			  <div class="modal-footer">
+			    <button type="button" class="btn btn-secondary" id="sendMail" data-dismiss="modal">Close</button>
+			  </div>
+			</div>
+		</div>
+	</div>
+                               </center>
+                                <!-- AFTER MODEL-->
+
+<!--
+                                <div id="container-parent">
+                                    <div class="container" style="padding:0;">
+                                        <center>
+                                            <p></p>
+                                        </center>
+-->
+                                        <div class="form-control" id="userlist-icon" style="float:left;">Community list
+                                        </div>
+                                        <select class="form-control" id="statusbtn" style="float:right;margin-left:10px;width:10%">
+                                            <option value="All">All</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Deactive">Deactive</option>
+                                        </select>
+
+                                        <button id="refresh" class="btn btn-default" style="float:right;background-color: #2D312C;color: #fff;">
+                                            <span><i class="glyphicon glyphicon-refresh"></i>
+                                            </span>
+                                            Refresh
+                                        </button>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <div class="table-responsive" >
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <table id="users-table" class="table table-striped table-bordered"  style="display:table;width:100%">
+                                                        <thead>
+
+                                                                <th>Communnity Name</th>
+                                                                <th>Membership Rule</th>
+                                                                <th>Community Location</th>
+                                                                <th>Community Owner</th>
+                                                                <th>Create Date</th>
+                                                                <th>Actions</th>
+                                                                <th>Community Pic</th>
+
+                                                        </thead>
+
+                                                        <tbody id="table-body">
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!--
+</div>
+    </div>
+-->
+</body>
+<script type="text/javascript">
+	var list = sidebar.getElementsByTagName("li");
+     for(var i = 0;i<list.length;i++) {
+        list[i].classList.remove("active");
+        
+    }
+    list[5].classList.add("active");
+		 function openbar()
+{
+    var element = document.getElementById("viewscreen");
+    element.classList.toggle("toggle-pc");
+
+    var element = document.getElementById("sidebar");
+    element.classList.toggle("sidebar-width");
+
+
+    var element = document.getElementById("rightview");
+    element.classList.toggle("set-rightview");
+}
+       var home=document.getElementById("home");
+    home.addEventListener("click",function(event)
+                         {
+        window.location="/profile";
+    });
+    var add=document.getElementById("add");
+    add.addEventListener("click",function(event)
+                        {
+        window.location="/add";
+    });
+    var editbtn=document.getElementById("editbtn");
+    editbtn.addEventListener("click",function(event)
+                            {
+        window.location="/edit";
+    });
+     var createtag=document.getElementById("tagpanel");
+        createtag.addEventListener("click",function(event)
+                                  {
+           window.location="/createtag"; 
+        });
+     var changepass=document.getElementById("change");
+           changepass.addEventListener("click",function(event)
+                            {
+        window.location="/changepass";
+    });
+    var userlt=document.getElementById("userslist");
+    userlt.addEventListener("click",function(event)
+                             {
+        window.location="/userlist";
+    });
+     var switch1=document.getElementById("switch");
+     switch1.setAttribute("data-toggle","modal");
+    switch1.setAttribute("data-target","#delModal");
+     var yara=document.getElementById("ya");
+    yara.onclick=function()
+    {
+        window.location="/admincommunities";
+    }
+    var logout=document.getElementById("logout");
+      logout.setAttribute("data-toggle","modal");
+    logout.setAttribute("data-target","#delModal1");
+    var yas=document.getElementById("log");
+    yas.onclick=function()
+    {
+        location.href="/login.html";
+    }
+     dragElement(document.getElementById("move"));
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    /* if present, the header is where you move the DIV from:*/
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    /* otherwise, move the DIV from anywhere inside the DIV:*/
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+
+//    $(document).ready(function() {
+//		let table=$('#users-table').DataTable({
+//            "lengthMenu":[10,25,50,100],
+//			"processing": true,
+//			"serverSide": true,
+//			"ajax": {
+//				"url": "/",
+//				"type": "POST",
+//                   "data": function ( d )
+//            {
+//                d.role   = $('#rolebtn').val();
+//                d.status = $('#statusbtn').val();
+//            },
+//			},
+//			"columns": [
+//			{
+//				"data" : "emailid"
+//			},
+//			{
+//				"data" : "phoneno"
+//			},
+//			{
+//				"data" : "city"
+//			},
+//			{
+//				"data" : "status"
+//			},
+//			{
+//				"data" : "role"
+//			},
+//			{
+//				"data" : null
+//			},
+//			],
+//
+//            "columnDefs": [{
+//            "targets": -1,
+//
+//            "render": function (data, type, row, meta) {
+//                var r = row.role;
+//                // console.log(row);
+//                                
+//                 if(row.emailid!="admin@gmail.com")
+//                     {
+//                data = '<center><a class="btn btn-primary btn-sm emailbtn actionbtns" data-toggle="modal" data-target="#emailModal" onclick=mailUser("'+row._id+'","'+row.emailid+'") style="background:#000;margin-right:5px;"><span class="fa fa-envelope" style="color:#fff"></span></a><a                  onclick=updateUser("'+row._id+'","'+row.emailid+'","'+row.phoneno+'","'+row.city+'","'+row.status+'","'+row.role+'") class="btn btn-primary btn-sm actionbtns" style="margin-right:5px;" data-toggle="modal" data-target="#editModal" ><span class="fa fa-edit"></span></a>';
+//                if(row.restrict==="1")
+//                data = data + '<a class="btn btn-warning btn-sm activebtn actionbtns" data-toggle="modal" data-target="#restrict" onclick=changestate("'+row._id+'","'+row.emailid+'","'+row.restrict+'") ><span class="fa fa-times-circle"></span></a></center>';
+//                else
+//                data = data + '<a class="btn btn-success btn-sm activebtn actionbtns" data-toggle="modal" data-target="#restrict" onclick=changestate("'+row._id+'","'+row.emailid+'","'+row.restrict+'") ><span class="fa fa-check-circle"></span></a></center>';
+//                return data;
+//            }
+//                else
+//                    {
+//                   data= '<center><a class="btn btn-primary btn-sm emailbtn actionbtns" data-toggle="modal" data-target="#sendmail" style="background:#000"><span class="fa fa-envelope" style="color:#fff"></span></a><center>';
+//                return data;
+//                    }
+//            }
+//        }],
+//    })
+//        
+//           $('#refresh').on('click', function () {
+//        table.ajax.reload(null, false);
+//    });
+//         $('#rolebtn').on('click', function () {
+//        table.ajax.reload(null, false);
+//    });
+//          $('#statusbtn').on('click', function () {
+//        table.ajax.reload(null, false);
+//    });
+//   })
+//    setInterval(function() {
+//        if(($("#emailModal").hasClass("in")) == false) {
+//            
+//                $("#emailSubject").val('');
+//                    $(".trumbowyg-editor").html('');
+//        }
+//    },1000)
+//   function mailUser(_id,username)
+//    {
+//       $('#sendTo').val( username); 
+//          $('#sendMail').click(function()
+//     {
+//         var obj = {
+//            _id :  _id,
+//           emailid : username,
+//           subject : $("#emailSubject").val(),
+//           text : $("#textarea").val()
+//         }
+//         var xhr=new XMLHttpRequest();
+//        xhr.open("POST","/mail");
+//        xhr.setRequestHeader("Content-Type","application/json");
+//        xhr.send(JSON.stringify(obj));
+//        xhr.onload=function()
+//        {
+//        if(xhr.responseText=='1')
+//            {
+//            alert("Mail send");
+//            }
+//            else
+//                {
+//                alert("Mail not send");
+//                    
+//                }
+//        }
+//         
+//    })
+//          
+//    }
+//    $.trumbowyg.svgPath="trumbowyg.svg" 
+//    $("#textarea").trumbowyg();
+//   function updateUser(_id,username,phone,city,status,role)
+//   {
+//       console.log(_id);
+//       console.log(username);
+//     $('#eheading').html("Update " + username);
+// 		 $('#eusername').val(username);
+// 		 $('#ephone').val(phone);
+// 		 $('#ecity').val(city);
+//     $('#estatus').val(status);
+//     $('#erole').val(role);
+//     $('#eupdate').click(function()
+//     {
+//         var obj = {
+//            _id :  _id,
+//           emailid : $("#eusername").val(),
+//           phoneno : $("#ephone").val(),
+//           city : $("#ecity").val(),
+//           status : $("#estatus").val(),
+//           role : $("#erole").val()
+//         }
+//           var xhr=new XMLHttpRequest();
+//        xhr.open("POST","/updateuserlist");
+//        xhr.setRequestHeader("Content-Type","application/json");
+//        xhr.send(JSON.stringify(obj));
+//        xhr.onload=function()
+//        {
+//        if(xhr.responseText=='1')
+//            alert("User updated");
+//            window.location="/userlist";
+//        }
+//     })
+//   }
+//
+//   function changestate(_id,username,state)
+//   {
+//     var obj;
+//     if(state=="1")
+//     {
+//        $('#headcontent').html("Deactivate User?")
+//        $('#paracontent').html("Are you sure you want to Deactivate " + username)
+//        obj = {
+//          _id : _id,
+//          restrict : "0",
+//        }
+//     }
+//     else {
+//       $('#headcontent').html("Activate User?")
+//       $('#paracontent').html("Are you sure you want to Activate " + username)
+//       obj = {
+//         _id : _id,
+//         restrict : "1",
+//       }
+//     }
+//
+//     $('#yesrestrict').click(function()
+//     {
+//            var xhr=new XMLHttpRequest();
+//        xhr.open("POST","/restrict");
+//        xhr.setRequestHeader("Content-Type","application/json");
+//        xhr.send(JSON.stringify(obj));
+//        xhr.onload=function()
+//        {
+//        if(xhr.responseText=='1')
+//            alert("User Activated");
+//            else
+//                alert("User Deactivated");
+//            window.location="/userlist";
+//        }
+//     })
+//   }
+</script>    
+</html>

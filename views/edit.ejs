@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>cq</title>
      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" >
-
+      <%include link.ejs%>
       <link href="menu.css" rel="stylesheet" type="text/css">
       <link href="sidebar.css" rel="stylesheet" type="text/css">
       <!-- BOOTSTRAP 3-->
@@ -15,29 +15,6 @@
     </script>
       
       
-      
-    
-	<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
-	<link rel="stylesheet" href="./partials/CQ_files/notie.min.css">
-	<link rel="stylesheet" href="./partials/CQ_files/all.css">
-	<link rel="stylesheet" type="text/css" href="./partials/CQ_files/dataTables.bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./partials/CQ_files/dataTables.fontAwesome.css">
-
-	<link rel="stylesheet" href="./partials/CQ_files/CustomDatatable.css">
-	<link rel="stylesheet" href="./partials/CQ_files/datatable.css">
-
-	<link rel="stylesheet" href="./partials/CQ_files/trumbowyg.css">
-	<link rel="stylesheet" href="./partials/CQ_files/bootstrap.min.css">
-	<script src="./partials/CQ_files/jquery.min.js.download"></script>
-	<script src="./partials/CQ_files/bootstrap.min.js.download"></script>
-	<link rel="stylesheet" href="./partials/CQ_files/jquery-confirm.min.css">
-	<link rel="stylesheet" href="./partials/CQ_files/select2BootstrapTheme.css">
-	<link rel="stylesheet" href="./partials/CQ_files/select2.min.css">
-	<script src="./partials/CQ_files/jquery-confirm.min.js.download"></script>
-	<link rel="stylesheet" href="./partials/CQ_files/style.css">
-	<link rel="stylesheet" href="./partials/CQ_files/sidenav.css">
-	<link rel="stylesheet" href="./partials/CQ_files/CommunityStyle.css">
-	<link rel="stylesheet" href="./partials/CQ_files/CrazyGraphics.css">
       
       
        <style>
@@ -49,6 +26,11 @@
   margin-left:50px;
   width: 100%;
 }
+                  
+    #container_id
+           {
+               width:90%;
+           }
 .null-link{
   color: black
 }
@@ -65,6 +47,21 @@
       margin-left:0;
     width: 100% !important;
   }
+/*
+    .div-min-width
+    {
+        width:360px;
+    }
+*/
+   #cont
+    {
+        padding:0;
+        margin:0;
+    }
+    #container_id
+           {
+               width:auto;
+           }
 }
            </style>
 </head>
@@ -114,7 +111,7 @@
                                                     <p>Do you really want switch state... </p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-success">Yes</button>
+                                                    <button id="ya" type="button" class="btn btn-success">Yes</button>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                                                 </div>
                                             </div>
@@ -122,28 +119,28 @@
                                     </div>
                                 </center>
              <div class="content-div">
-        <div class="container">
-            <div class="card allSidesSoft" style="background:rgb(249, 249, 249)">
+        <div class="container div-min-width" id="cont">
+            <div class="card allSidesSoft" id="container_id" style="background:rgb(249, 249, 249);margin-left:10px;">
               <div class="card-body">
 
               
                 <div class="d-flex pc">
                     <div class="image-container">
-<!--                        <img src="C:\Users\Nishant\Desktop\project\public\partials\CQ_files/default.png" id="user-profile-image" style="width: 150px; height: 150px" class="img-thumbnail allSidesSoft">-->
-                        <i style="font-size:100px;margin-left:15px" class="fa fa-user"></i>
+                        <img src="<%=product.photoname%>" style="height:150px;width:150px" id="user-profile-image" class="img-thumbnail allSideSoft"/>
                     </div>
                 </div>
               
-
+             
               <div class="col-sm-12">
               <button id="rename" style="float:right" type="button" class="btn btn-primary">Edit</button>
               </div>
+              
 
                 <br>
                 <br>
             
                 <div class="col-sm-6">
-                  <div class="panel panel-default allSidesSoft panel-main-div">
+                  <div class="panel panel-default  panel-main-div">
                     <div class="panel-heading">Email</div>
                     <div class="panel-body"><%=product.emailid%></div>
                   </div>
@@ -152,7 +149,7 @@
 
             
                 <div class="col-sm-6">
-                  <div class="panel panel-default allSidesSoft panel-main-div">
+                  <div class="panel panel-default  panel-main-div">
                     <div class="panel-heading">Gender</div>
                     <div class="panel-body" style="text-transform: capitalize;"><%=product.gender%></div>
                   </div>
@@ -161,7 +158,7 @@
 
             
                 <div class="col-sm-6">
-                  <div class="panel panel-default allSidesSoft panel-main-div">
+                  <div class="panel panel-default panel-main-div">
                     <div class="panel-heading">Name</div>
                     <div class="panel-body"><%=product.name%></div>
                   </div>
@@ -170,7 +167,7 @@
 
             
                 <div class="col-sm-6">
-                  <div class="panel panel-default allSidesSoft panel-main-div">
+                  <div class="panel panel-default panel-main-div">
                     <div class="panel-heading">City</div>
                     <div class="panel-body"><%=product.city%></div>
                   </div>
@@ -179,7 +176,7 @@
 
             
                 <div class="col-sm-6">
-                  <div class="panel panel-default allSidesSoft panel-main-div">
+                  <div class="panel panel-default panel-main-div">
                     <div class="panel-heading">D.O.B</div>
                     <div class="panel-body null-link" id="dobtext"><%=product.dob%></div>
                   </div>
@@ -188,7 +185,7 @@
 
             
                 <div class="col-sm-6">
-                  <div class="panel panel-default allSidesSoft panel-main-div">
+                  <div class="panel panel-default panel-main-div">
                     <div class="panel-heading">Phone</div>
                     <div class="panel-body"><%=product.phoneno%></div>
                   </div>
@@ -257,9 +254,19 @@
     {
         window.location="/userlist";
     }
+     var community=document.getElementById("community");
+    community.onclick=function()
+    {
+        window.location="/communities";
+    }
      var switch1=document.getElementById("switch");
      switch1.setAttribute("data-toggle","modal");
     switch1.setAttribute("data-target","#delModal");
+     var ya=document.getElementById("ya");
+    ya.onclick=function()
+    {
+        window.location="/admincommunities";
+    }
 var logout=document.getElementById("logout");
       logout.setAttribute("data-toggle","modal");
     logout.setAttribute("data-target","#delModal1");

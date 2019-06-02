@@ -39,9 +39,9 @@ html
     z-index: 1000;
     position: fixed;
     left: 250px;
-    width: 0px;;
+    width: 0px;
     height: 100%;
-    margin-left: -250px;
+    margin-left:-250px;
     overflow:hidden;
     background: #000;
     transition: 0.5s;
