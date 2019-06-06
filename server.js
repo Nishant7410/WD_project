@@ -1,135 +1,3 @@
-/*var express = require('express')
-var path = require('path') 
-var app = express()
-
-//Acces static files
-app.use(express.static(path.join(__dirname, 'public')));
-
-//Bodyparser
-app.use(express.urlencoded({extended: true})); 
-app.use(express.json()); 
-
-//Connect with db
-var mongoose = require('mongoose');
-var mongoDB = 'mongodb://localhost/myDB';
-
-mongoose.connect(mongoDB);
-
-mongoose.connection.on('error', (err) => {
-    console.log('DB connection Error');
-});
-
-mongoose.connection.on('connected', (err) => {
-    console.log('DB connected');
-});
-
-var productSchema = new mongoose.Schema({
-    productName: String
-  })
-
-var product =  mongoose.model('Products', productSchema);
-
-// Add in db
-app.post('/:pro',function (req, res) {
-  console.log(req.body);
-  let newProduct = new product({
-    productName: req.body 
-  })
-  newProduct.save()
-   .then(data => {
-     console.log(data)
-     res.send(data)
-   })
-   .catch(err => {
-     console.error(err)
-     res.send(error)
-   })
-  
-})
-
-//Get from DB
-app.get('/products',function(req,res){
-    product.find({
-         // search query
-        // productName: 'mlbTvrndc'  
-    })
-    .then(data => {
-        console.log(data)
-        res.send(data)
-      })
-      .catch(err => {
-        console.error(err)
-        res.send(error)
-      })
-})
-
-
-//
-app.put('/updateProduct',function(req,res){
-    console.log(req.body);
-    product.findOneAndUpdate(
-    {
-        productName: req.body.name  // search query
-    }, 
-    {
-      productName: req.body.nameNew   // field:values to update
-    },
-    {
-      new: true,                       // return updated doc
-      runValidators: true              // validate before update
-    })
-    .then(data => {
-        console.log(data)
-        res.send(data)
-      })
-      .catch(err => {
-        console.error(err)
-        res.send(error)
-      })
-})
-app.put('/updateProduct',function(req,res)
-  {
-    /*
-        console.log(req.body)
-        console.log(req.params.pro)*/
-      /*  var id =  req.params.pro.toString()
-        console.log(id)
-        product.updateOne( { "_id" : id },{ $set : req.body.text } , function(err,result)
-        {
-          if(err)
-          throw err
-          else
-          {
-            res.send("DATA UPDATED SUCCESFULLY")
-          }
-        })
-
-  })
-
-app.delete('/deleteProduct',function(req,res)
-  {
-      var id = req.params.pro.toString();
-      console.log(id);
-      product.deleteOne({ "_id": id },function(err,result)
-      {
-          if(err)
-          throw error
-          else
-          {
-            console.log(result);
-              res.send("data deleted SUCCESFULLY")
-          }
-      });
-  })
-
-app.get('/test',function(req,res){
-    res.send('hello');
-})
-app.listen(3225)*/
-
-
-
-
 
   var express = require('express')
   var path = require('path')
@@ -160,7 +28,10 @@ app.set('view engine','ejs');
   var mongoose = require('mongoose');
   var mongoDB = 'mongodb://localhost/meraDB';
 
-  mongoose.connect(mongoDB);
+  mongoose.connect(mongoDB,{
+      useNewUrlParser: true,
+      useFindAndModify:false
+  });
 
   mongoose.connection.on('error',(err) => {
     console.log('DB connection Error');
@@ -176,7 +47,12 @@ var communityschema=new mongoose.Schema({
     owner:String,
     createdate:String,
     pic:String,
-    desc:String
+    desc:String,
+    id:String,
+    member:Array,
+    join:Array,
+    asktojoin:Array
+    
 })
 var  tagschema=new mongoose.Schema({
     tagname:String,
@@ -197,7 +73,8 @@ var  tagschema=new mongoose.Schema({
       status:String,
       restrict:String,
       first:String,
-      photoname:String
+      photoname:String,
+      create:Array
   })
   var yojna=mongoose.model('community',communityschema);
 var tag=mongoose.model('tags',tagschema);
@@ -263,8 +140,14 @@ app.get('/auth/github/callback',
                   }
               else
                   {
-                      if(data[0].first=="false")          
-                      res.redirect('/usercommunities');        
+                      if(data[0].first=="false")
+                          {
+                               if(data[0].role=="User")
+                                  res.redirect('/simpleusercommunities');
+                              else
+                               res.redirect('/usercommunities');
+                          }
+                              
                       else
                           res.redirect('/firstuser');
                   }
@@ -288,7 +171,7 @@ app.get('/auth/github/callback',
         ob.status="Pending";
         ob.restrict="1";
         ob.first="true";
-        ob.photoname="default.png";
+        ob.photoname="/default.png";
               req.session.islogin=1;
               req.session.name=ob.name;
               req.session.emailid=ob.emailid;
@@ -302,7 +185,7 @@ app.get('/auth/github/callback',
   service: 'gmail',
   auth: {
     user: 'nishantsaini86066@gmail.com',
-    pass: '9728686066'
+    pass: 'password'
   }
 });
 
@@ -338,7 +221,7 @@ var storage = multer.diskStorage({
   destination : './public',
   filename : function(req, file, callback)
   {
-    photoName=file.fieldname + '-' + Date.now() + '@' +path.extname(file.originalname)
+    photoName='/'+file.fieldname + '-' + Date.now() + '@' +path.extname(file.originalname)
       console.log("ye abhi wala consolehai"+photoName);
     callback(null,photoName);
   }
@@ -449,6 +332,7 @@ app.post('/upload1',(req,res) => {
   {
       
       console.log(req.body);
+     
       product.find({
           emailid :req.body.username1,
           password :req.body.pass1
@@ -470,8 +354,13 @@ app.post('/upload1',(req,res) => {
                   }
               else
                   {
-                      if(data[0].first=="false")          
-                      res.send("new");         
+                      if(data[0].first=="false")
+                          {
+                              if(data[0].role=="User")
+                                  res.send("user")
+                              else
+                      res.send("new"); 
+                          }
                       else
                           res.send("update");
                   }
@@ -524,7 +413,7 @@ app.post('/upload1',(req,res) => {
   service: 'gmail',
   auth: {
     user: 'nishantsaini86066@gmail.com',
-    pass: '9728686066'
+    pass: 'password'
   }
 });
 
@@ -560,31 +449,44 @@ app.post('/photo',function (req, res)
              throw error;
              }
         else{
-           // console.log("this is chaling  "+req.file+"   "+req.files+"  "+req.body);
             console.log(req.body);
+             function getMonths(monthno)
+  {
+    var month=["Jan","Feb","Mar","Apr","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    return month[monthno-1];
+  }
+        var date = new Date()
+    console.log(date);
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1;
+    var yyyy = today.getFullYear();
+    today = + dd + '-' + getMonths(mm) + '-' + yyyy;
     var obj=
     {
-    communityname:req.body.communityname,
-    rule:req.body.rule,
-    location:req.body.location,
-    owner:req.body.owner,
-    createdate:req.body.createdate,
+    communityname:req.body.commName,
+    rule:req.body.rate,
+    location:"Not Added",
+    owner:req.session.data.name,
+    createdate:today,
     pic:photoName,    
-    html:req.body.desc        
+    desc:req.body.descArea,
+    id:req.session.data._id   
     }
-//            var obj=
-//    {
-//    communityname:"hii",
-//    rule:"Direct",
-//    location:"not added",
-//    owner:"Superadmin",
-//    createdate:"12-july-2019",
-//    pic:photoName,    
-//    desc:"html"        
-//    }
+            
+//    if(error)
+//        throw error;
+//        })
     let newuser=new yojna(obj);
                  newuser.save().then(result=>{
-                     res.send();
+                     product.findOneAndUpdate({"_id":req.session._id},{$push:{create:result._id}},function(error,result){
+                         if(error)
+                          throw error;
+                               })
+                     if(req.session.data.role=="Superadmin")
+                     res.render('createcommunities',{product:req.session.data});
+                     else
+                     res.render('usercreatecommunities',{product:req.session.data});    
                  });
          }
      });
@@ -607,7 +509,7 @@ app.post('/mail',function (req, res)
   service: 'gmail',
   auth: {
     user: 'nishantsaini86066@gmail.com',
-    pass: '9728686066'
+    pass: 'password'
   }
 });
 
@@ -658,6 +560,60 @@ transporter.sendMail(mailOptions, function(error, info){
       app.get('/getTagTable',function(req,res)
   {
      var data=tag.find({}).exec(function(error,result)
+                               {
+         if(error)
+             throw error;
+         else
+             res.send(JSON.stringify(result));
+     })
+    
+  })
+
+    app.get('/getcommunity',function(req,res)
+  {
+     yojna.find({ $or: [{ id : req.session.data._id },{join : {$in : [req.session.data._id] }},{asktojoin : {$in : [req.session.data._id] }}] }).exec(function(error,result){
+        if(error)
+        throw error;
+        else {
+            res.send(JSON.stringify(result));
+        }
+    })
+    
+  })
+ app.get('/getusercommunity',function(req,res)
+  {
+     yojna.find({ $or: [{join : {$in : [req.session.data._id] }},{asktojoin : {$in : [req.session.data._id] }}] }).exec(function(error,result){
+        if(error)
+        throw error;
+        else {
+            res.send(JSON.stringify(result));
+        }
+    })
+    
+  })
+app.get('/getsearch',function(req,res)
+          { 
+    yojna.find({ $and: [{ id : { $not : { $eq : req.session.data._id }}},{join : {$nin : [req.session.data._id] }},{asktojoin : {$nin : [req.session.data._id] }}] }).exec(function(error,result){
+        if(error)
+        throw error;
+        else {
+            res.send(JSON.stringify(result));
+        }
+    })
+              })
+app.get('/getusersearch',function(req,res)
+       {
+    yojna.find({ $and: [{join : {$nin : [req.session.data._id] }},{asktojoin : {$nin : [req.session.data._id] }}] }).exec(function(error,result){
+        if(error)
+        throw error;
+        else {
+            res.send(JSON.stringify(result));
+        }
+    })
+})
+app.get('/getallcommunity',function(req,res)
+  {
+     var data=yojna.find({}).exec(function(error,result)
                                {
          if(error)
              throw error;
@@ -734,7 +690,7 @@ app.post('/users' , function (req , res)
             }
             else
                 console.log(data);
-                product.countDocuments(function(err , count)
+                product.countDocuments( async function(err , count)
                 {
                     if(err)
                     {
@@ -744,9 +700,75 @@ app.post('/users' , function (req , res)
                     {
                         if (req.body.search.value)
                         {
-                            data = data.filter((value) => {
+                            let sara= await product.find({})
+                            data = sara.filter((value) => {
                                 console.log(value);
                                 return value.emailid.includes(req.body.search.value)||value.phoneno.includes(req.body.search.value)||value.city.includes(req.body.search.value)||value.status.includes(req.body.search.value)||value.role.includes(req.body.search.value)
+                            })
+                        }
+                        res.send({"recordsTotal": count, "recordsFiltered": count, data});
+                    }
+                });
+        })
+
+});
+app.post('/pagination' , function (req , res)
+{
+    // console.log("\n\n\n" + req.body.search.value + "\n\n\n");
+    let query = {};
+    let params={};
+    console.log(req.body.order);
+    if(req.body.rule !== 'All')
+    {
+        query = {rule: req.body.rule}
+    }
+    
+     let sortingType;
+    if(req.body.order[0].dir === 'asc')
+        sortingType = 1;
+    else
+        sortingType = -1;
+
+    if(req.body.order[0].column === '0')
+    {
+        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {communityname : sortingType}}
+    }
+    else if(req.body.order[0].column === '2')
+    {
+        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {location : sortingType}}
+    }
+    else if(req.body.order[0].column === '3')
+    {
+        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {owner : sortingType}}
+    }
+    else if(req.body.order[0].column === '4')
+    {
+        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {createdate : sortingType}}
+    }
+    console.log(params);
+    yojna.find(query ,{},params, function (err , data)
+        {
+            if(err)
+            {
+                console.log(err);
+                return;
+            }
+            else
+                console.log(data);
+                yojna.countDocuments(async function(err , count)
+                {
+                    if(err)
+                    {
+                        console.log(err);
+                    }
+                    else
+                    {
+                        if (req.body.search.value)
+                        {
+                            let sara=await yojna.find({})
+                            data = sara.filter((value) => {
+                                console.log(value);
+                                return value.communityname.includes(req.body.search.value)||value.rule.includes(req.body.search.value)||value.location.includes(req.body.search.value)||value.owner.includes(req.body.search.value)||value.createdate.includes(req.body.search.value)
                             })
                         }
                         res.send({"recordsTotal": count, "recordsFiltered": count, data});
@@ -945,6 +967,19 @@ app.get('/usercommunities',function(req,res)
                   res.redirect("login.html");
               }
 })
+app.get('/simpleusercommunities',function(req,res)
+  {
+          if(req.session.islogin==1){
+              res.render('simpleusercommunities',{
+                  product : req.session.data
+              });
+            
+          }
+          else
+              {
+                  res.redirect("login.html");
+              }
+})
 app.get('/userupdate',function(req,res)
   {
       product.find({
@@ -1086,6 +1121,238 @@ app.get('/taglist',function(req,res)
               }
       })
 })
+app.get('/adminsearch',function(req,res)
+  {
+      product.find({
+          _id: req.session._id,
+      })
+      .then(data=>{
+          if(data.length!=0){
+              res.render('adminsearch',{
+                  product : data[0]
+              });
+            
+          }
+          else
+              {
+                  res.redirect("login.html");
+              }
+      })
+})
+app.get('/admincommunityprofile/:pro',function(req,res)
+  {
+    if(req.session.islogin==1)
+        {
+    var comid=req.params.pro.toString();
+    yojna.findOne({"_id":comid},function(err,result)
+                 {
+        if(err)
+            throw err;
+        else
+            {
+        product.findOne({"_id":result.id},function(err,result1)
+                       {
+            if(err)
+                throw err;
+        else
+        res.render('admincommunityprofile',{product:req.session.data,obj:result,own:result1});
+            }) 
+    }
+    })
+    }
+    else
+  {
+      res.redirect("login.html");
+  }          
+})
+app.get('/usercommunityprofile/:pro',function(req,res)
+  {
+    if(req.session.islogin==1)
+        {
+    var comid=req.params.pro.toString();
+    yojna.findOne({"_id":comid},function(err,result)
+                 {
+        if(err)
+            throw err;
+        else
+            {
+        product.findOne({"_id":result.id},function(err,result1)
+                       {
+            if(err)
+                throw err;
+        else
+        res.render('usercommunityprofile',{product:req.session.data,obj:result,own:result1});
+            }) 
+    }
+    })
+    }
+    else
+  {
+      res.redirect("login.html");
+  }          
+})
+app.get('/adminpersonalprofile/:pro',function(req,res)
+  {
+    if(req.session.islogin==1)
+        {
+    var comid=req.params.pro.toString();
+    product.findOne({"_id":comid},function(err,result)
+                 {
+        if(err)
+            throw err;
+        else
+        res.render('adminpersonalprofile',{product:req.session.data,obj:result});    
+    })
+    }
+    else
+  {
+      res.redirect("login.html");
+  }          
+})
+app.get('/userpersonalprofile/:pro',function(req,res)
+  {
+    if(req.session.islogin==1)
+        {
+    var comid=req.params.pro.toString();
+    product.findOne({"_id":comid},function(err,result)
+                 {
+        if(err)
+            throw err;
+        else
+        res.render('userpersonalprofile',{product:req.session.data,obj:result});    
+    })
+    }
+    else
+  {
+      res.redirect("login.html");
+  }          
+})
+app.get('/adminsetting/:pro',function(req,res)
+  {
+     if(req.session.islogin==1)
+        {
+    var comid=req.params.pro.toString();
+    yojna.findOne({"_id":comid},function(err,result)
+                 {
+        if(err)
+            throw err;
+        else
+        res.render('adminsetting',{product:req.session.data,obj:result});    
+    })
+    }
+    else
+  {
+      res.redirect("login.html");
+  }    
+})
+app.get('/usersetting/:pro',function(req,res)
+  {
+       if(req.session.islogin==1)
+        {
+    var comid=req.params.pro.toString();
+    yojna.findOne({"_id":comid},function(err,result)
+                 {
+        if(err)
+            throw err;
+        else
+        res.render('usersetting',{product:req.session.data,obj:result});    
+    })
+    }
+    else
+  {
+      res.redirect("login.html");
+  }    
+})
+app.get('/adminpersonalprofile',function(req,res)
+  {
+      product.find({
+          _id: req.session._id,
+      })
+      .then(data=>{
+          if(data.length!=0){
+              res.render('adminpersonalprofile',{
+                  product : data[0]
+              });
+            
+          }
+          else
+              {
+                  res.redirect("login.html");
+              }
+      })
+})
+app.get('/userpersonalprofile',function(req,res)
+  {
+      product.find({
+          _id: req.session._id,
+      })
+      .then(data=>{
+          if(data.length!=0){
+              res.render('userpersonalprofile',{
+                  product : data[0]
+              });
+            
+          }
+          else
+              {
+                  res.redirect("login.html");
+              }
+      })
+})
+app.get('/usersearch',function(req,res)
+  {
+      product.find({
+          _id: req.session._id,
+      })
+      .then(data=>{
+          if(data.length!=0){
+              res.render('usersearch',{
+                  product : data[0]
+              });
+            
+          }
+          else
+              {
+                  res.redirect("login.html");
+              }
+      })
+})
+app.get('/simpleusersearch',function(req,res)
+  {
+      product.find({
+          _id: req.session._id,
+      })
+      .then(data=>{
+          if(data.length!=0){
+              res.render('simpleusersearch',{
+                  product : data[0]
+              });
+            
+          }
+          else
+              {
+                  res.redirect("login.html");
+              }
+      })
+})
+app.get('/usercreatecommunities',function(req,res)
+  {
+      product.find({
+          _id: req.session._id,
+      })
+      .then(data=>{
+          if(data.length!=0){
+              res.render('usercreatecommunities',{
+                  product : data[0]
+              });
+            
+          }
+          else
+              {
+                  res.redirect("login.html");
+              }
+      })
+})
 app.get('/userlist',function(req,res)
   {
       product.find({
@@ -1152,6 +1419,46 @@ app.post('/updateuserlist',function(req,res)
        {
     console.log(req.body);
         product.updateOne({"_id":req.body._id},{$set:{"emailid":req.body.emailid,"phoneno":req.body.phoneno,"city":req.body.city,"status":req.body.status,"role":req.body.role}},function(error,result){
+            
+    if(error)
+        throw error;
+        })
+        res.send("1");
+});
+app.post('/updatecommunity',function(req,res)
+       {
+    console.log(req.body);
+        yojna.updateOne({"_id":req.body._id},{$set:{"communityname":req.body.communityname,"rule":req.body.rule}},function(error,result){
+            
+    if(error)
+        throw error;
+        })
+        res.send("1");
+});
+app.post('/userjoin',function(req,res)
+       {
+    console.log(req.body);
+        yojna.findOneAndUpdate({"_id":req.body._id},{$push:{join:req.session._id,member:"1"}},function(error,result){
+            
+    if(error)
+        throw error;
+        })
+        res.send("1");
+});
+app.post('/pending',function(req,res){
+
+    yojna.update({"_id" : req.body._id},{ $pull : {asktojoin : { $in : [req.session.data._id]}}},function(error,result){
+        if(error)
+        throw error;
+        else {
+            res.send("1");
+        }
+    })
+})
+app.post('/userasktojoin',function(req,res)
+       {
+    console.log(req.body);
+        yojna.findOneAndUpdate({"_id":req.body._id},{$push:{asktojoin:req.session._id}},function(error,result){
             
     if(error)
         throw error;

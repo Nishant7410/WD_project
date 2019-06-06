@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>cq</title>
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" >
+      <%include link.ejs%>
+      <link href="/menu.css" rel="stylesheet" type="text/css">
+      <link href="/sidebar.css" rel="stylesheet" type="text/css">
+      <!-- BOOTSTRAP 3-->
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
+    </script>
+      
+       <style>
+           .active {
+			background-color: #51a1e2 !important;
+		}
+          
+                  .content-div{
+                   margin-top:2%;
+                  margin-left:50px;
+                width: 100%;
+                       }
+            #commHeader
+        {
+            background-image: linear-gradient(to bottom, #4ba2b7, #42a6be, #38aac6, #29adcd, #0fb1d5);
+
+        }
+        #first-btn
+        {
+            border: 1px solid #fff !important;
+            color: #fff !important;
+            border-bottom: 4px solid #fff !important;
+            background-color: rgba(255,255,255,0.1) !important;
+            margin-left: 100px;
+        }
+        #search-btn
+        {
+            background-color: rgba(255,255,255,0.1);
+            color: #fff;
+            border: 1px solid #fff;
+        }
+           
+       
+.null-link{
+  color: black
+}
+.null-link:hover{
+  color:black;
+  text-decoration: none;
+}
+.panel-main-div:hover{
+  box-shadow:0 3px 10px 0 rgba(115,143,147,.2);
+}
+            #container_id
+           {
+               width:90%;
+           }
+@media(max-width: 768px){
+  .content-div{
+    margin-top:5%;
+      margin-left:0;
+    width: 100% !important;
+  }
+    #cont
+       {
+        padding:0;
+        margin:0;
+       }    
+
+    #container_id
+           {
+               width:auto;
+           }
+}
+           </style>
+</head>
+<body class="body">
+            <center>
+                                    <div id="delModal1" class="modal fade" role = "dialog" style="background:#404F65;opacity:.5;z-index:9999;">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div id="move" class="modal-content" style="background:transparent;border:0;box-shadow:0px 0px 0px 0px">
+                                                <div class="modal-header" style="border-bottom:0">
+                                                    <h2 style="color:#FAFBFB" class="modal-title">Confirm Logout</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p style="color:white">Do you really want logout? </p>
+                                                </div>
+                                                <div class="modal-footer" style="border-top:0;text-align:center">
+                                                    <button id="log" type="button" class="btn btn-default" style="background:#303F53;border:0;color:white;width:28%;height:15%">Yes</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal" style="background:#303F53;border:0;color:white;width:28%;height:15%">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+    <%include partials/menu.html %>
+          <div id="viewscreen">
+          <%include partials/adminsidebar.html %>
+          <div id="rightview">
+
+           <center>
+                                    <div id="delModal" class="modal fade" role = "dialog">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div  class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Switch As Admin</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Do you really want switch state... </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button id="ya" type="button" class="btn btn-success">Yes</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+                               
+                        <div class="content-div">
+        <div class="container div-min-width" id="cont">
+            <div class="card allSidesSoft" id="container_id" style="background:rgb(249, 249, 249);margin-left:10px;">
+              <div class="card-body">
+
+              
+                <div class="d-flex pc">
+                    <div class="image-container">
+                        <img src="<%=obj.photoname%>" style="height:150px;width:150px" id="user-profile-image" class="img-thumbnail allSideSoft"/>
+                    </div>
+                </div>
+              
+
+              
+
+                <br>
+                <br>
+            
+
+               <div class="col-sm-6">
+                  <div class="panel panel-default panel-main-div">
+                    <div class="panel-heading">Name</div>
+                    <div class="panel-body"><%=obj.name%></div>
+                  </div>
+                </div>
+
+            
+                <div class="col-sm-6">
+                  <div class="panel panel-default panel-main-div">
+                    <div class="panel-heading">Gender</div>
+                    <div class="panel-body" style="text-transform: capitalize;"><%=obj.gender%></div>
+                  </div>
+                </div>
+            
+                <div class="col-sm-6">
+                  <div class="panel panel-default panel-main-div">
+                    <div class="panel-heading">D.O.B</div>
+                    <div class="panel-body null-link" id="dobtext"><%=obj.dob%></div>
+                  </div>
+                </div>
+            
+                <div class="col-sm-6">
+                  <div class="panel panel-default panel-main-div">
+                    <div class="panel-heading">City</div>
+                    <div class="panel-body"><%=obj.city%></div>
+                  </div>
+                </div>
+            
+
+        </div>
+      </div>
+    </div>
+</div>  
+              </div>
+    </div>
+</body>
+<script type="text/javascript">
+     var list = sidebar.getElementsByTagName("li");
+    for(var i = 0;i<list.length;i++) {
+        list[i].classList.remove("active");
+       
+    }
+    function openbar()
+{
+    var element = document.getElementById("viewscreen");
+    element.classList.toggle("toggle-pc");
+
+    var element = document.getElementById("sidebar");
+    element.classList.toggle("sidebar-width");
+
+
+    var element = document.getElementById("rightview");
+    element.classList.toggle("set-rightview");
+}
+    var add=document.getElementById("home");
+    add.addEventListener("click",function(event)
+                        {
+        window.location="/adminprofile";
+    });
+     var changepass=document.getElementById("change");
+           changepass.addEventListener("click",function(event)
+                            {
+        window.location="/adminchangepass";
+    });
+    var editbtn=document.getElementById("editbtn");
+    editbtn.addEventListener("click",function(event)
+                            {
+        window.location="/adminedit";
+    });
+    var add=document.getElementById("communities");
+    add.addEventListener("click",function(event)
+                        {
+        window.location="/admincommunities";
+    });
+    
+    var switch1=document.getElementById("switch");
+     switch1.setAttribute("data-toggle","modal");
+    switch1.setAttribute("data-target","#delModal");
+     var ya=document.getElementById("ya");
+    ya.onclick=function()
+    {
+        window.location="/profile";
+    }
+    var logout=document.getElementById("logout");
+      logout.setAttribute("data-toggle","modal");
+    logout.setAttribute("data-target","#delModal1");
+    var yas=document.getElementById("log");
+    yas.onclick=function()
+    {
+        location.href="/login.html";
+    }
+     dragElement(document.getElementById("move"));
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    /* if present, the header is where you move the DIV from:*/
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    /* otherwise, move the DIV from anywhere inside the DIV:*/
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+</script>
+</html>

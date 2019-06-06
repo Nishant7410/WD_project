@@ -87,13 +87,10 @@ margin-left:50px;
     <%include partials/firstusermenu.html %>
           <div id="viewscreen">
           <div id="rightview">
-
          <div class="content-div" >
           <div class="profile-pic-center-main-div mobile">
-               <img src="<%=product.photoname%>" style="width:100px;height:100px;margin-top:52px;border-radius:50%"  >
+               <img src="<%=product.photoname%>" style="width:100px;height:100px;margin-top:52px;border-radius:50%">
 </div>
-
-
 <div class="container div-min-width" id="cont">
   <div style="margin-top:10px;">
     <div class="col-12">
@@ -204,6 +201,7 @@ margin-left:50px;
 </div>
               </div>
     </div>
+    <p id="vis" style="visibility:hidden"><%=product.role%></p>
 </body>
 <script type="text/javascript">
     
@@ -229,7 +227,10 @@ margin-left:50px;
     var city=document.getElementById("city");
     update.addEventListener("click",function(event)
                            {
-        if(name1.value==""||dob.value==""||gender.value==""||phoneno.value==""||city.value=="")
+       
+       var vis=document.getElementById("vis");
+       
+       if(name1.value==""||dob.value==""||gender.value==""||phoneno.value==""||city.value=="")
             alert("Please fill all values");
         else
             {
@@ -246,7 +247,12 @@ margin-left:50px;
         xhr.onload=function()
         {
             if(xhr.responseText==1)
-        window.location="/usercommunities";
+                {
+             if(vis.innerHTML=="User")
+                 window.location="/simpleusercommunities";
+            else
+               window.location="/usercommunities";
+                }
             else
                 alert("Please Upload photo");
         }

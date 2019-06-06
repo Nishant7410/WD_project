@@ -33,7 +33,7 @@
     border: 2px solid #2D312C;
     background-color: #2D312C;
     color: #fff;
-    width: 10%;
+    width: 11%;
     font-weight: bold;
     box-shadow:0px 0px 10px grey;
 }
@@ -68,6 +68,23 @@
 #email-btn
 {
     background-color: rgb(0, 0, 0);
+}
+              #header1 {
+    margin-left: 3%;
+    margin-top: 7%;
+    font-weight: bold;
+    font-size: 15px;
+    word-wrap: break-word;
+}
+              .well-lg {
+    padding: 24px;
+    border-radius: 6px;
+}
+              .CommunityProfilePic {
+    height: 100px;
+    width: 100px;
+    float: left;
+    box-shadow:0px 0px 10px grey;              
 }
 /*
 #container-parent
@@ -162,91 +179,81 @@
                                 <div style="margin-left:20px;margin-right:20px;margin-top:1%">
                                     <!-- MODAL DIVS -->
                                     <center>
-                                    <div id="editModal" class="modal fade" role="dialog" style="z-index:9999;">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
+                                    <div class="modal fade in" id="editModal" role="dialog" style="z-index: 9999; display:none;">
+    <div class="modal-dialog">
 
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                     <h3 id="eheading" class="modal-title" style="float:left"></h3>
-                                                </div>
+      <div class="modal-content">
+        <div class="modal-header" style="word-wrap:break-word;">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title" id="eheading" style="font-weight:bold;text-align:left"></h4>
+          <p id="pheading" style="font-size:10px;text-align:left"></p>
+        </div>
+        <div class="modal-body">
+        <!------------------------------------------------------------------------------------>
+  <div class="form-horizontal">
+          <div class="form-group">
+            <div class="col-lg-5 col-lg-offset-3" style="width:50%">
+              <input style="display:none" type="text" name="_id" class="form-control" id="_id" readonly="">
+            </div>
+          </div>
 
-                                                <div class="modal-body">
-                                                    <div class="form-horizontal">
-                                                        <div class="form-group">
-                                                            <div class="col-lg-5 col-lg-offset-3" style="width:50%;">
-                                                            </div>
-                                                        </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Commuity Name:</label>
+            <div class="col-sm-10">
+              <input type="text" name="communityName" class="form-control" id="eusername" placeholder="Community Name">
+            </div>
+          </div>
 
-                                                        <div class="form-group">
-                                                            <label class="control-label col-sm-2">Community Name:</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="eusername" placeholder="Username">
-                                                            </div>
-                                                        </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Community Status:</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="estatus" name="communityActive">
+                  <option name="true" value="true">Active</option>
+                  <option name="false" value="false">Deactive</option>
+              </select>
+            </div>
+          </div>
 
-                                                        
-                                                        <div class="form-group">
-                                                            <label class="control-label col-sm-2">Community Status:</label>
-                                                            <div class="col-sm-10">
-                                                                <select class="form-control" id="estatus">
-                                                                    <option value="Pending">Active</option>
-                                                                    <option value="Deactive">Deactive</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                
-
-                                                        <div class="form-group">
-                                                        
-                                                            <div class="col-sm-10 col-sm-offset-2 pull-left">
-                                                                <button class = "btn btn-default" id="eupdate" style="float:left" data-dismiss="modal">Update</button>
-                                                            </div>
-                                                        </div>
-
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                </div>
-                                        </div>
-                                    </div>
-                                </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-default" id="eupdate">Update</button>
+            </div>
+          </div>
+        </div>
+        <!---------------------------------------------------------------------------------->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
                             </center>
                                <center>
-                                   <div class="modal fade" tabindex="-1" role="dialog" id="emailModal">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-			  <div class="modal-header" style="margin-top:20px;">
-            <div class="form-group">
-            <div class="col-sm-3 pull-left">
-                <img src="" style="height:100px;width:100px">
-            </div> 
-			    <p id="header1" class="modal-title" style="float:left;font-size:15px;margin-left:5px;font-weight:bold"></p>
-                  </div>
-			    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			      <span aria-hidden="true">&times;</span>
-			    </button>
-			  </div>
-			  <div class="modal-body">
-			    <form>
-			       <p id="body1" class="modal-title" style="float:left;font-size:15px;margin-bottom:5px;font-weight:bold"></p>
-			    	<div class="form-group row">
-			    		<div class="col-12">
-			    			<textarea style="resize: none;" cols="30" rows="10" class="form-control" id="textarea" ></textarea>
-			    		</div>
-			    	</div>
-			    </form>
-			  </div>
-			  <div class="modal-footer">
-			    <button type="button" class="btn btn-secondary" id="sendMail" data-dismiss="modal">Close</button>
-			  </div>
-			</div>
-		</div>
-	</div>
+                                  <div class="modal fade in" id="emailModal" role="dialog" style="z-index: 9999; display: none;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <div id="shading" style="box-shadow:0px 0px 10px grey"><img id="photo_id" class="CommunityProfilePic allSides" >
+            </div>
+            <p id="header1" style="float:left"></p>
+            <a href="" id="mapLink" target="_blank">
+              <p id="locInfo" style="font-size:15px;float:right;bottom:0;font-weight:bold"></p>
+            </a>
+          </div>
+          <div class="modal-body">
+          <!------------------------------------------------------------------------------------>
+          <p style="font-size:15px;font-weight:bold;text-align:left">Community Description</p><p id="locInfo" style="font-size:15px;float:right"></p>
+          <div id="textarea" class="well well-lg" style="word-wrap: break-word;text-align:left"></div>
+          </div>
+          <!---------------------------------------------------------------------------------->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
                                </center>
                                 <!-- AFTER MODEL-->
 
@@ -261,8 +268,8 @@
                                         </div>
                                         <select class="form-control" id="statusbtn" style="float:right;margin-left:10px;width:10%">
                                             <option value="All">All</option>
-                                            <option value="Active">Active</option>
-                                            <option value="Deactive">Deactive</option>
+                                            <option value="Direct">Direct</option>
+                                            <option value="Permission">Permission</option>
                                         </select>
 
                                         <button id="refresh" class="btn btn-default" style="float:right;background-color: #2D312C;color: #fff;">
@@ -279,7 +286,7 @@
                                                     <table id="users-table" class="table table-striped table-bordered"  style="display:table;width:100%">
                                                         <thead>
 
-                                                                <th>Communnity Name</th>
+                                                                <th>Community Name</th>
                                                                 <th>Membership Rule</th>
                                                                 <th>Community Location</th>
                                                                 <th>Community Owner</th>
@@ -417,185 +424,108 @@ function dragElement(elmnt) {
   }
 }
 
-//    $(document).ready(function() {
-//		let table=$('#users-table').DataTable({
-//            "lengthMenu":[10,25,50,100],
-//			"processing": true,
-//			"serverSide": true,
-//			"ajax": {
-//				"url": "/",
-//				"type": "POST",
-//                   "data": function ( d )
-//            {
-//                d.role   = $('#rolebtn').val();
-//                d.status = $('#statusbtn').val();
-//            },
-//			},
-//			"columns": [
-//			{
-//				"data" : "emailid"
-//			},
-//			{
-//				"data" : "phoneno"
-//			},
-//			{
-//				"data" : "city"
-//			},
-//			{
-//				"data" : "status"
-//			},
-//			{
-//				"data" : "role"
-//			},
-//			{
-//				"data" : null
-//			},
-//			],
-//
-//            "columnDefs": [{
-//            "targets": -1,
-//
-//            "render": function (data, type, row, meta) {
-//                var r = row.role;
-//                // console.log(row);
-//                                
-//                 if(row.emailid!="admin@gmail.com")
-//                     {
-//                data = '<center><a class="btn btn-primary btn-sm emailbtn actionbtns" data-toggle="modal" data-target="#emailModal" onclick=mailUser("'+row._id+'","'+row.emailid+'") style="background:#000;margin-right:5px;"><span class="fa fa-envelope" style="color:#fff"></span></a><a                  onclick=updateUser("'+row._id+'","'+row.emailid+'","'+row.phoneno+'","'+row.city+'","'+row.status+'","'+row.role+'") class="btn btn-primary btn-sm actionbtns" style="margin-right:5px;" data-toggle="modal" data-target="#editModal" ><span class="fa fa-edit"></span></a>';
-//                if(row.restrict==="1")
-//                data = data + '<a class="btn btn-warning btn-sm activebtn actionbtns" data-toggle="modal" data-target="#restrict" onclick=changestate("'+row._id+'","'+row.emailid+'","'+row.restrict+'") ><span class="fa fa-times-circle"></span></a></center>';
-//                else
-//                data = data + '<a class="btn btn-success btn-sm activebtn actionbtns" data-toggle="modal" data-target="#restrict" onclick=changestate("'+row._id+'","'+row.emailid+'","'+row.restrict+'") ><span class="fa fa-check-circle"></span></a></center>';
-//                return data;
-//            }
-//                else
-//                    {
-//                   data= '<center><a class="btn btn-primary btn-sm emailbtn actionbtns" data-toggle="modal" data-target="#sendmail" style="background:#000"><span class="fa fa-envelope" style="color:#fff"></span></a><center>';
-//                return data;
-//                    }
-//            }
-//        }],
-//    })
-//        
-//           $('#refresh').on('click', function () {
-//        table.ajax.reload(null, false);
-//    });
-//         $('#rolebtn').on('click', function () {
-//        table.ajax.reload(null, false);
-//    });
-//          $('#statusbtn').on('click', function () {
-//        table.ajax.reload(null, false);
-//    });
-//   })
-//    setInterval(function() {
-//        if(($("#emailModal").hasClass("in")) == false) {
-//            
-//                $("#emailSubject").val('');
-//                    $(".trumbowyg-editor").html('');
-//        }
-//    },1000)
-//   function mailUser(_id,username)
-//    {
-//       $('#sendTo').val( username); 
-//          $('#sendMail').click(function()
-//     {
-//         var obj = {
-//            _id :  _id,
-//           emailid : username,
-//           subject : $("#emailSubject").val(),
-//           text : $("#textarea").val()
-//         }
-//         var xhr=new XMLHttpRequest();
-//        xhr.open("POST","/mail");
-//        xhr.setRequestHeader("Content-Type","application/json");
-//        xhr.send(JSON.stringify(obj));
-//        xhr.onload=function()
-//        {
-//        if(xhr.responseText=='1')
-//            {
-//            alert("Mail send");
-//            }
-//            else
-//                {
-//                alert("Mail not send");
-//                    
-//                }
-//        }
-//         
-//    })
-//          
-//    }
-//    $.trumbowyg.svgPath="trumbowyg.svg" 
-//    $("#textarea").trumbowyg();
-//   function updateUser(_id,username,phone,city,status,role)
-//   {
-//       console.log(_id);
-//       console.log(username);
-//     $('#eheading').html("Update " + username);
-// 		 $('#eusername').val(username);
-// 		 $('#ephone').val(phone);
-// 		 $('#ecity').val(city);
-//     $('#estatus').val(status);
-//     $('#erole').val(role);
-//     $('#eupdate').click(function()
-//     {
-//         var obj = {
-//            _id :  _id,
-//           emailid : $("#eusername").val(),
-//           phoneno : $("#ephone").val(),
-//           city : $("#ecity").val(),
-//           status : $("#estatus").val(),
-//           role : $("#erole").val()
-//         }
-//           var xhr=new XMLHttpRequest();
-//        xhr.open("POST","/updateuserlist");
-//        xhr.setRequestHeader("Content-Type","application/json");
-//        xhr.send(JSON.stringify(obj));
-//        xhr.onload=function()
-//        {
-//        if(xhr.responseText=='1')
-//            alert("User updated");
-//            window.location="/userlist";
-//        }
-//     })
-//   }
-//
-//   function changestate(_id,username,state)
-//   {
-//     var obj;
-//     if(state=="1")
-//     {
-//        $('#headcontent').html("Deactivate User?")
-//        $('#paracontent').html("Are you sure you want to Deactivate " + username)
-//        obj = {
-//          _id : _id,
-//          restrict : "0",
-//        }
-//     }
-//     else {
-//       $('#headcontent').html("Activate User?")
-//       $('#paracontent').html("Are you sure you want to Activate " + username)
-//       obj = {
-//         _id : _id,
-//         restrict : "1",
-//       }
-//     }
-//
-//     $('#yesrestrict').click(function()
-//     {
-//            var xhr=new XMLHttpRequest();
-//        xhr.open("POST","/restrict");
-//        xhr.setRequestHeader("Content-Type","application/json");
-//        xhr.send(JSON.stringify(obj));
-//        xhr.onload=function()
-//        {
-//        if(xhr.responseText=='1')
-//            alert("User Activated");
-//            else
-//                alert("User Deactivated");
-//            window.location="/userlist";
-//        }
-//     })
-//   }
+    $(document).ready(function() {
+		let table=$('#users-table').DataTable({
+            "lengthMenu":[5,10,25,50,100],
+			"processing": true,
+			"serverSide": true,
+			"ajax": {
+				"url": "/pagination",
+				"type": "POST",
+                   "data": function ( d )
+            {
+                d.rule = $('#statusbtn').val();
+            },
+			},
+			"columns": [
+			{
+				"data" : "communityname"
+			},
+			{
+				"data" : "rule"
+			},
+			{
+				"data" : "location"
+			},
+			{
+				"data" : "owner"
+			},
+			{
+				"data" : "createdate"
+			},
+			{
+				"data" : null
+			},
+            {
+                "data":null  
+            },
+			],
+            "columnDefs":[{
+            "targets":5,
+
+            "render": function (data, type, row, meta) {
+                
+                // console.log(row);
+                                
+                data = `<center><a class="btn btn-primary btn-sm emailbtn actionbtns" data-toggle="modal" data-target="#editModal" onclick=updateUser("${row._id}","${row.owner}","${row.communityname}","${row.createdate}","${row.rule}") style="background:#000;margin-right:5px;"><span class="fa fa-edit" style="color:#fff"></span></a><a                  onclick=mailUser("${row._id}","${row.communityname}","${row.desc}","${row.pic}") class="btn btn-primary btn-sm actionbtns" style="margin-right:5px;background:#000" data-toggle="modal" data-target="#emailModal" ><span class="fa fa-info"></span></a></center>`;
+             
+                return data;
+            }
+        },{
+                "targets":6,
+                 "render": function (data, type, row, meta) {
+               
+                // console.log(row);
+                                
+                 data = `<center><img src="${row.pic}" style="width:80px;height:80px;box-shadow:0px 0px 10px grey"></center>`;
+                return data;
+            }
+            }],
+    })
+        
+           $('#refresh').on('click', function () {
+        table.ajax.reload(null, false);
+    });
+        
+          $('#statusbtn').on('click', function () {
+        table.ajax.reload(null, false);
+    });
+   })
+   
+   function mailUser(_id,communityname,desc,pic)
+    {
+     var photo1=document.getElementById("photo_id");
+      $('#header1').html("Community " + communityname); 
+        photo1.setAttribute("src",pic);
+       $('#textarea').html(desc); 
+         
+    }
+   function updateUser(_id,owner,communityname,createdate,rule)
+   {
+       console.log(_id);
+     $('#eheading').html("Update " + communityname);
+       $('#pheading').html("created by "+owner+", "+createdate);
+ 		 $('#eusername').val(communityname);
+     $('#eupdate').click(function()
+     {
+         var obj = {
+            _id :  _id,
+           communityname : $("#eusername").val(),
+           rule : $("#estatus").val(),
+         }
+           var xhr=new XMLHttpRequest();
+        xhr.open("POST","/updatecommunity");
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.send(JSON.stringify(obj));
+        xhr.onload=function()
+        {
+        if(xhr.responseText=='1')
+            alert("Community updated");
+            window.location="/communities";
+        }
+     })
+   }
+
+   
 </script>    
 </html>

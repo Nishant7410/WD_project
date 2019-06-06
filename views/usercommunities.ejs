@@ -14,10 +14,44 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
     </script>
       
+      
        <style>
            .active {
 			background-color: #51a1e2 !important;
 		}
+           
+           #commHeader
+    {
+        background-image: linear-gradient(to bottom, #4ba2b7, #42a6be, #38aac6, #29adcd, #0fb1d5);
+
+    }
+    #first-btn
+    {
+        border: 1px solid #fff !important;
+        color: #fff !important;
+        border-bottom: 4px solid #fff !important;
+        background-color: rgba(255,255,255,0.1) !important;
+        margin-left: 100px;
+    }
+    #search-btn
+    {
+        background-color: rgba(255,255,255,0.1);
+        color: #fff;
+        border: 1px solid #fff;
+    }
+    #commPanel
+    {
+        border: 0;
+        border-radius: 0;
+        margin-top: 50px;
+        box-shadow: 0 3px 10px 0 rgba(115,143,147,.3)
+    }
+    #panelHeading
+    {
+        border-radius: 0;
+        background-image: linear-gradient(to top, #4ba2b7, #42a6be, #38aac6, #29adcd, #0fb1d5);
+    }
+           
            .content-div{
   margin-top:2%;
 margin-left:50px;
@@ -33,12 +67,20 @@ margin-left:50px;
 .panel-main-div:hover{
   box-shadow:0 3px 10px 0 rgba(115,143,147,.2);
 }
+           #cont
+           {
+               margin-left:35px;
+           }
 @media(max-width: 768px){
   .content-div{
     margin-top:5%;
       margin-left:0;
     width: 100% !important;
   }
+    #cont
+           {
+               margin-left:0;
+           }
 }
            </style>
 </head>
@@ -67,26 +109,61 @@ margin-left:50px;
           <div id="rightview">
 
            <center>
-                                    <div id="delModal" class="modal fade" role = "dialog">
+                                    <div id="pending" class="modal fade" role = "dialog">
                                         <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
                                             <div  class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Switch As Admin</h4>
+                                                <div class="modal-header" style="border-bottom:0">
+                                                    <h4 class="modal-title">Cancel Request</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>Do you really want switch state... </p>
+                                                    <p>Do you really want cancel request... </p>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button id="ya" type="button" class="btn btn-success">Yes</button>
+                                                <div class="modal-footer" style="border-top:0">
+                                                    <button id="canreq" type="button" class="btn btn-success" data-dismiss="modal">Yes</button>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </center>
+          
+      
+                                
+                                <div class="container-fluid" id="cont" style="padding:0;min-width:350px;">
+                            <div class="row">
+                                <div id="commHeader" style="height:50px;padding-top:6px;">
+                                    <div class="col-sm-12">
+                                        <a class="btn" id="first-btn">
+                                            <i class="fa fa-users"></i>
+                                        </a>
+                                        <a class="btn" id="search-btn" style="margin-left:10px;">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                    </div>
+                                </div>
 
+                                <!-- *************  -->
+                                <div class="container" id="container_id">
+                                    <div class="col-sm-12">
+                                        <div class="panel panel-default" id="commPanel">
+                                            <div class="panel-heading" id="panelHeading">
+                                                <p style="color:white;margin-top:6px;font-weight:bold">MY Communities</p>
+                                                 <a class="btn btn-info" style="float:right;margin-top:-35px;border-color:white;" id="createBtn">Create</a>
+                                            </div>
+                                            <div class="panel-body" id="panel-body" style="padding-bottom:0;">
+                                            <div id="first">
+                                            </div>
+                                            <div id="second"></div>
+                                            <div id="third"></div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
               </div>
     </div>
+    <p id="vis" style="visibility:hidden"><%=product._id%></p> 
 </body>
 <script type="text/javascript">
      var list = sidebar.getElementsByTagName("li");
@@ -122,6 +199,21 @@ margin-left:50px;
                             {
         window.location="/useredit";
     });
+    var users=document.getElementById("first-btn");
+    users.addEventListener("click",function(event)
+                        {
+        window.location="/usercommunities";
+    });
+    var createbtn=document.getElementById("createBtn");
+    createbtn.addEventListener("click",function(event)
+    {
+        window.location="/usercreatecommunities";
+    });
+    var searchbtn=document.getElementById("search-btn");
+    searchbtn.onclick=function()
+    {
+        window.location="/usersearch";
+    }
     var logout=document.getElementById("logout");
       logout.setAttribute("data-toggle","modal");
     logout.setAttribute("data-target","#delModal1");
@@ -130,6 +222,222 @@ margin-left:50px;
     {
         location.href="/login.html";
     }
+    
+    var tagArr=[];
+    vis=document.getElementById("vis").innerHTML;
+var parent=document.getElementById("panel-body");
+var first=document.getElementById("first");
+var second=document.getElementById("second");    
+var third=document.getElementById("third");        
+    getTable();
+function getTable()
+{
+    var filename = '/getcommunity';
+    var request = new XMLHttpRequest();
+    request.open('GET',filename);
+    request.send();
+    request.onload = function()
+    {
+        console.log(request.responseText);
+        tagArr = JSON.parse(request.responseText);
+        for(var i in tagArr)
+        {   if(tagArr[i].id==vis)
+            addToDom(tagArr[i]);
+            else if(tagArr[i].rule=="Direct")
+            addToDom1(tagArr[i]);
+          else if(tagArr[i].rule=="Permission")
+            addToDom2(tagArr[i]);
+        }
+    }
+}
+    function addhr(target)
+{
+    var hr = document.createElement("hr");
+    hr.setAttribute("style","color:black;border-width: 1px;")
+    target.appendChild(hr);
+}
+function addToDom(ob)
+{
+    console.log(ob.pic);
+    var parentDiv = document.createElement("div");
+    var div1 = document.createElement("div");
+    var div2 = document.createElement("div");
+    var div3 = document.createElement("div");
+    //var div4 = document.createElement("div");
+    parentDiv.setAttribute("class","col-sm-12 col-xs-12");
+    parentDiv.setAttribute("style","margin-top:5px;");
+
+    addhr(parentDiv);
+
+    div1.setAttribute("class","col-sm-1 col-xs-3");
+    div1.setAttribute("style","padding:5px 4px 10px 10px;");
+    var img = document.createElement("img");
+    img.setAttribute("src",ob.pic);
+    img.setAttribute("style","height: 50px;width: 50px;border: 3px solid #fff;background: rgb(255, 255, 255) !important;box-shadow: 0 0 10px rgba(0,0,0,0.5);")
+    div1.appendChild(img);
+    parentDiv.appendChild(div1);
+
+
+    div2.setAttribute("class","col-sm-10 col-xs-7");
+    div2.setAttribute("style","padding-top:20px ;padding-bottom:5px;");
+    var para = document.createElement("p");
+    para.setAttribute("style","float:left");
+    var a1 = document.createElement("a");
+    a1.innerHTML = ob.communityname;
+    var a2 = document.createElement("a");
+    a2.innerHTML = "(Request)";
+    a2.setAttribute("style","margin-left:10px");
+    para.appendChild(a1);
+    para.appendChild(a2);
+    div2.appendChild(para);
+    parentDiv.appendChild(div2);
+
+    div3.setAttribute("class","col-sm-1 col-xs-2");
+    div3.setAttribute("style","padding-top:10px");
+    var a3 = document.createElement("a");
+    a3.setAttribute("href","/usersetting/"+ob._id);
+    //a3.setAttribute("class","community-short-btn");
+    a3.setAttribute("style","float:right");
+    var label = document.createElement("label");
+    label.setAttribute("class","label label-success");
+    var i1 = document.createElement("i");
+    i1.setAttribute("class","fa fa-cogs");
+    label.appendChild(i1);
+    a3.appendChild(label);
+    div3.appendChild(a3);
+    parentDiv.appendChild(div3);
+
+
+    addhr(parentDiv);
+
+    first.append(parentDiv);
+
+}
+    function addToDom1(ob)
+{
+    console.log(ob.pic);
+    var parentDiv = document.createElement("div");
+    var div1 = document.createElement("div");
+    var div2 = document.createElement("div");
+    var div3 = document.createElement("div");
+    //var div4 = document.createElement("div");
+    parentDiv.setAttribute("class","col-sm-12 col-xs-12");
+    parentDiv.setAttribute("style","margin-top:5px;");
+
+    addhr(parentDiv);
+
+    div1.setAttribute("class","col-sm-1 col-xs-3");
+    div1.setAttribute("style","padding:5px 4px 10px 10px;");
+    var img = document.createElement("img");
+    img.setAttribute("src",ob.pic);
+    img.setAttribute("style","height: 50px;width: 50px;border: 3px solid #fff;background: rgb(255, 255, 255) !important;box-shadow: 0 0 10px rgba(0,0,0,0.5);")
+    div1.appendChild(img);
+    parentDiv.appendChild(div1);
+
+
+    div2.setAttribute("class","col-sm-10 col-xs-7");
+    div2.setAttribute("style","padding-top:20px ;padding-bottom:5px;");
+    var para = document.createElement("p");
+    para.setAttribute("style","float:left");
+    var a1 = document.createElement("a");
+    a1.innerHTML = ob.communityname;
+    var a2 = document.createElement("a");
+    a2.innerHTML = "(Member "+ ((ob.member).length+1)+")";
+    a2.setAttribute("style","margin-left:10px");
+    para.appendChild(a1);
+    para.appendChild(a2);
+    div2.appendChild(para);
+    parentDiv.appendChild(div2);
+
+
+
+    addhr(parentDiv);
+
+    second.append(parentDiv);
+
+}
+    function addToDom2(ob)
+{
+    console.log(ob.pic);
+    var parentDiv = document.createElement("div");
+    var div1 = document.createElement("div");
+    var div2 = document.createElement("div");
+    var div3 = document.createElement("div");
+    //var div4 = document.createElement("div");
+    parentDiv.setAttribute("class","col-sm-12 col-xs-12");
+    parentDiv.setAttribute("style","margin-top:5px;");
+
+    addhr(parentDiv);
+
+    div1.setAttribute("class","col-sm-1 col-xs-3");
+    div1.setAttribute("style","padding:5px 4px 10px 10px;");
+    var img = document.createElement("img");
+    img.setAttribute("src",ob.pic);
+    img.setAttribute("style","height: 50px;width: 50px;border: 3px solid #fff;background: rgb(255, 255, 255) !important;box-shadow: 0 0 10px rgba(0,0,0,0.5);")
+    div1.appendChild(img);
+    parentDiv.appendChild(div1);
+
+
+     div2.setAttribute("class","col-sm-10 col-xs-7");
+    div2.setAttribute("style","padding-top:20px ;padding-bottom:5px;");
+    var para = document.createElement("p");
+    para.setAttribute("style","float:left");
+    var l1=document.createElement("label");
+    l1.setAttribute("class","label label-danger");
+    l1.innerHTML="Pending";        
+    var a1 = document.createElement("a");
+    a1.setAttribute("style","margin-left:15px");        
+    a1.innerHTML = ob.communityname;
+    var a2 = document.createElement("a");
+    a2.innerHTML = "(Member "+ ((ob.member).length+1)+")";
+    a2.setAttribute("style","margin-left:10px");
+    para.appendChild(l1);
+    para.appendChild(a1);
+    para.appendChild(a2);
+    div2.appendChild(para);
+    parentDiv.appendChild(div2);
+            
+    div3.setAttribute("class","col-sm-1 col-xs-2");
+    div3.setAttribute("style","padding-top:10px");
+    var a3 = document.createElement("a");
+    //a3.setAttribute("class","community-short-btn");
+    a3.setAttribute("style","float:right");
+    var label = document.createElement("label");
+    label.setAttribute("type","button");
+    label.setAttribute("data-toggle","modal");
+    label.setAttribute("data-target","#pending");
+    label.setAttribute("class","label label-danger");
+    var i1 = document.createElement("i");
+    i1.setAttribute("class","fa fa-times");
+    label.appendChild(i1);
+    a3.appendChild(label);
+    div3.appendChild(a3);
+    parentDiv.appendChild(div3);
+    
+    label.onclick=function()
+    {
+     var ob1=ob;    
+     var canreq=document.getElementById("canreq");
+     canreq.onclick=function()
+     {
+        var xhr=new XMLHttpRequest();
+        xhr.open("POST","/pending");
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.send(JSON.stringify(ob1));
+        xhr.onload=function()
+        {
+        if(xhr.responseText=='1')
+            alert("Request Cancel");
+            third.removeChild(parentDiv);
+        }
+     }
+    }
+
+    addhr(parentDiv);
+
+    third.append(parentDiv);
+
+}
      dragElement(document.getElementById("move"));
 
 function dragElement(elmnt) {

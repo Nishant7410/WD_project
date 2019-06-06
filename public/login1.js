@@ -23,6 +23,8 @@ login.addEventListener("click",function(event){
         window.location="/deactivate";
         else if(request.responseText=="new")
         window.location="/usercommunities";
+        else if(request.responseText=="user")
+         window.location="/simpleusercommunities";
         else if(request.responseText=="update")
             window.location="/firstuser";
          else

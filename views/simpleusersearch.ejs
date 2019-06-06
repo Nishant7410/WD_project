@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>cq</title>
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" >
+      <%include link.ejs%>
+      <link href="menu.css" rel="stylesheet" type="text/css">
+      <link href="sidebar.css" rel="stylesheet" type="text/css">
+      <!-- BOOTSTRAP 3-->
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
+    </script>
+      
+      
+       <style>
+           .active {
+			background-color: #51a1e2 !important;
+		}
+           
+           #commHeader
+    {
+        background-image: linear-gradient(to bottom, #4ba2b7, #42a6be, #38aac6, #29adcd, #0fb1d5);
+
+    }
+    #first-btn
+    {
+        border: 1px solid #fff !important;
+        color: #fff !important;
+        border-bottom: 4px solid #fff !important;
+        background-color: rgba(255,255,255,0.1) !important;
+        margin-left: 100px;
+    }
+    #search-btn
+    {
+        background-color: rgba(255,255,255,0.1);
+        color: #fff;
+        border: 1px solid #fff;
+    }
+    #commPanel
+    {
+        border: 0;
+        border-radius: 0;
+        margin-top: 50px;
+        box-shadow: 0 3px 10px 0 rgba(115,143,147,.3)
+    }
+    #panelHeading
+    {
+        border-radius: 0;
+        background-image: linear-gradient(to top, #4ba2b7, #42a6be, #38aac6, #29adcd, #0fb1d5);
+    }
+           
+           .content-div{
+  margin-top:2%;
+margin-left:50px;
+  width: 100%;
+}
+.null-link{
+  color: black
+}
+.null-link:hover{
+  color:black;
+  text-decoration: none;
+}
+.panel-main-div:hover{
+  box-shadow:0 3px 10px 0 rgba(115,143,147,.2);
+}
+           #cont
+           {
+               margin-left:35px;
+           }
+@media(max-width: 768px){
+  .content-div{
+    margin-top:5%;
+      margin-left:0;
+    width: 100% !important;
+  }
+    #cont
+           {
+               margin-left:0;
+           }
+     #commHeader
+    {
+        height:100px;
+    }
+    #search_id
+    {
+        margin-right:0;
+    }
+}
+           </style>
+</head>
+<body class="body">
+            <center>
+                                    <div id="delModal1" class="modal fade" role = "dialog" style="background:#404F65;opacity:.5;z-index:9999;">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div id="move" class="modal-content" style="background:transparent;border:0;box-shadow:0px 0px 0px 0px">
+                                                <div class="modal-header" style="border-bottom:0">
+                                                    <h2 style="color:#FAFBFB" class="modal-title">Confirm Logout</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p style="color:white">Do you really want logout? </p>
+                                                </div>
+                                                <div class="modal-footer" style="border-top:0;text-align:center">
+                                                    <button id="log" type="button" class="btn btn-default" style="background:#303F53;border:0;color:white;width:28%;height:15%">Yes</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal" style="background:#303F53;border:0;color:white;width:28%;height:15%">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+    <%include partials/usermenu.html %>
+          <div id="viewscreen">
+          <%include partials/usersidebar.html %>
+          <div id="rightview">
+
+         
+                                
+                                <div class="container-fluid" id="cont" style="padding:0;min-width:350px;">
+                            <div class="row">
+                                <div id="commHeader" style="height:50px;padding-top:6px;">
+                                    <div class="col-sm-12">
+                                        <a class="btn pull-left" id="first-btn">
+                                            <i class="fa fa-users"></i>
+                                        </a>
+                                        <a class="btn pull-left" id="search-btn" style="margin-left:10px;">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                         <div id="search_id" class="col-sm-4 col-sm-push-4 pc" style="float:right;margin-right:450px">
+    <input id="searcheng" class="form-control searchCommunityDiscover" type="text" placeholder="Search Community...">
+  </div>
+                                   
+                                    </div>
+                                </div>
+
+                                <!-- *************  -->
+                                <div class="container">
+                                   <div id="parent" style="margin-top:10px"> 
+                                   
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
+
+              </div>
+    </div>
+     <p id="vis" style="visibility:hidden"><%=product._id%></p>
+</body>
+<script type="text/javascript">
+     var list = sidebar.getElementsByTagName("li");
+    for(var i = 0;i<list.length;i++) {
+        list[i].classList.remove("active");
+       
+    }
+     list[3].classList.add("active");
+    function openbar()
+{
+    var element = document.getElementById("viewscreen");
+    element.classList.toggle("toggle-pc");
+
+    var element = document.getElementById("sidebar");
+    element.classList.toggle("sidebar-width");
+
+
+    var element = document.getElementById("rightview");
+    element.classList.toggle("set-rightview");
+}
+    var add=document.getElementById("home");
+    add.addEventListener("click",function(event)
+                        {
+        window.location="/userprofile";
+    });
+     var changepass=document.getElementById("change");
+           changepass.addEventListener("click",function(event)
+                            {
+        window.location="/userchangepass";
+    });
+    var editbtn=document.getElementById("editbtn");
+    editbtn.addEventListener("click",function(event)
+                            {
+        window.location="/useredit";
+    });
+    var add=document.getElementById("communities");
+    add.addEventListener("click",function(event)
+                        {
+        window.location="/usercommunities";
+    });
+    var users=document.getElementById("first-btn");
+    users.addEventListener("click",function(event)
+                        {
+        window.location="/simpleusercommunities";
+    });
+     var add=document.getElementById("communities");
+    add.addEventListener("click",function(event)
+                        {
+        window.location="/simpleusercommunities";
+    });
+    var logout=document.getElementById("logout");
+      logout.setAttribute("data-toggle","modal");
+    logout.setAttribute("data-target","#delModal1");
+    var yas=document.getElementById("log");
+    yas.onclick=function()
+    {
+        location.href="/login.html";
+    }
+    var vis=document.getElementById("vis");
+    var tagArr=[];
+var parent=document.getElementById("parent");
+    document.getElementById('searcheng').onkeyup=function()
+{
+        document.getElementById('parent').innerHTML=""
+        var val=document.getElementById('searcheng').value;
+        console.log(val)
+        for(j in tagArr)
+        {     
+            if((tagArr[j].communityname).includes(val)) 
+            {
+                 console.log("klkl")
+               // console.log(commArr[j])
+                addToDom(tagArr[j]);
+            }
+        }
+}
+    getTable();
+function getTable()
+{
+    var filename = '/getusersearch';
+    var request = new XMLHttpRequest();
+    request.open('GET',filename);
+    request.send();
+    request.onload = function()
+    {
+        console.log(request.responseText);
+        tagArr = JSON.parse(request.responseText);
+        for(var i in tagArr)
+       {
+            addToDom(tagArr[i]);
+        }
+    }
+}
+function addToDom(ob)
+{
+
+    console.log(ob);
+    
+    var parentDiv = document.createElement("div");
+    parentDiv.setAttribute("class","container");
+
+    var wrapperdiv =  document.createElement("div");
+    wrapperdiv.setAttribute("class","panel panel-default");
+    wrapperdiv.setAttribute("style","box-shadow: 0 3px 10px 0 rgba(115,143,147,.3);")
+
+    var div1 = document.createElement("div");
+    div1.setAttribute("class","panel-body");
+    div1.setAttribute("style","padding:0;padding-top:20px");
+    
+    var a1=document.createElement("a");
+    a1.setAttribute("href","/usercommunityprofile/"+ob._id);
+    var div11 = document.createElement("div");
+    div11.setAttribute("class","col-sm-2 col-xs-3 col-lg-1 col-md-2");
+    var img = document.createElement("img");
+    img.setAttribute("src",ob.pic);
+    img.setAttribute("style","height: 50px;width: 50px;border: 3px solid #fff;background: rgb(255, 255, 255) !important;box-shadow: 0 0 10px rgba(0,0,0,0.5);")
+    a1.append(img);
+    div11.appendChild(a1);
+    div1.appendChild(div11);
+
+
+    var div12 = document.createElement("div");
+    div12.setAttribute("class","col-sm-8 col-xs-6 col-lg-8 col-md-8");
+    var a12 = document.createElement("a");
+    a12.setAttribute("href","/usercommunityprofile/"+ob._id)
+    a12.setAttribute("style","font-size:20px;font-weight:bold");
+    a12.innerHTML = ob.communityname;
+    div12.appendChild(a12);
+    div1.appendChild(div12);
+
+    var div13 = document.createElement("div");
+    div13.setAttribute("class","col-sm-2 col-xs-3 col-lg-3 col-md-2");
+    div13.setAttribute("style","padding:15px 10px 0px 10px");
+    var div131 = document.createElement("div");
+    var btn = document.createElement("button");
+    btn.setAttribute("class","btn btn-primary btn-sm pull-right");
+    if(ob.rule=="Direct")
+    btn.innerHTML = "JOIN";
+    else if(ob.rule=="Permission"){
+        btn.innerHTML = "ASK TO JOIN";
+    }
+    div131.appendChild(btn);
+    div13.appendChild(div131);
+    div1.appendChild(div13);
+
+    wrapperdiv.appendChild(div1);
+         btn.addEventListener("click",function(event)
+                         {
+        console.log("in join");
+    if(event.target.innerHTML=="JOIN")
+        {
+            console.log("inner join");
+           var xhr=new XMLHttpRequest();
+        xhr.open("POST","/userjoin");
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.send(JSON.stringify(ob));
+        xhr.onload=function()
+        {
+        if(xhr.responseText=='1')
+            alert("User Join");
+           parentDiv.removeChild(wrapperdiv);
+        } 
+        }
+        
+        else if(event.target.innerHTML=="ASK TO JOIN")
+            {
+                var xhr=new XMLHttpRequest();
+               xhr.open("POST","/userasktojoin");
+               xhr.setRequestHeader("Content-Type","application/json");
+               xhr.send(JSON.stringify(ob));
+               xhr.onload=function()
+                {
+                if(xhr.responseText=='1')
+                alert("User Ask To Join");
+                parentDiv.removeChild(wrapperdiv);
+                }  
+            }
+         });
+    var div2 = document.createElement("div");
+    div2.setAttribute("class","panel-body");
+    div2.setAttribute("style","padding:10px 0 10px 0");
+
+    var div21 = document.createElement("div");
+    div21.setAttribute("class","col-sm-12 col-xs-12 col-lg-12 col-md-12");
+    var p21 = document.createElement("p");
+    p21.setAttribute("id","memeberpara");
+    p21.innerHTML = ((ob.member).length+1)+" Members";
+    div21.appendChild(p21);
+    div2.appendChild(div21);
+
+    var div22 = document.createElement("div");
+    div22.setAttribute("class","col-sm-12 col-xs-12 col-lg-12 col-md-12");
+    var p22 = document.createElement("p");
+    p22.setAttribute("id","descpara");
+    p22.innerHTML = ob.desc;
+    div22.appendChild(p22);
+    div2.appendChild(div22);
+
+
+    wrapperdiv.appendChild(div1);
+    wrapperdiv.appendChild(div2);
+
+    parentDiv.appendChild(wrapperdiv);
+    parent.appendChild(parentDiv);
+
+
+
+
+}
+     dragElement(document.getElementById("move"));
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    /* if present, the header is where you move the DIV from:*/
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    /* otherwise, move the DIV from anywhere inside the DIV:*/
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+</script>
+</html>

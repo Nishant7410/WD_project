@@ -195,53 +195,17 @@
                         {
         window.location="/admincommunities";
     });
-//    var uploadimage=document.getElementById("form_id");
-//    uploadimage.addEventListener("submit",function(e)
-//                                {
-//        e.preventDefault();
-//        console.log("hii i am submitting")
-//        e = e.target.elements
-//        console.log(e.commName.value);
-//        
-//        var commname=e.commName;
-//        var desc=e.descArea;
-//        var rule=e.rate;
-//        var image = e.myImage;
-//        console.log(image.value);
-//        console.log(desc.value+"    "+rule.value);
-//        if(commname.value==""||desc.value==""||rule.value=="")
-//            alert("Please enter all values");
-//        else
-//            {
-//         function getMonths(monthno)
-//  {
-//    var month=["Jan","Feb","Mar","Apr","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-//    return month[monthno-1];
-//  }
-//        var date = new Date()
-//    console.log(date);
-//    var today = new Date();
-//    var dd = today.getDate();
-//    var mm = today.getMonth()+1;
-//    var yyyy = today.getFullYear();
-//    today = + dd + '-' + getMonths(mm) + '-' + yyyy;
-//        var ob=
-//        {
-//        communityname:commname.value,
-//        rule:rule.value,
-//        location:"Not Added",
-//        owner:"Superadmin",
-//        createdate: today,
-//        desc:desc.value    
-//        }
-//        var xhr=new XMLHttpRequest();
-//        xhr.open("POST","/photo");
-//        xhr.setRequestHeader("Content-Type","application/json");
-//        xhr.send(JSON.stringify(ob));
-//        
-//        }
-//    });
-//   
+    var users=document.getElementById("first-btn");
+    users.addEventListener("click",function(event)
+                        {
+        window.location="/admincommunities";
+    });
+    var searchbtn=document.getElementById("search-btn");
+    searchbtn.onclick=function()
+    {
+        window.location="/adminsearch";
+    }
+    
     var switch1=document.getElementById("switch");
      switch1.setAttribute("data-toggle","modal");
     switch1.setAttribute("data-target","#delModal");

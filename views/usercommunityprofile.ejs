@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>cq</title>
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" >
+      <%include link.ejs%>
+      <link href="/menu.css" rel="stylesheet" type="text/css">
+      <link href="/sidebar.css" rel="stylesheet" type="text/css">
+      <!-- BOOTSTRAP 3-->
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
+    </script>
+      
+       <style>
+           .active {
+			background-color: #51a1e2 !important;
+		}
+            #commHeader
+    {
+        background-image: linear-gradient(to bottom, #4ba2b7, #42a6be, #38aac6, #29adcd, #0fb1d5);
+
+    }
+    #first-btn
+    {
+        border: 1px solid #fff !important;
+        color: #fff !important;
+        border-bottom: 4px solid #fff !important;
+        background-color: rgba(255,255,255,0.1) !important;
+        margin-left: 100px;
+    }
+    #search-btn
+    {
+        background-color: rgba(255,255,255,0.1);
+        color: #fff;
+        border: 1px solid #fff;
+    }
+    #commPanel
+    {
+        border: 0;
+        border-radius: 0;
+        margin-top: 50px;
+        box-shadow: 0 3px 10px 0 rgba(115,143,147,.3)
+    }
+    #panelHeading
+    {
+        border-radius: 0;
+        background-image: linear-gradient(to top, #4ba2b7, #42a6be, #38aac6, #29adcd, #0fb1d5);
+    }
+          
+           .content-div{
+  margin-top:2%;
+margin-left:50px;
+  width: 100%;
+}
+.null-link{
+  color: black
+}
+.null-link:hover{
+  color:black;
+  text-decoration: none;
+}
+.panel-main-div:hover{
+  box-shadow:0 3px 10px 0 rgba(115,143,147,.2);
+}
+           #cont
+           {
+               margin-left:50px;
+           }
+@media(max-width: 768px){
+  .content-div{
+    margin-top:5%;
+      margin-left:0;
+    width: 100% !important;
+  }
+    #cont
+           {
+               margin-left:0;
+           }
+}
+           </style>
+</head>
+<body class="body">           
+            <center>
+                                    <div id="delModal1" class="modal fade" role = "dialog" style="background:#404F65;opacity:.5;z-index:9999;">
+                                        <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
+                                            <div id="move" class="modal-content" style="background:transparent;border:0;box-shadow:0px 0px 0px 0px">
+                                                <div class="modal-header" style="border-bottom:0">
+                                                    <h2 style="color:#FAFBFB" class="modal-title">Confirm Logout</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p style="color:white">Do you really want logout? </p>
+                                                </div>
+                                                <div class="modal-footer" style="border-top:0;text-align:center">
+                                                    <button id="log" type="button" class="btn btn-default" style="background:#303F53;border:0;color:white;width:28%;height:15%">Yes</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal" style="background:#303F53;border:0;color:white;width:28%;height:15%">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
+                                    
+    <%include partials/usermenu.html %>
+          <div id="viewscreen">
+          <%include partials/usersidebar.html %>
+          <div id="rightview">
+
+          
+                           <div class="container-fluid page-content-div" style="padding:0;min-width:350px" id="cont">
+            <div class="row">
+               <div class="col-lg-12 scoll-possible" style="padding:0">
+
+
+
+  
+  <div class="community-header-top communityheader-profile-mobile" style="padding-top:6px;position:relative;">
+    <div class="container pc">
+    
+          
+              
+                  <button onclick="join('<%=obj._id%>')" class="btn btn-info community-panel-btn requestBtn joinBtn" id="0" style="float:right"> <i class="fa fa-ask"></i></button>
+               
+          
+    
+</div>
+    <center>
+        <div class="communityprofile-name-mobile" style="max-height:40px;overflow:scroll">
+          <a href="/usercommunityprofile/<%=obj._id%>"+ style="color:white">
+             <%=obj.communityname%>
+          </a>
+        </div>
+    </center>
+
+    <center>
+      <a href="/usercommunityprofile/<%=obj._id%>">
+        <img src="<%=obj.pic%>" class="mobile img-communityprofile-pic allSides" style="background:#fff">
+      </a>
+    </center>
+
+</div>
+
+<div class="container community-profile-conatiner">
+<div class="col-sm-2 col-xs-12 center-mobile pc">
+<a href="/usercommunityprofile/<%=obj._id%>">
+  <img src="<%=obj.pic%>" class="img-communityprofile-pic allSides" style="background:#fff">
+</a>
+</div>
+
+<div class="col-sm-8 communityprofile-name-pc communityprofile-system">
+  <a href="/usercommunityprofile/<%=obj._id%>" class="communityprofile-name-pc">
+  <%=obj.communityname%>
+  </a>
+</div>
+
+
+</div>
+<center>
+    <hr style="border-top:2px solid #E6E6E6;width:85%;margin-top:0">
+</center>
+
+<style>
+  .child-reply-input{
+    display: none !important;
+  }
+</style>
+<link rel="stylesheet" href="/stylesheets/Discussion.css">
+<div class="container" style="width:94% !important">
+      
+    <div class="col-sm-3 col-xs-12">
+      <div class="panel panel-default allSidesSoft" style="border-radius:0">
+        
+        <div class="panel-body" style="border:0;border-radius:0">
+          
+              <div class="col-sm-12 col-xs-12 center-all">
+                
+                      
+        
+                              <button onclick="join('<%=obj._id%>')" class="btn btn-primary requestBtn joinBtn" id="0"><i class="fa fa-ask"></i></button>
+                           
+                      
+                
+              </div>
+          
+        </div>
+        <div class="panel-footer community-panel-sideBtn-link">
+          
+            <p class="center-all" style="margin:0">
+             <%=((obj.member).length+1)%> Members
+            </p>
+          
+        </div>
+      </div>
+
+        <div class="panel panel-default allSidesSoft" style="border-radius:0">
+          <div class="panel-heading" style="border:0;border-radius:0">
+            Community Managers
+          </div>
+          <div class="panel-body" style="border:0;border-radius:0">
+            <div id="commuity-owner-detail">
+              <!--Owner Info-->
+            <div class="col-sm-12 col-md-12 col-lg-12 adminInfo">  <div class="col-sm-6 col-md-6 col-lg-4 col-xs-4 center-all">      <a href="/userpersonalprofile/<%=obj.id%>"><img src="<%=own.photoname%>" class="adminPic allSides"></a>  </div><div class="col-sm-6 col-md-6 col-lg-8 col-xs-8 adminContent" style="padding:0">  <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" style="padding:0">    <span class="label label-success" style="margin-top:10px;">Owner</span>  </div>   <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" style="overflow:scroll;padding:0;">     <a href="/userpersonalprofile/<%=obj.id%>"><%=obj.owner%></a>   </div></div></div></div>
+            <div id="commuity-admins-detail">
+              <!--Admin Info-->
+            </div>
+          </div>
+        </div>
+    </div>
+    <style>
+      .full-description{
+        display:none;
+      }
+      .less-description-btn{
+        display: none;
+      }
+    </style>
+    <div class="col-sm-8 col-xs-12 separator-community-admin" style="padding:0 10px 10px 10px;">
+
+      <div class="panel panel-default allSidesSoft" style="border-radius:0">
+        <div class="panel-heading center-all" style="border:0;border-radius:0">
+          About Community
+        </div>
+        <div class="panel-body" style="border:0;border-radius:0;overflow:scroll">
+          
+          
+              <p class="short-description center-all">
+               <%=obj.desc%>
+                
+              </p>
+              <div class="full-description">
+             <%=obj.desc%>
+              </div>
+          
+        </div>
+        
+      </div>
+
+        <div class="col-sm-12" id="needGlobalInProfile" style="padding:0">
+            <!--Here global will come-->
+        </div>
+    </div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+              </div>
+    </div>
+    <p id="vis" style="visibility:hidden"><%=product.role%></p>
+    <p id="vis1" style="visibility:hidden"><%=obj.rule%></p>
+</body>
+<script type="text/javascript">
+     var list = sidebar.getElementsByTagName("li");
+    for(var i = 0;i<list.length;i++) {
+        list[i].classList.remove("active");
+       
+    }
+     list[3].classList.add("active");
+    function openbar()
+{
+    var element = document.getElementById("viewscreen");
+    element.classList.toggle("toggle-pc");
+
+    var element = document.getElementById("sidebar");
+    element.classList.toggle("sidebar-width");
+
+
+    var element = document.getElementById("rightview");
+    element.classList.toggle("set-rightview");
+}
+    var add=document.getElementById("home");
+    add.addEventListener("click",function(event)
+                        {
+        window.location="/userprofile";
+    });
+     var changepass=document.getElementById("change");
+           changepass.addEventListener("click",function(event)
+                            {
+        window.location="/userchangepass";
+    });
+    var editbtn=document.getElementById("editbtn");
+    editbtn.addEventListener("click",function(event)
+                            {
+        window.location="/useredit";
+    });
+    var add=document.getElementById("communities");
+    add.addEventListener("click",function(event)
+                        {
+        if(document.getElementById("vis").innerHTML=="User")
+            window.location="/simpleusercommunities";
+        else
+        window.location="/usercommunities";
+    });
+    
+    var logout=document.getElementById("logout");
+      logout.setAttribute("data-toggle","modal");
+    logout.setAttribute("data-target","#delModal1");
+    var yas=document.getElementById("log");
+    yas.onclick=function()
+    {
+        location.href="/login.html";
+    }
+    var btn=document.getElementsByClassName("joinBtn");
+    var vis1=document.getElementById("vis1");
+    if(vis.innerHTML=="Direct")
+        {
+        for(var i=0;i<btn.length;i++)    
+        btn[i].innerHTML="JOIN";
+        }
+    else
+        {
+        for(var i=0;i<btn.length;i++) 
+        btn[i].innerHTML="ASK TO JOIN";
+        }   
+     function join(id)
+    {
+     if(btn[0].innerHTML=="JOIN")
+        {
+            console.log("inner join");
+            var ob=new Object();
+            ob._id=id;
+           var xhr=new XMLHttpRequest();
+        xhr.open("POST","/userjoin");
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.send(JSON.stringify(ob));
+        xhr.onload=function()
+        {
+        if(xhr.responseText=='1')
+            alert("User Join");
+        } 
+        }
+        
+        else if(btn[0].innerHTML=="ASK TO JOIN")
+            {
+                var ob=new Object();
+                ob._id=id;
+                btn[0].innerHTML="REQUESTED";
+                btn[1].innerHTML="REQUESTED";
+                var xhr=new XMLHttpRequest();
+               xhr.open("POST","/userasktojoin");
+               xhr.setRequestHeader("Content-Type","application/json");
+               xhr.send(JSON.stringify(ob));
+               xhr.onload=function()
+                {
+                if(xhr.responseText=='1')
+               alert("User Ask To Join");
+                }  
+            }
+    }
+     dragElement(document.getElementById("move"));
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    /* if present, the header is where you move the DIV from:*/
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    /* otherwise, move the DIV from anywhere inside the DIV:*/
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+</script>
+</html>

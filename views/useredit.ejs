@@ -64,6 +64,7 @@ margin-left:50px;
            </style>
 </head>
 <body class="body">
+           
             <center>
                                     <div id="delModal1" class="modal fade" role = "dialog" style="background:#404F65;opacity:.5;z-index:9999;">
                                         <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
@@ -194,6 +195,7 @@ margin-left:50px;
 </div>
               </div>
     </div>
+    <p id="vis" style="visibility:hidden"><%=product.role%></p>
 </body>
 <script type="text/javascript">
      var list = sidebar.getElementsByTagName("li");
@@ -223,9 +225,12 @@ margin-left:50px;
                             {
         window.location="/userupdate";
     });
-    var add=document.getElementById("communities");
+     var add=document.getElementById("communities");
     add.addEventListener("click",function(event)
                         {
+        if(document.getElementById("vis").innerHTML=="User")
+            window.location="/simpleusercommunities";
+        else
         window.location="/usercommunities";
     });
      var changepass=document.getElementById("change");
