@@ -214,6 +214,7 @@ var parent=document.getElementById("parent");
             {
                  console.log("klkl")
                // console.log(commArr[j])
+                if(tagArr[j].commstatus!="Deactive")
                 addToDom(tagArr[j]);
             }
         }
@@ -231,6 +232,7 @@ function getTable()
         tagArr = JSON.parse(request.responseText);
         for(var i in tagArr)
         { 
+            if(tagArr[i].commstatus!="Deactive")
             addToDom(tagArr[i]);
         }
     }

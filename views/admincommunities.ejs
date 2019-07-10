@@ -268,11 +268,20 @@ function getTable()
         for(var i in tagArr)
         { 
            if(tagArr[i].id==vis)
+               {
+            if(tagArr[i].commstatus!="Deactive")       
             addToDom(tagArr[i]);
+               }
             else if(tagArr[i].rule=="Direct")
+                {
+            if(tagArr[i].commstatus!="Deactive")        
             addToDom1(tagArr[i]);
+                }
           else if(tagArr[i].rule=="Permission")
+              {
+            if(tagArr[i].commstatus!="Deactive")      
             addToDom2(tagArr[i]);
+              }
         }
     }
 }

@@ -49,6 +49,7 @@ var communityschema=new mongoose.Schema({
     pic:String,
     desc:String,
     id:String,
+    commstatus:String,
     member:Array,
     join:Array,
     asktojoin:Array
@@ -471,7 +472,8 @@ app.post('/photo',function (req, res)
     createdate:today,
     pic:photoName,    
     desc:req.body.descArea,
-    id:req.session.data._id   
+    id:req.session.data._id,
+    commstatus:"Active"        
     }
             
 //    if(error)
@@ -1428,7 +1430,7 @@ app.post('/updateuserlist',function(req,res)
 app.post('/updatecommunity',function(req,res)
        {
     console.log(req.body);
-        yojna.updateOne({"_id":req.body._id},{$set:{"communityname":req.body.communityname,"rule":req.body.rule}},function(error,result){
+        yojna.updateOne({"_id":req.body._id},{$set:{"communityname":req.body.communityname,"commstatus":req.body.commstatus}},function(error,result){
             
     if(error)
         throw error;

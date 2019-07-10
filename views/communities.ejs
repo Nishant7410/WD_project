@@ -208,8 +208,8 @@
             <label class="control-label col-sm-2">Community Status:</label>
             <div class="col-sm-10">
               <select class="form-control" id="estatus" name="communityActive">
-                  <option name="true" value="true">Active</option>
-                  <option name="false" value="false">Deactive</option>
+                  <option name="true" value="Active">Active</option>
+                  <option name="false" value="Deactive">Deactive</option>
               </select>
             </div>
           </div>
@@ -467,7 +467,7 @@ function dragElement(elmnt) {
                 
                 // console.log(row);
                                 
-                data = `<center><a class="btn btn-primary btn-sm emailbtn actionbtns" data-toggle="modal" data-target="#editModal" onclick=updateUser("${row._id}","${row.owner}","${row.communityname}","${row.createdate}","${row.rule}") style="background:#000;margin-right:5px;"><span class="fa fa-edit" style="color:#fff"></span></a><a                  onclick=mailUser("${row._id}","${row.communityname}","${row.desc}","${row.pic}") class="btn btn-primary btn-sm actionbtns" style="margin-right:5px;background:#000" data-toggle="modal" data-target="#emailModal" ><span class="fa fa-info"></span></a></center>`;
+                data = `<center><a class="btn btn-primary btn-sm emailbtn actionbtns" data-toggle="modal" data-target="#editModal" onclick=updateUser("${row._id}","${row.owner}","${row.communityname}","${row.createdate}","${row.commstatus}") style="background:#000;margin-right:5px;"><span class="fa fa-edit" style="color:#fff"></span></a><a                  onclick=mailUser("${row._id}","${row.communityname}","${row.desc}","${row.pic}") class="btn btn-primary btn-sm actionbtns" style="margin-right:5px;background:#000" data-toggle="modal" data-target="#emailModal" ><span class="fa fa-info"></span></a></center>`;
              
                 return data;
             }
@@ -476,9 +476,16 @@ function dragElement(elmnt) {
                  "render": function (data, type, row, meta) {
                
                 // console.log(row);
-                                
-                 data = `<center><img src="${row.pic}" style="width:80px;height:80px;box-shadow:0px 0px 10px grey"></center>`;
+                  if(row.commstatus=="Active")
+                      {
+                 data = `<center><img src="${row.pic}" style="width:80px;height:80px;box-shadow:0px 0px 10px grey;border:4px solid green;"></center>`;
                 return data;
+                      }
+                     else
+                         {
+                           data = `<center><img src="${row.pic}" style="width:80px;height:80px;box-shadow:0px 0px 10px grey;border:4px solid red"></center>`;
+                   return data;  
+                         }
             }
             }],
     })
@@ -500,18 +507,19 @@ function dragElement(elmnt) {
        $('#textarea').html(desc); 
          
     }
-   function updateUser(_id,owner,communityname,createdate,rule)
+   function updateUser(_id,owner,communityname,createdate,status)
    {
        console.log(_id);
      $('#eheading').html("Update " + communityname);
        $('#pheading').html("created by "+owner+", "+createdate);
  		 $('#eusername').val(communityname);
+         $('#estatus').val(status);
      $('#eupdate').click(function()
      {
          var obj = {
             _id :  _id,
            communityname : $("#eusername").val(),
-           rule : $("#estatus").val(),
+           commstatus : $("#estatus").val(),
          }
            var xhr=new XMLHttpRequest();
         xhr.open("POST","/updatecommunity");
