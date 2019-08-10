@@ -1,4 +1,3 @@
-
   var express = require('express')
   var path = require('path')
   var app = express()
@@ -90,7 +89,7 @@ app.post('/tag1',function (req, res)
         {
           console.log(result);
         }
-      })
+      }) 
 
        res.send("1");  
 })
@@ -216,7 +215,8 @@ transporter.sendMail(mailOptions, function(error, info){
 
 var photoName ;
 app.get('/',(req,res)=>{
-    res.redirect('login.html')
+    req.session.islogin=0;
+    res.redirect('login.html');
 })
 var storage = multer.diskStorage({
   destination : './public',
@@ -559,17 +559,17 @@ transporter.sendMail(mailOptions, function(error, info){
 //      });
   })
       
-      app.get('/getTagTable',function(req,res)
-  {
-     var data=tag.find({}).exec(function(error,result)
-                               {
-         if(error)
-             throw error;
-         else
-             res.send(JSON.stringify(result));
-     })
-    
-  })
+//      app.get('/getTagTable',function(req,res)
+//  {
+//     var data=tag.find({}).exec(function(error,result)
+//                               {
+//         if(error)
+//             throw error;
+//         else
+//             res.send(JSON.stringify(result));
+//     })
+//    
+//  })
 
     app.get('/getcommunity',function(req,res)
   {
@@ -624,23 +624,6 @@ app.get('/getallcommunity',function(req,res)
      })
     
   })
-//app.post('/getpaginationtable',function(req,res){
-//
-//    product.countDocuments(function(error,count){
-//        var start = parseInt(req.body.start);
-//        var len  = parseInt(req.body.length);
-//
-//        product.find({
-//
-//        }).skip(start).limit(len)
-//        .then(data=> {
-//            res.send({"recordsTotal" : count, "recordsFiltered" : count,data})
-//        })
-//        .catch(err=> {
-//            res.send(err)
-//        })
-//    })
-//})
 app.post('/users' , function (req , res)
 {
     // console.log("\n\n\n" + req.body.search.value + "\n\n\n");
@@ -779,26 +762,87 @@ app.post('/pagination' , function (req , res)
         })
 
 });
+app.post('/getTagTable' , function (req , res)
+{
+    // console.log("\n\n\n" + req.body.search.value + "\n\n\n");
+    let query = {};
+    let params={};
+     let sortingType;
+    if(req.body.order[0].dir === 'asc')
+        sortingType = 1;
+    else
+        sortingType = -1;
+
+    if(req.body.order[0].column === '0')
+    {
+        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {tagname: sortingType}}
+    }
+    else if(req.body.order[0].column === '1')
+    {
+        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {created: sortingType}}
+    }
+    else if(req.body.order[0].column === '2')
+    {
+        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {date1: sortingType}}
+    }
+    console.log(params);
+    tag.find(query ,{},params, function (err , data)
+        {
+            if(err)
+            {
+                console.log(err);
+                return;
+            }
+            else
+                console.log(data);
+                tag.countDocuments( async function(err , count)
+                {
+                    if(err)
+                    {
+                        console.log(err);
+                    }
+                    else
+                    {
+                        if (req.body.search.value)
+                        {
+                            let sara= await tag.find({})
+                            data = sara.filter((value) => {
+                                console.log(value);
+                                return value.tagname.includes(req.body.search.value)||value.created.includes(req.body.search.value)||value.date1.includes(req.body.search.value)
+                            })
+                        }
+                        res.send({"recordsTotal": count, "recordsFiltered": count, data});
+                    }
+                });
+        })
+
+});
 app.get('/add',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
       .then(data=>{
           if(data.length!=0){
               res.render('Add',{
-                  product : data[0]
+                  product : req.session.data
               });
             
           }
+          })
+        }
           else
               {
                   res.redirect("login.html");
               }
-      })
+      
 })
 app.get('/communities',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -809,14 +853,18 @@ app.get('/communities',function(req,res)
               });
             
           }
+          })
+      }
           else
               {
                   res.redirect("login.html");
               }
-      })
+      
 })
 app.get('/createcommunities',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -827,11 +875,13 @@ app.get('/createcommunities',function(req,res)
               });
             
           }
+          })
+      }
           else
               {
                   res.redirect("login.html");
               }
-      })
+      
 })
 app.get('/firstuser',function(req,res)
   {
@@ -850,6 +900,8 @@ app.get('/firstuser',function(req,res)
 })
   app.get('/adminprofile',function(req,res)
   {
+      if(req.session.islogin==1)
+          {
       product.find({
           _id: req.session._id,
       })
@@ -860,14 +912,18 @@ app.get('/firstuser',function(req,res)
               });
             
           }
+           })
+  }
           else
               {
                   res.redirect("login.html");
               }
-      })
+     
 })  
 app.get('/admincommunities',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -878,14 +934,18 @@ app.get('/admincommunities',function(req,res)
               });
             
           }
+          })
+        }
           else
               {
                   res.redirect("login.html");
               }
-      })
+      
 })
 app.get('/adminchangepass',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -896,14 +956,18 @@ app.get('/adminchangepass',function(req,res)
               });
             
           }
+      })
+      }
           else
               {
                   res.redirect("login.html");
               }
-      })
+      
 })
 app.get('/adminedit',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -914,14 +978,17 @@ app.get('/adminedit',function(req,res)
               });
             
           }
+      })
+      }
           else
               {
                   res.redirect("login.html");
               }
-      })
 })
 app.get('/adminupdate',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -932,14 +999,18 @@ app.get('/adminupdate',function(req,res)
               });
             
           }
+      })
+      }
           else
               {
                   res.redirect("login.html");
               }
-      })
+      
 })
 app.get('/userprofile',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -950,11 +1021,13 @@ app.get('/userprofile',function(req,res)
               });
             
           }
+      })
+      }
           else
               {
                   res.redirect("login.html");
               }
-      })
+      
 })
 app.get('/usercommunities',function(req,res)
   {
@@ -984,6 +1057,8 @@ app.get('/simpleusercommunities',function(req,res)
 })
 app.get('/userupdate',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -992,16 +1067,19 @@ app.get('/userupdate',function(req,res)
               res.render('userupdate',{
                   product : data[0]
               });
-            
           }
+          })
+            }
           else
               {
                   res.redirect("login.html");
               }
-      })
+     
 })
 app.get('/useredit',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -1012,14 +1090,18 @@ app.get('/useredit',function(req,res)
               });
             
           }
+      })
+      }
           else
               {
                   res.redirect("login.html");
               }
-      })
+      
 })
 app.get('/userchangepass',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -1030,11 +1112,13 @@ app.get('/userchangepass',function(req,res)
               });
             
           }
+      })
+      }
           else
               {
                   res.redirect("login.html");
               }
-      })
+      
 })
 app.get('/deactivate',function(req,res)
   {
@@ -1051,6 +1135,8 @@ app.get('/deactivate',function(req,res)
 })
 app.get('/edit',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -1061,15 +1147,19 @@ app.get('/edit',function(req,res)
               });
             
           }
+      })
+      }
           else
               {
                   res.redirect("login.html");
               }
-      })
+      
 })
 
 app.get('/createtag',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -1080,15 +1170,19 @@ app.get('/createtag',function(req,res)
               });
             
           }
+      })
+      }
           else
               {
                   res.redirect("login.html");
               }
-      })
+     
 })
 
 app.get('/changepass',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -1099,14 +1193,18 @@ app.get('/changepass',function(req,res)
               });
             
           }
+      })
+        }
           else
               {
                   res.redirect("login.html");
               }
-      })
+    
 })
 app.get('/taglist',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -1117,14 +1215,17 @@ app.get('/taglist',function(req,res)
               });
             
           }
+      })
+        }
           else
               {
                   res.redirect("login.html");
               }
-      })
 })
 app.get('/adminsearch',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -1135,11 +1236,13 @@ app.get('/adminsearch',function(req,res)
               });
             
           }
+      })
+            }
           else
               {
                   res.redirect("login.html");
               }
-      })
+      
 })
 app.get('/admincommunityprofile/:pro',function(req,res)
   {
@@ -1267,6 +1370,9 @@ app.get('/usersetting/:pro',function(req,res)
 })
 app.get('/adminpersonalprofile',function(req,res)
   {
+    
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -1277,14 +1383,17 @@ app.get('/adminpersonalprofile',function(req,res)
               });
             
           }
+      })
+        }
           else
               {
                   res.redirect("login.html");
               }
-      })
 })
 app.get('/userpersonalprofile',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -1295,14 +1404,18 @@ app.get('/userpersonalprofile',function(req,res)
               });
             
           }
+      })
+        }
           else
               {
                   res.redirect("login.html");
               }
-      })
+    
 })
 app.get('/usersearch',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -1313,14 +1426,18 @@ app.get('/usersearch',function(req,res)
               });
             
           }
+      })
+        }
           else
               {
                   res.redirect("login.html");
               }
-      })
+   
 })
 app.get('/simpleusersearch',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -1331,14 +1448,18 @@ app.get('/simpleusersearch',function(req,res)
               });
             
           }
+      })
+        }
           else
               {
                   res.redirect("login.html");
               }
-      })
+     
 })
 app.get('/usercreatecommunities',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -1349,14 +1470,18 @@ app.get('/usercreatecommunities',function(req,res)
               });
             
           }
+      })
+        }
           else
               {
                   res.redirect("login.html");
               }
-      })
+      
 })
 app.get('/userlist',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -1367,11 +1492,12 @@ app.get('/userlist',function(req,res)
               });
             
           }
+      })
+        }
           else
               {
                   res.redirect("login.html");
               }
-      })
 })
 app.post('/changepass1',function(req,res)
        {
@@ -1437,6 +1563,16 @@ app.post('/updatecommunity',function(req,res)
         })
         res.send("1");
 });
+app.post('/updatetag',function(req,res)
+       {
+    console.log(req.body);
+        tag.updateOne({"_id":req.body._id},{$set:{"tagname":req.body.tagname,"date1":req.body.date1}},function(error,result){
+            
+    if(error)
+        throw error;
+        })
+        res.send("1");
+});
 app.post('/userjoin',function(req,res)
        {
     console.log(req.body);
@@ -1493,6 +1629,8 @@ app.post('/tagdelete',function(req,res)
     });
 app.get('/update',function(req,res)
   {
+    if(req.session.islogin==1)
+        {
       product.find({
           _id: req.session._id,
       })
@@ -1503,11 +1641,13 @@ app.get('/update',function(req,res)
               });
             
           }
+      })
+        }
           else
               {
                   res.redirect("login.html");
               }
-      })
+      
 })
   app.put('/:pro',function(req,res)
   {

@@ -69,22 +69,47 @@
           <div id="viewscreen">
        <%include partials/sidebar.html %>
        <div id="rightview">
-       <!-- <center>
-           <div style="width:40%;border:4px solid lightgrey;margin-top:40px;padding-left:10px;padding-right:10px;box-sizing:border-box;background:white">
-               <div style="width:100%;height:70px;padding:0"><a style="font-size:35px;float:left;margin-top:20px;font-weight:150;color:black">Change Password</a></div>
-            <a style="font-size:15px;float:left;margin-top:5px;font-weight:100px;color:black">Old Password:</a>
-            <input id="old" type="password" style="width:100%;height:30px;padding:4px;box-sizing:border-box;margin-top:5px;border-radius:1px;">
-            <a style="font-size:15px;float:left;margin-top:30px;font-weight:100px;color:black">New Password:</a>
-            <input id="new" type="password" style="width:100%;height:30px;padding:4px;box-sizing:border-box;margin-top:5px;border-radius:1px;">
-             <div style="width:100%;height:30px;margin-top:30px;margin-bottom:10px"><button id="submit" style="height:30px;background:#5CB85C;float:left;border:0;color:white;">Submit</button></div>
+       <center>
+        <div class="modal fade in" id="editModal" role="dialog" style="z-index: 9999; display:none;">
+    <div class="modal-dialog">
+
+      <div class="modal-content">
+        <div class="modal-header" style="word-wrap:break-word;">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title" id="eheading" style="font-weight:bold;text-align:left">Update Tag</h4>
+          <p id="pheading" style="font-size:10px;text-align:left"></p>
         </div>
-        </center>-->
-<!--
-        <div id="page-content-wrapper" style="padding:0;margin-top:60px"> Margin Top is new
-         <div class="container-fluid page-content-div" style="padding:0">
-            <div class="row">
-               <div class="col-lg-12 scoll-possible" style="padding:0">
--->
+        <div class="modal-body">
+        <!------------------------------------------------------------------------------------>
+  <div class="form-horizontal">
+          <div class="form-group">
+            <div class="col-lg-5 col-lg-offset-3" style="width:50%">
+              <input style="display:none" type="text" name="_id" class="form-control" id="_id" readonly="">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-sm-2">Tag Name:</label>
+            <div class="col-sm-10">
+              <input type="text" name="TagName" class="form-control" id="eusername" placeholder="Tag Name">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-default" id="eupdate">Update</button>
+            </div>
+          </div>
+        </div>
+        <!---------------------------------------------------------------------------------->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+                            </center>
 <center>
                                     <div id="delModal" class="modal fade" role = "dialog">
                                         <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
@@ -109,7 +134,7 @@
                             <div style="margin-right:20px;margin-left:20px;margin-top:1%">
                                 <!-- MODAL DIV -->
                                 <center>
-                                    <div id="delModal" class="modal fade" role = "dialog">
+                                    <div id="del1Modal" class="modal fade" role = "dialog">
                                         <div class="modal-dialog modal-sm" style="position:relative;top:35%!important;">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -232,7 +257,7 @@
     var yas=document.getElementById("log");
     yas.onclick=function()
     {
-        location.href="/login.html";
+        window.location="/";
     }
      dragElement(document.getElementById("move"));
 
@@ -276,72 +301,175 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
-    var tagArr = [];
-var tbody = document.getElementById("tablebody");
+//    var tagArr = [];
+//var tbody = document.getElementById("tablebody");
 
 
 
-getTable();
-
-function getTable()
-{
-    var filename = '/getTagTable';
-    var request = new XMLHttpRequest();
-    request.open('GET',filename);
-    request.send();
-    request.onload = function()
-    {
-        console.log(request.responseText);
-        tagArr = JSON.parse(request.responseText);
-        for(var i in tagArr)
-        {
-            addToDom(tagArr[i]);
-        }
-        update_table();
-    }
-}
-function addToDom(ob)
-{
-    console.log(ob.tagname);
-    console.log(ob.created);
-    console.log(ob.date1);
-    console.log(ob.delete);
-    if(ob.delete=="1")
-        {
-    var row = document.createElement("tr");
-    var col1 = document.createElement("td");
-    var col2 = document.createElement("td");
-    var col3 = document.createElement("td");
-    var col4 = document.createElement("td");
-    col1.setAttribute("class","text-center");
-    col1.innerHTML = ob.tagname;
-    col2.innerHTML = ob.created;
-    col3.innerHTML = ob.date1;
-
-    col4.setAttribute("class","text-center");
-    var delbtn = document.createElement("button");
-    delbtn.setAttribute("class","btn btn-sm");
-    delbtn.setAttribute("style","margin-top:0;background-color:#2D312C;color:#fff")
-    delbtn.setAttribute("data-toggle","modal");
-    delbtn.setAttribute("data-target","#delModal");
-    var span = document.createElement("span");
-    span.setAttribute("class","fa fa-trash");
-    delbtn.appendChild(span);
-    col4.appendChild(delbtn);
-    row.appendChild(col1);
-    row.appendChild(col2);
-    row.appendChild(col3);
-    row.appendChild(col4);
-
-    tbody.appendChild(row);
-            delbtn.onclick=function()
+//getTable();
+//
+//function getTable()
+//{
+//    var filename = '/getTagTable';
+//    var request = new XMLHttpRequest();
+//    request.open('GET',filename);
+//    request.send();
+//    request.onload = function()
+//    {
+//        console.log(request.responseText);
+//        tagArr = JSON.parse(request.responseText);
+//        for(var i in tagArr)
+//        {
+//            addToDom(tagArr[i]);
+//        }
+//        update_table();
+//    }
+//}
+//function addToDom(ob)
+//{
+//    console.log(ob.tagname);
+//    console.log(ob.created);
+//    console.log(ob.date1);
+//    console.log(ob.delete);
+//    if(ob.delete=="1")
+//        {
+//    var row = document.createElement("tr");
+//    var col1 = document.createElement("td");
+//    var col2 = document.createElement("td");
+//    var col3 = document.createElement("td");
+//    var col4 = document.createElement("td");
+//    col1.setAttribute("class","text-center");
+//    col1.innerHTML = ob.tagname;
+//    col2.innerHTML = ob.created;
+//    col3.innerHTML = ob.date1;
+//
+//    col4.setAttribute("class","text-center");
+//    var delbtn = document.createElement("button");
+//    delbtn.setAttribute("class","btn btn-sm");
+//    delbtn.setAttribute("style","margin-top:0;background-color:#2D312C;color:#fff")
+//    delbtn.setAttribute("data-toggle","modal");
+//    delbtn.setAttribute("data-target","#delModal");
+//    var span = document.createElement("span");
+//    span.setAttribute("class","fa fa-trash");
+//    delbtn.appendChild(span);
+//    col4.appendChild(delbtn);
+//    row.appendChild(col1);
+//    row.appendChild(col2);
+//    row.appendChild(col3);
+//    row.appendChild(col4);
+//
+//    tbody.appendChild(row);
+//            delbtn.onclick=function()
+//            {
+//                console.log("hello");
+//                
+//               
+//            }
+//        }
+//}
+//
+//function update_table()
+//   {
+//     $(document).ready(function() {
+//       $('#tags-table').DataTable();
+//     })
+//   }
+    $(document).ready(function() {
+		let table=$('#tags-table').DataTable({
+            "lengthMenu":[5,10,25,50,100],
+			"processing": true,
+			"serverSide": true,
+			"ajax": {
+				"url": "/getTagTable",
+				"type": "POST",
+                   "data": function ( d )
             {
-                console.log("hello");
-                var yes=document.getElementById("Yes");
-                yes.onclick=function()
+               
+            },
+			},
+			"columns": [
+			{
+				"data" : "tagname"
+			},
+			{
+				"data" : "created"
+			},
+			{
+				"data" : "date1"
+			},
+            {
+                "data":null  
+            },
+			],
+            "columnDefs":[{
+            "targets":3,
+
+            "render": function (data, type, row, meta) {
+                
+                // console.log(row);
+                                
+                data = `<center><a class="btn btn-primary btn-sm emailbtn actionbtns" data-toggle="modal" data-target="#del1Modal" onclick=deletetags("${row._id}") style="background:#000;margin-right:5px;"><span class="fa fa-trash" style="color:#fff"></span></a><a class="btn btn-primary btn-sm emailbtn actionbtns" data-toggle="modal" data-target="#editModal" onclick=edittags("${row._id}","${row.tagname}","${row.created}") style="background:#000;margin-right:5px;"><span class="fa fa-edit" style="color:#fff"></span></a></center>`;
+                return data;
+            }
+        }],
+            
+    })
+        })
+        
+           $('#refresh').on('click', function () {
+        table.ajax.reload(null, false);
+    });
+    function edittags(id,tagname,create)
+    {
+        console.log("hiii");
+        $('#pheading').html("created by "+create );
+ 		 $('#eusername').val(tagname);
+         function getMonths(monthno)
+  {
+    var month=["Jan","Feb","Mar","Apr","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    return month[monthno-1];
+  }
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1;
+    var yyyy = today.getFullYear();
+    var hrs = today.getHours();
+    var mins = today.getMinutes();
+    var format="AM";
+    if(hrs>12)
+    {
+      hrs= hrs - 12;
+      format= "PM";
+    }
+    today = + dd + '-' + getMonths(mm) + '-' + yyyy;
+    today= today + " ( " + hrs + ':' + mins + ' ' + format + " )";
+     $('#eupdate').click(function()
+     {
+         var obj = {
+            _id :  id,
+           tagname : $("#eusername").val(),
+           date1:today,
+         }
+           var xhr=new XMLHttpRequest();
+        xhr.open("POST","/updatetag");
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.send(JSON.stringify(obj));
+        xhr.onload=function()
+        {
+        if(xhr.responseText=='1')
+            alert("Tag updated");
+            window.location="/taglist";
+        }
+     })
+    }
+    
+    function deletetags(id)
                 {
+                    console.log(id);
+                    $('#Yes').click(function()
+                    {
                     var ob1=new Object();
-                    ob1.id=ob._id;
+                    ob1.id=id;
                     ob1.del="0";
                     console.log(ob1);
                     var xhr=new XMLHttpRequest();
@@ -354,17 +482,7 @@ function addToDom(ob)
                 alert("Tag deleted Successfully");
             window.location="/taglist";
         });
-                    
-                }
-            }
-        }
-}
-
-function update_table()
-   {
-     $(document).ready(function() {
-       $('#tags-table').DataTable();
-     })
-   }
+                    })
+                };
 </script>
 </html>

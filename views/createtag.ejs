@@ -72,30 +72,7 @@
     <div id="viewscreen">
     <%include partials/sidebar.html %>
     <div id="rightview">
-    <!--<center>
-    <div style="height:250px;width:50%;margin-top:150px;">
-        <div style="width:100%;height:200px;box-shadow:0px 0px 10px grey;padding:10px;box-sizing:border-box;background:white;">
-           <div style="width:100%;height:50px;padding:10px;border-bottom:1px solid grey;box-sizing:border-box;margin-top:10px"> <a style="font-size:30px;float:left;color:grey">Create Tag</a>
-            </div>
-            <input id="tagname" type="text" style="width:100%;margin-top:20px;height:30px;padding:10px;box-sizing:border-box" placeholder="Tag Name">
-            <button id="submit" style="width:100%;height:30px;background:#337AB7;color:white;border:0;margin-top:20px">Submit</button>
-        </div>
-        <div style="height:50px;width:100%;padding:4px;box-sizing:border-box;">
-            <center><button id="taglist" style="background:#F0AD4E;color:white;margin-top:6px;border:0;height:30px">Tag Lists</button></center>
-        </div>
-    </div>
-        </center>-->
-<!--
-        <div id="page-content-wrapper" style="padding:0;margin-top:60px"> Margin Top is new
-         <div class="container-fluid page-content-div" style="padding:0">
-            <div class="row">
-               <div class="col-lg-12 scoll-possible" style="padding:0">
--->
-
-
-
-
-
+    
 	<style>
 	.tagDivMain{
 		background:white
@@ -148,12 +125,7 @@
 </div>
 </div>
 
-<!--
-</div>
-</div>
-        </div>
-        </div>
--->
+
 </body>
 <script type="text/javascript">
     var list = sidebar.getElementsByTagName("li");
@@ -268,7 +240,7 @@ var logout=document.getElementById("logout");
     var yas=document.getElementById("log");
     yas.onclick=function()
     {
-        location.href="/login.html";
+        window.location="/";
     }
     
      dragElement(document.getElementById("move"));
