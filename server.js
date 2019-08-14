@@ -768,6 +768,7 @@ app.post('/getTagTable' , function (req , res)
     let query = {};
     let params={};
      let sortingType;
+    query={delete:'1'}
     if(req.body.order[0].dir === 'asc')
         sortingType = 1;
     else
