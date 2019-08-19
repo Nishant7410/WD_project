@@ -225,34 +225,45 @@ margin-left:50px;
         window.location="/";
     }
     var tagArr=[];
+    var start=0;
+    var end=4;
+    var t_tagArr=[];
+     $(document).ready(function() {
+    getTable()
+  })
 var parent=document.getElementById("parent");
     document.getElementById('searcheng').onkeyup=function()
 {
         document.getElementById('parent').innerHTML=""
         var val=document.getElementById('searcheng').value;
         console.log(val)
-        for(j in tagArr)
+        for(j in t_tagArr)
         {     
-            if((tagArr[j].communityname).includes(val)) 
+            if((t_tagArr[j].communityname).includes(val)) 
             {
                  console.log("klkl")
                // console.log(commArr[j])
-                if(tagArr[j].commstatus!="Deactive")
-                addToDom(tagArr[j]);
+                if(t_tagArr[j].commstatus!="Deactive")
+                addToDom(t_tagArr[j]);
             }
         }
 }
-    getTable();
 function getTable()
 {
+    let obj={
+        start:start,
+        end:end,
+    }
     var filename = '/getsearch';
     var request = new XMLHttpRequest();
-    request.open('GET',filename);
-    request.send();
+    request.open('POST',filename);
+    request.setRequestHeader('Content-Type','application/json');
+    request.send(JSON.stringify(obj));
     request.onload = function()
     {
         console.log(request.responseText);
         tagArr = JSON.parse(request.responseText);
+        t_tagArr=t_tagArr.concat(tagArr);
         for(var i in tagArr)
         {    if(tagArr[i].commstatus!="Deactive")
             addToDom(tagArr[i]);
@@ -375,6 +386,37 @@ function addToDom(ob)
 
 
 
+}
+    function getDocumentHeight() {
+	const body = document.body;
+	const html = document.documentElement;
+	
+	return Math.max(
+		body.scrollHeight, body.offsetHeight,
+		html.clientHeight, html.scrollHeight, html.offsetHeight
+	);
+};
+
+function getScrollTop() {
+	return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+}
+//     $(window).scroll(function() {
+//      if($(window).scrollTop() == $(document).height() - $(window).height()) {
+//             // ajax call get data from server and append to the div
+//             start+=3;
+//             end+=3;
+//             getTable();
+//      }
+//  });
+    window.onscroll = function() {
+	if (getScrollTop()== getDocumentHeight() - window.innerHeight)
+        {
+	         start+=4;
+             end=4;
+             getTable();
+        }
+        else
+            return;
 }
     
      dragElement(document.getElementById("move"));

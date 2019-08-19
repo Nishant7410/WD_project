@@ -593,15 +593,18 @@ transporter.sendMail(mailOptions, function(error, info){
     })
     
   })
-app.get('/getsearch',function(req,res)
+app.post('/getsearch',function(req,res)
           { 
-    yojna.find({ $and: [{ id : { $not : { $eq : req.session.data._id }}},{join : {$nin : [req.session.data._id] }},{asktojoin : {$nin : [req.session.data._id] }}] }).exec(function(error,result){
-        if(error)
-        throw error;
-        else {
-            res.send(JSON.stringify(result));
-        }
-    })
+    console.log(req.body);
+    let finddata={ $and: [{ id : { $not : { $eq : req.session.data._id }}},{join : {$nin : [req.session.data._id] }},{asktojoin : {$nin : [req.session.data._id] }}] };
+    
+    yojna.find( finddata ).skip(req.body.start).limit(req.body.end).exec(function(error,result) {
+          if(error)
+          throw error;
+          else {
+            res.send(result);
+          }
+      })
               })
 app.get('/getusersearch',function(req,res)
        {
