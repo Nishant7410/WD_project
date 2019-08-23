@@ -536,19 +536,12 @@ transporter.sendMail(mailOptions, function(error, info){
 })
     
   //Get from DB
-  app.get('/profile',function(req,res)
+  app.get('/profile',logger,function(req,res)
   {
      
-          if(req.session.islogin==1){
               res.render('profile',{
                   product : req.session.data
               });
-            
-          }
-          else
-              {
-                  res.redirect("login.html");
-              }
             
 //      var data = product.find({}).exec(function(error,result)
 //      {
@@ -821,10 +814,8 @@ app.post('/getTagTable' , function (req , res)
         })
 
 });
-app.get('/add',function(req,res)
+app.get('/add',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -836,17 +827,10 @@ app.get('/add',function(req,res)
             
           }
           })
-        }
-          else
-              {
-                  res.redirect("login.html");
-              }
       
 })
-app.get('/communities',function(req,res)
+app.get('/communities',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -858,17 +842,11 @@ app.get('/communities',function(req,res)
             
           }
           })
-      }
-          else
-              {
-                  res.redirect("login.html");
-              }
-      
+         
 })
-app.get('/createcommunities',function(req,res)
+app.get('/createcommunities',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
+
       product.find({
           _id: req.session._id,
       })
@@ -880,32 +858,20 @@ app.get('/createcommunities',function(req,res)
             
           }
           })
-      }
-          else
-              {
-                  res.redirect("login.html");
-              }
-      
+         
 })
-app.get('/firstuser',function(req,res)
+app.get('/firstuser',logger,function(req,res)
   {
      
-          if(req.session.islogin==1){
               console.log(req.session.data);
               res.render('firstuser',{
                   product : req.session.data
               });
             
-          }
-          else
-              {
-                  res.redirect("login.html");
-              }
+          
 })
-  app.get('/adminprofile',function(req,res)
+  app.get('/adminprofile',logger,function(req,res)
   {
-      if(req.session.islogin==1)
-          {
       product.find({
           _id: req.session._id,
       })
@@ -917,17 +883,10 @@ app.get('/firstuser',function(req,res)
             
           }
            })
-  }
-          else
-              {
-                  res.redirect("login.html");
-              }
      
 })  
-app.get('/admincommunities',function(req,res)
+app.get('/admincommunities',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -939,17 +898,10 @@ app.get('/admincommunities',function(req,res)
             
           }
           })
-        }
-          else
-              {
-                  res.redirect("login.html");
-              }
       
 })
-app.get('/adminchangepass',function(req,res)
+app.get('/adminchangepass',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -961,17 +913,10 @@ app.get('/adminchangepass',function(req,res)
             
           }
       })
-      }
-          else
-              {
-                  res.redirect("login.html");
-              }
-      
+          
 })
-app.get('/adminedit',function(req,res)
+app.get('/adminedit',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -983,16 +928,11 @@ app.get('/adminedit',function(req,res)
             
           }
       })
-      }
-          else
-              {
-                  res.redirect("login.html");
-              }
+        
 })
-app.get('/adminupdate',function(req,res)
+app.get('/adminupdate',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
+
       product.find({
           _id: req.session._id,
       })
@@ -1004,17 +944,12 @@ app.get('/adminupdate',function(req,res)
             
           }
       })
-      }
-          else
-              {
-                  res.redirect("login.html");
-              }
+          
       
 })
-app.get('/userprofile',function(req,res)
+app.get('/userprofile',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
+    
       product.find({
           _id: req.session._id,
       })
@@ -1026,43 +961,30 @@ app.get('/userprofile',function(req,res)
             
           }
       })
-      }
-          else
-              {
-                  res.redirect("login.html");
-              }
+          
       
 })
-app.get('/usercommunities',function(req,res)
+app.get('/usercommunities',logger,function(req,res)
   {
-          if(req.session.islogin==1){
+          
               res.render('usercommunities',{
                   product : req.session.data
               });
-            
-          }
-          else
-              {
-                  res.redirect("login.html");
-              }
+        
 })
-app.get('/simpleusercommunities',function(req,res)
+app.get('/simpleusercommunities',logger,function(req,res)
   {
-          if(req.session.islogin==1){
+          
               res.render('simpleusercommunities',{
                   product : req.session.data
               });
             
-          }
-          else
-              {
-                  res.redirect("login.html");
-              }
+          
+          
 })
-app.get('/userupdate',function(req,res)
+app.get('/userupdate',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
+  
       product.find({
           _id: req.session._id,
       })
@@ -1073,17 +995,10 @@ app.get('/userupdate',function(req,res)
               });
           }
           })
-            }
-          else
-              {
-                  res.redirect("login.html");
-              }
      
 })
-app.get('/useredit',function(req,res)
+app.get('/useredit',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -1095,17 +1010,10 @@ app.get('/useredit',function(req,res)
             
           }
       })
-      }
-          else
-              {
-                  res.redirect("login.html");
-              }
       
 })
-app.get('/userchangepass',function(req,res)
+app.get('/userchangepass',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -1117,30 +1025,19 @@ app.get('/userchangepass',function(req,res)
             
           }
       })
-      }
-          else
-              {
-                  res.redirect("login.html");
-              }
       
 })
-app.get('/deactivate',function(req,res)
+app.get('/deactivate',logger,function(req,res)
   {
-          if(req.session.islogin==1){
               res.render('deactivate',{
                   product : req.session.data
               });
             
-          }
-          else
-              {
-                  res.redirect("login.html");
-              }
+         
 })
-app.get('/edit',function(req,res)
+app.get('/edit',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
+   
       product.find({
           _id: req.session._id,
       })
@@ -1152,18 +1049,13 @@ app.get('/edit',function(req,res)
             
           }
       })
-      }
-          else
-              {
-                  res.redirect("login.html");
-              }
+ 
       
 })
 
-app.get('/createtag',function(req,res)
+app.get('/createtag',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
+
       product.find({
           _id: req.session._id,
       })
@@ -1175,18 +1067,12 @@ app.get('/createtag',function(req,res)
             
           }
       })
-      }
-          else
-              {
-                  res.redirect("login.html");
-              }
+  
      
 })
 
-app.get('/changepass',function(req,res)
+app.get('/changepass',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -1198,17 +1084,10 @@ app.get('/changepass',function(req,res)
             
           }
       })
-        }
-          else
-              {
-                  res.redirect("login.html");
-              }
     
 })
-app.get('/taglist',function(req,res)
+app.get('/taglist',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -1220,16 +1099,9 @@ app.get('/taglist',function(req,res)
             
           }
       })
-        }
-          else
-              {
-                  res.redirect("login.html");
-              }
 })
-app.get('/adminsearch',function(req,res)
+app.get('/adminsearch',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -1241,17 +1113,12 @@ app.get('/adminsearch',function(req,res)
             
           }
       })
-            }
-          else
-              {
-                  res.redirect("login.html");
-              }
+           
       
 })
-app.get('/admincommunityprofile/:pro',function(req,res)
+app.get('/admincommunityprofile/:pro',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
+
     var comid=req.params.pro.toString();
     yojna.findOne({"_id":comid},function(err,result)
                  {
@@ -1267,17 +1134,11 @@ app.get('/admincommunityprofile/:pro',function(req,res)
         res.render('admincommunityprofile',{product:req.session.data,obj:result,own:result1});
             }) 
     }
-    })
-    }
-    else
-  {
-      res.redirect("login.html");
-  }          
+    })         
 })
-app.get('/usercommunityprofile/:pro',function(req,res)
+app.get('/usercommunityprofile/:pro',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
+   
     var comid=req.params.pro.toString();
     yojna.findOne({"_id":comid},function(err,result)
                  {
@@ -1294,16 +1155,10 @@ app.get('/usercommunityprofile/:pro',function(req,res)
             }) 
     }
     })
-    }
-    else
-  {
-      res.redirect("login.html");
-  }          
+             
 })
-app.get('/adminpersonalprofile/:pro',function(req,res)
+app.get('/adminpersonalprofile/:pro',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
     var comid=req.params.pro.toString();
     product.findOne({"_id":comid},function(err,result)
                  {
@@ -1311,17 +1166,10 @@ app.get('/adminpersonalprofile/:pro',function(req,res)
             throw err;
         else
         res.render('adminpersonalprofile',{product:req.session.data,obj:result});    
-    })
-    }
-    else
-  {
-      res.redirect("login.html");
-  }          
+    })         
 })
-app.get('/userpersonalprofile/:pro',function(req,res)
+app.get('/userpersonalprofile/:pro',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
     var comid=req.params.pro.toString();
     product.findOne({"_id":comid},function(err,result)
                  {
@@ -1329,17 +1177,10 @@ app.get('/userpersonalprofile/:pro',function(req,res)
             throw err;
         else
         res.render('userpersonalprofile',{product:req.session.data,obj:result});    
-    })
-    }
-    else
-  {
-      res.redirect("login.html");
-  }          
+    })         
 })
-app.get('/adminsetting/:pro',function(req,res)
+app.get('/adminsetting/:pro',logger,function(req,res)
   {
-     if(req.session.islogin==1)
-        {
     var comid=req.params.pro.toString();
     yojna.findOne({"_id":comid},function(err,result)
                  {
@@ -1347,17 +1188,10 @@ app.get('/adminsetting/:pro',function(req,res)
             throw err;
         else
         res.render('adminsetting',{product:req.session.data,obj:result});    
-    })
-    }
-    else
-  {
-      res.redirect("login.html");
-  }    
+    })    
 })
-app.get('/usersetting/:pro',function(req,res)
+app.get('/usersetting/:pro',logger,function(req,res)
   {
-       if(req.session.islogin==1)
-        {
     var comid=req.params.pro.toString();
     yojna.findOne({"_id":comid},function(err,result)
                  {
@@ -1365,18 +1199,11 @@ app.get('/usersetting/:pro',function(req,res)
             throw err;
         else
         res.render('usersetting',{product:req.session.data,obj:result});    
-    })
-    }
-    else
-  {
-      res.redirect("login.html");
-  }    
+    })   
 })
-app.get('/adminpersonalprofile',function(req,res)
+app.get('/adminpersonalprofile',logger,function(req,res)
   {
     
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -1388,16 +1215,9 @@ app.get('/adminpersonalprofile',function(req,res)
             
           }
       })
-        }
-          else
-              {
-                  res.redirect("login.html");
-              }
 })
-app.get('/userpersonalprofile',function(req,res)
+app.get('/userpersonalprofile',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -1409,17 +1229,10 @@ app.get('/userpersonalprofile',function(req,res)
             
           }
       })
-        }
-          else
-              {
-                  res.redirect("login.html");
-              }
     
 })
-app.get('/usersearch',function(req,res)
+app.get('/usersearch',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -1431,17 +1244,10 @@ app.get('/usersearch',function(req,res)
             
           }
       })
-        }
-          else
-              {
-                  res.redirect("login.html");
-              }
    
 })
-app.get('/simpleusersearch',function(req,res)
+app.get('/simpleusersearch',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -1453,17 +1259,10 @@ app.get('/simpleusersearch',function(req,res)
             
           }
       })
-        }
-          else
-              {
-                  res.redirect("login.html");
-              }
      
 })
-app.get('/usercreatecommunities',function(req,res)
+app.get('/usercreatecommunities',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -1475,17 +1274,10 @@ app.get('/usercreatecommunities',function(req,res)
             
           }
       })
-        }
-          else
-              {
-                  res.redirect("login.html");
-              }
       
 })
-app.get('/userlist',function(req,res)
+app.get('/userlist',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -1497,11 +1289,7 @@ app.get('/userlist',function(req,res)
             
           }
       })
-        }
-          else
-              {
-                  res.redirect("login.html");
-              }
+
 })
 app.post('/changepass1',function(req,res)
        {
@@ -1631,10 +1419,8 @@ app.post('/tagdelete',function(req,res)
         })
         res.send("1");
     });
-app.get('/update',function(req,res)
+app.get('/update',logger,function(req,res)
   {
-    if(req.session.islogin==1)
-        {
       product.find({
           _id: req.session._id,
       })
@@ -1646,13 +1432,17 @@ app.get('/update',function(req,res)
             
           }
       })
-        }
-          else
-              {
-                  res.redirect("login.html");
-              }
       
 })
+function logger(req,res,next)
+{
+    if(req.session.islogin)
+        {
+            next();
+        }
+    else
+        res.redirect('login.html');
+}
   app.put('/:pro',function(req,res)
   {
     /*
@@ -1687,6 +1477,8 @@ app.get('/update',function(req,res)
           }
       });
   })
+
+ 
 
 //  app.get('/hello',function(req,res){
 //    res.send('hello');
