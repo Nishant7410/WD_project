@@ -536,7 +536,7 @@ transporter.sendMail(mailOptions, function(error, info){
 })
     
   //Get from DB
-  app.get('/profile',logger,function(req,res)
+  app.get('/profile',logger,logger1,function(req,res)
   {
      
               res.render('profile',{
@@ -814,7 +814,7 @@ app.post('/getTagTable' , function (req , res)
         })
 
 });
-app.get('/add',logger,function(req,res)
+app.get('/add',logger,logger1,function(req,res)
   {
       product.find({
           _id: req.session._id,
@@ -829,7 +829,7 @@ app.get('/add',logger,function(req,res)
           })
       
 })
-app.get('/communities',logger,function(req,res)
+app.get('/communities',logger,logger1,function(req,res)
   {
       product.find({
           _id: req.session._id,
@@ -870,7 +870,7 @@ app.get('/firstuser',logger,function(req,res)
             
           
 })
-  app.get('/adminprofile',logger,function(req,res)
+  app.get('/adminprofile',logger,logger1,function(req,res)
   {
       product.find({
           _id: req.session._id,
@@ -885,7 +885,7 @@ app.get('/firstuser',logger,function(req,res)
            })
      
 })  
-app.get('/admincommunities',logger,function(req,res)
+app.get('/admincommunities',logger,logger1,function(req,res)
   {
       product.find({
           _id: req.session._id,
@@ -900,7 +900,7 @@ app.get('/admincommunities',logger,function(req,res)
           })
       
 })
-app.get('/adminchangepass',logger,function(req,res)
+app.get('/adminchangepass',logger,logger1,function(req,res)
   {
       product.find({
           _id: req.session._id,
@@ -915,7 +915,7 @@ app.get('/adminchangepass',logger,function(req,res)
       })
           
 })
-app.get('/adminedit',logger,function(req,res)
+app.get('/adminedit',logger,logger1,function(req,res)
   {
       product.find({
           _id: req.session._id,
@@ -930,7 +930,7 @@ app.get('/adminedit',logger,function(req,res)
       })
         
 })
-app.get('/adminupdate',logger,function(req,res)
+app.get('/adminupdate',logger,logger1,function(req,res)
   {
 
       product.find({
@@ -1053,7 +1053,7 @@ app.get('/edit',logger,function(req,res)
       
 })
 
-app.get('/createtag',logger,function(req,res)
+app.get('/createtag',logger,logger1,function(req,res)
   {
 
       product.find({
@@ -1086,7 +1086,7 @@ app.get('/changepass',logger,function(req,res)
       })
     
 })
-app.get('/taglist',logger,function(req,res)
+app.get('/taglist',logger,logger1,function(req,res)
   {
       product.find({
           _id: req.session._id,
@@ -1100,7 +1100,7 @@ app.get('/taglist',logger,function(req,res)
           }
       })
 })
-app.get('/adminsearch',logger,function(req,res)
+app.get('/adminsearch',logger,logger1,function(req,res)
   {
       product.find({
           _id: req.session._id,
@@ -1116,7 +1116,7 @@ app.get('/adminsearch',logger,function(req,res)
            
       
 })
-app.get('/admincommunityprofile/:pro',logger,function(req,res)
+app.get('/admincommunityprofile/:pro',logger,logger1,function(req,res)
   {
 
     var comid=req.params.pro.toString();
@@ -1157,7 +1157,7 @@ app.get('/usercommunityprofile/:pro',logger,function(req,res)
     })
              
 })
-app.get('/adminpersonalprofile/:pro',logger,function(req,res)
+app.get('/adminpersonalprofile/:pro',logger,logger1,function(req,res)
   {
     var comid=req.params.pro.toString();
     product.findOne({"_id":comid},function(err,result)
@@ -1179,7 +1179,7 @@ app.get('/userpersonalprofile/:pro',logger,function(req,res)
         res.render('userpersonalprofile',{product:req.session.data,obj:result});    
     })         
 })
-app.get('/adminsetting/:pro',logger,function(req,res)
+app.get('/adminsetting/:pro',logger,logger1,function(req,res)
   {
     var comid=req.params.pro.toString();
     yojna.findOne({"_id":comid},function(err,result)
@@ -1201,7 +1201,7 @@ app.get('/usersetting/:pro',logger,function(req,res)
         res.render('usersetting',{product:req.session.data,obj:result});    
     })   
 })
-app.get('/adminpersonalprofile',logger,function(req,res)
+app.get('/adminpersonalprofile',logger,logger1,function(req,res)
   {
     
       product.find({
@@ -1276,7 +1276,7 @@ app.get('/usercreatecommunities',logger,function(req,res)
       })
       
 })
-app.get('/userlist',logger,function(req,res)
+app.get('/userlist',logger,logger1,function(req,res)
   {
       product.find({
           _id: req.session._id,
@@ -1440,6 +1440,13 @@ function logger(req,res,next)
         {
             next();
         }
+    else
+        res.redirect('login.html');
+}
+function logger1(req,res,next)
+{
+    if(req.session.data.role=="Superadmin")
+        next();
     else
         res.redirect('login.html');
 }
