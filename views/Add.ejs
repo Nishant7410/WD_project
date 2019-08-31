@@ -242,18 +242,15 @@ $('#add-user-nav').addClass('active');
                         {
        var str=email.value;
         var t=0,s=0;
-       for(var i=0;i<str.length;i++)
-       {
-           if(str[i]=='@')
-               t=1;
-           else if(str[i]=='.')
-               {
-                   if(t==1)
-                      s=1;
-                   break;
-               }
-       }
-        
+      var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+if(str.match(mailformat))
+{
+s=1;
+}
+else
+{
+    s=0;
+}      
        var  pno=phone.value;
        if(name1.value==""||email.value==""||userpassword.value==""||city.value==""||dob.value==""||phone.value==""||gender.value==""||role.value=="")
             alert("Please insert all values");
