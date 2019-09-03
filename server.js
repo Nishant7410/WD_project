@@ -539,9 +539,18 @@ transporter.sendMail(mailOptions, function(error, info){
   app.get('/profile',logger,logger1,function(req,res)
   {
      
-              res.render('profile',{
-                  product : req.session.data
-              });
+              
+      product.find({
+          _id: req.session._id,
+      })
+      .then(data=>{
+          if(data.length!=0){
+           res.render('profile',{
+                  product : data[0]
+              });  
+            
+          }
+          })
             
 //      var data = product.find({}).exec(function(error,result)
 //      {
@@ -620,200 +629,265 @@ app.get('/getallcommunity',function(req,res)
      })
     
   })
-app.post('/users' , function (req , res)
-{
-    // console.log("\n\n\n" + req.body.search.value + "\n\n\n");
-    let query = {};
-    let params={};
-    console.log(req.body.order);
-    if(req.body.role === 'All' && req.body.status !== 'All')
+app.post('/users',function (req, res) {
+    var count;
+    if(req.body.order[0].column==0)
     {
-        query = {status: req.body.status}
+      if(req.body.order[0].dir=="asc")
+      getdata("emailid",1);
+      else
+      getdata("emailid",-1);
     }
-    else if(req.body.role !== 'All' && req.body.status === 'All')
+    else if(req.body.order[0].column==2)
     {
-        query = {role: req.body.role}
+      if(req.body.order[0].dir=="asc")
+      getdata("city",1);
+      else
+      getdata("city",-1);
     }
-    else if(req.body.role !== 'All' && req.body.status !== 'All')
+    else if(req.body.order[0].column==3)
     {
-        query = {role: req.body.role , status: req.body.status}
+      if(req.body.order[0].dir=="asc")
+      getdata("status",1);
+      else
+      getdata("status",-1);
     }
-    
-     let sortingType;
-    if(req.body.order[0].dir === 'asc')
-        sortingType = 1;
-    else
-        sortingType = -1;
+    else if(req.body.order[0].column==4)
+    {
+      if(req.body.order[0].dir=="asc")
+      getdata("role",1);
+      else
+      getdata("role",-1);
+    }
 
-    if(req.body.order[0].column === '0')
-    {
-        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {emailid : sortingType}}
+    else {
+      getdata("emailid",1);
     }
-    else if(req.body.order[0].column === '2')
+
+
+    function getdata(colname,sortorder)
     {
-        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {city : sortingType}}
-    }
-    else if(req.body.order[0].column === '3')
-    {
-        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {status : sortingType}}
-    }
-    else if(req.body.order[0].column === '4')
-    {
-        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {role : sortingType}}
-    }
-    console.log(params);
-    product.find(query ,{},params, function (err , data)
-        {
-            if(err)
-            {
-                console.log(err);
-                return;
-            }
-            else
-                console.log(data);
-                product.countDocuments( async function(err , count)
-                {
-                    if(err)
-                    {
-                        console.log(err);
-                    }
-                    else
-                    {
-                        if (req.body.search.value)
-                        {
-                            let sara= await product.find({})
-                            data = sara.filter((value) => {
-                                console.log(value);
-                                return value.emailid.includes(req.body.search.value)||value.phoneno.includes(req.body.search.value)||value.city.includes(req.body.search.value)||value.status.includes(req.body.search.value)||value.role.includes(req.body.search.value)
-                            })
-                        }
-                        res.send({"recordsTotal": count, "recordsFiltered": count, data});
-                    }
-                });
+        product.countDocuments(function(e,count){
+          var start=parseInt(req.body.start);
+          var len=parseInt(req.body.length);
+          var role=req.body.role;
+          var status=req.body.status;
+          var search=req.body.search.value;
+          var getcount=10;
+         // console.log(req.body.search.value.length);
+
+
+        var findobj={};
+          console.log(role,status);
+          if(role!='All')
+             { findobj.role=role;
+             }
+          else{
+              delete findobj["role"];
+          }
+          if(status!="All")
+              {findobj.status=status;}
+          else{
+              delete findobj["status"];
+          }
+          if(search!='')
+              findobj["$or"]= [{
+              "emailid":  { '$regex' : search, '$options' : 'i' }
+          }, {
+              "city": { '$regex' : search, '$options' : 'i' }
+          }
+          ,{
+              "status":  { '$regex' : search, '$options' : 'i' }
+          }
+          ,{
+              "role": { '$regex' : search, '$options' : 'i' }
+          }]
+          else{
+              delete findobj["$or"];
+          }
+
+
+          product.find(findobj).countDocuments(function(e,coun){
+          getcount=coun;
+        }).catch(err => {
+          console.error(err)
+          res.send(err)
         })
 
-});
-app.post('/pagination' , function (req , res)
-{
-    // console.log("\n\n\n" + req.body.search.value + "\n\n\n");
-    let query = {};
-    let params={};
-    console.log(req.body.order);
-    if(req.body.rule !== 'All')
-    {
-        query = {rule: req.body.rule}
-    }
-    
-     let sortingType;
-    if(req.body.order[0].dir === 'asc')
-        sortingType = 1;
-    else
-        sortingType = -1;
+          product.find(findobj).skip(start).limit(len).sort({[colname] : sortorder})
+          .then(data => {
+              res.send({"recordsTotal" : count,"recordsFiltered" :getcount,data})
+            })
+            .catch(err => {
+              console.error(err)
+            //  res.send(error)
+            })
+        });
+      }
+})
+app.post('/pagination',function (req, res) {
+    var count;
 
-    if(req.body.order[0].column === '0')
+    if(req.body.order[0].column==0)
     {
-        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {communityname : sortingType}}
+      if(req.body.order[0].dir=="asc")
+      getdata("communityname",1);
+      else
+      getdata("communityname",-1);
     }
-    else if(req.body.order[0].column === '2')
+    else if(req.body.order[0].column==2)
     {
-        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {location : sortingType}}
+      if(req.body.order[0].dir=="asc")
+      getdata("location",1);
+      else
+      getdata("location",-1);
     }
-    else if(req.body.order[0].column === '3')
+    else if(req.body.order[0].column==3)
     {
-        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {owner : sortingType}}
+      if(req.body.order[0].dir=="asc")
+      getdata("owner",1);
+      else
+      getdata("owner",-1);
     }
-    else if(req.body.order[0].column === '4')
+    else if(req.body.order[0].column==4)
     {
-        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {createdate : sortingType}}
+      if(req.body.order[0].dir=="asc")
+      getdata("createdate",1);
+      else
+      getdata("createdate",-1);
     }
-    console.log(params);
-    yojna.find(query ,{},params, function (err , data)
-        {
-            if(err)
-            {
-                console.log(err);
-                return;
-            }
-            else
-                console.log(data);
-                yojna.countDocuments(async function(err , count)
-                {
-                    if(err)
-                    {
-                        console.log(err);
-                    }
-                    else
-                    {
-                        if (req.body.search.value)
-                        {
-                            let sara=await yojna.find({})
-                            data = sara.filter((value) => {
-                                console.log(value);
-                                return value.communityname.includes(req.body.search.value)||value.rule.includes(req.body.search.value)||value.location.includes(req.body.search.value)||value.owner.includes(req.body.search.value)||value.createdate.includes(req.body.search.value)
-                            })
-                        }
-                        res.send({"recordsTotal": count, "recordsFiltered": count, data});
-                    }
-                });
+
+    else {
+      getdata("communityname",1);
+    }
+
+
+    function getdata(colname,sortorder)
+    {
+        yojna.countDocuments(function(e,count){
+          var start=parseInt(req.body.start);
+          var len=parseInt(req.body.length);
+          var rule=req.body.rule;
+          var search=req.body.search.value;
+          var getcount=10;
+         // console.log(req.body.search.value.length);
+
+
+        var findobj={};
+          if(rule!='All')
+             { findobj.rule=rule;
+             }
+          else{
+              delete findobj["rule"];
+          }
+          if(search!='')
+              findobj["$or"]= [{
+              "communityname":  { '$regex' : search, '$options' : 'i' }
+          }, {
+              "location": { '$regex' : search, '$options' : 'i' }
+          }
+          ,{
+              "owner":  { '$regex' : search, '$options' : 'i' }
+          }
+          ,{
+              "createdate": { '$regex' : search, '$options' : 'i' }
+          }]
+          else{
+              delete findobj["$or"];
+          }
+
+
+          yojna.find(findobj).countDocuments(function(e,coun){
+          getcount=coun;
+        }).catch(err => {
+          console.error(err)
+          res.send(err)
         })
 
-});
-app.post('/getTagTable' , function (req , res)
-{
-    // console.log("\n\n\n" + req.body.search.value + "\n\n\n");
-    let query = {};
-    let params={};
-     let sortingType;
-    query={delete:'1'}
-    if(req.body.order[0].dir === 'asc')
-        sortingType = 1;
-    else
-        sortingType = -1;
+          yojna.find(findobj).skip(start).limit(len).sort({[colname] : sortorder})
+          .then(data => {
+              res.send({"recordsTotal" : count,"recordsFiltered" :getcount,data})
+            })
+            .catch(err => {
+              console.error(err)
+            //  res.send(error)
+            })
+        });
+      }
+})
+app.post('/getTagTable',function (req, res) {
+    var count;
 
-    if(req.body.order[0].column === '0')
+    if(req.body.order[0].column==0)
     {
-        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {tagname: sortingType}}
+      if(req.body.order[0].dir=="asc")
+      getdata("tagname",1);
+      else
+      getdata("tagname",-1);
     }
-    else if(req.body.order[0].column === '1')
+    else if(req.body.order[0].column==1)
     {
-        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {created: sortingType}}
+      if(req.body.order[0].dir=="asc")
+      getdata("created",1);
+      else
+      getdata("created",-1);
     }
-    else if(req.body.order[0].column === '2')
+    else if(req.body.order[0].column==2)
     {
-        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length) , sort : {date1: sortingType}}
+      if(req.body.order[0].dir=="asc")
+      getdata("date1",1);
+      else
+      getdata("date1",-1);
     }
-    console.log(params);
-    tag.find(query ,{},params, function (err , data)
-        {
-            if(err)
-            {
-                console.log(err);
-                return;
-            }
-            else
-                console.log(data);
-                tag.countDocuments( async function(err , count)
-                {
-                    if(err)
-                    {
-                        console.log(err);
-                    }
-                    else
-                    {
-                        if (req.body.search.value)
-                        {
-                            let sara= await tag.find({})
-                            data = sara.filter((value) => {
-                                console.log(value);
-                                return value.tagname.includes(req.body.search.value)||value.created.includes(req.body.search.value)||value.date1.includes(req.body.search.value)
-                            })
-                        }
-                        res.send({"recordsTotal": count, "recordsFiltered": count, data});
-                    }
-                });
+    else {
+      getdata("tagname",1);
+    }
+
+
+    function getdata(colname,sortorder)
+    {
+        tag.countDocuments(function(e,count){
+          var start=parseInt(req.body.start);
+          var len=parseInt(req.body.length);
+          var search=req.body.search.value;
+          var getcount=10;
+         // console.log(req.body.search.value.length);
+
+
+        var findobj={};
+         findobj.delete='1';
+          if(search!='')
+              findobj["$or"]= [{
+              "tagname":  { '$regex' : search, '$options' : 'i' }
+          }, {
+              "created": { '$regex' : search, '$options' : 'i' }
+          }
+          ,{
+              "date1":  { '$regex' : search, '$options' : 'i' }
+          }]
+          else{
+              delete findobj["$or"];
+          }
+
+
+          tag.find(findobj).countDocuments(function(e,coun){
+          getcount=coun;
+        }).catch(err => {
+          console.error(err)
+          res.send(err)
         })
 
-});
+          tag.find(findobj).skip(start).limit(len).sort({[colname] : sortorder})
+          .then(data => {
+              res.send({"recordsTotal" : count,"recordsFiltered" :getcount,data})
+            })
+            .catch(err => {
+              console.error(err)
+            //  res.send(error)
+            })
+        });
+      }
+})
 app.get('/add',logger,logger1,function(req,res)
   {
       product.find({
