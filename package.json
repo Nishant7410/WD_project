@@ -1,7 +1,7 @@
 {
   "name": "expresswithmongoose",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "server.js",
   "dependencies": {
     "ejs": "^2.6.1",
     "express": "^4.16.4",
@@ -14,7 +14,7 @@
     "nodemon": "^1.19.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
   },
   "author": "",
   "license": "ISC",
