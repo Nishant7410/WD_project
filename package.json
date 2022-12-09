@@ -4,7 +4,7 @@
 	"main": "server.js",
 	"dependencies": {
 		"ejs": "^2.6.1",
-		"express": "^4.16.4",
+		"express": "^4.18.2",
 		"express-session": "^1.16.1",
 		"jquery-confirm": "^3.3.4",
 		"mongo": "^0.1.0",
